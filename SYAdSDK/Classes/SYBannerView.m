@@ -13,78 +13,81 @@
 @interface SYBannerView () <BUNativeExpressBannerViewDelegate>
 @property(nonatomic, strong) NSString* slotID;
 @property(nonatomic, strong) NSString* buSlotID;
-@property(nonatomic, strong) BUNativeExpressBannerView *bannerView;
+
+@property (nonatomic, weak) UIViewController *rootViewController;
+
+@property (strong, nonatomic) BUNativeExpressAdManager *nativeExpressAdManager;
+@property (strong, nonatomic) BUNativeExpressAdView *expressAdViews;
 @end
 
 @implementation SYBannerView
 
+- (id) init {
+    self = [super init];
+    if (self) {
+        self.buSlotID = @"945746795";
+    }
+    
+    return self;
+}
+
 - (instancetype)initWithSlotID:(NSString *)slotID
             rootViewController:(UIViewController *)rootViewController
                         adSize:(SYBannerSize)adsize {
+//    NSValue *sizeValue = nil;
+//    switch (adsize) {
+//        case SYBannerSize600_300:
+//            sizeValue = [sizeDcit objectForKey:@"945742204"];
+//            break;
+//        case SYBannerSize600_400:
+//            sizeValue = [sizeDcit objectForKey:@"945742204"];
+//            break;
+//        case SYBannerSize600_500:
+//            sizeValue = [sizeDcit objectForKey:@"945742204"];
+//            break;
+//        case SYBannerSize600_260:
+//            sizeValue = [sizeDcit objectForKey:@"945741009"];
+//            break;
+//        case SYBannerSize600_90 :
+//            sizeValue = [sizeDcit objectForKey:@"945741009"];
+//            break;
+//        case SYBannerSize600_150:
+//            sizeValue = [sizeDcit objectForKey:@"945741009"];
+//            break;
+//        case SYBannerSize640_100:
+//            sizeValue = [sizeDcit objectForKey:@"945741009"];
+//            break;
+//        case SYBannerSize690_388:
+//            sizeValue = [sizeDcit objectForKey:@"945742204"];
+//            break;
+//        default:
+//            sizeValue = [sizeDcit objectForKey:@"945741009"];
+//            break;
+//    }
     
-    NSDictionary* sizeDcit = @{
-        @"945742204"         :  [NSValue valueWithCGSize:CGSizeMake(600, 300)]
-        , @"945741009"         :  [NSValue valueWithCGSize:CGSizeMake(600, 260)]
-    };
+    self.slotID = slotID;
+    self.rootViewController = rootViewController;
     
-    UIWindow *window = nil;
-    if ([[UIApplication sharedApplication].delegate respondsToSelector:@selector(window)]) {
-        window = [[UIApplication sharedApplication].delegate window];
+    BUAdSlot *slot = [[BUAdSlot alloc] init];
+    slot.ID = self.buSlotID;
+    slot.AdType = BUAdSlotAdTypeFeed;
+    BUSize *imgSize = [BUSize sizeBy:BUProposalSize_Feed228_150];
+    slot.imgSize = imgSize;
+    slot.position = BUAdSlotPositionFeed;
+    // self.nativeExpressAdManager可以重用
+    if (!self.nativeExpressAdManager) {
+        self.nativeExpressAdManager = [[BUNativeExpressAdManager alloc] initWithSlot:slot adSize:CGSizeMake([UIScreen mainScreen].bounds.size.width, 0)];
     }
-    if (![window isKindOfClass:[UIView class]]) {
-        window = [UIApplication sharedApplication].keyWindow;
-    }
-    if (!window) {
-        window = [[UIApplication sharedApplication].windows objectAtIndex:0];
-    }
-    CGFloat bottom = 0.0;
-    if (@available(iOS 11.0, *)) {
-        bottom = window.safeAreaInsets.bottom;
-    } else {
-        // Fallback on earlier versions
-    }
+    self.nativeExpressAdManager.adSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, 0);
+    self.nativeExpressAdManager.delegate = self;
+
     
-    NSValue *sizeValue = nil;
-    switch (adsize) {
-        case SYBannerSize600_300:
-            sizeValue = [sizeDcit objectForKey:@"945742204"];
-            break;
-        case SYBannerSize600_400:
-            sizeValue = [sizeDcit objectForKey:@"945742204"];
-            break;
-        case SYBannerSize600_500:
-            sizeValue = [sizeDcit objectForKey:@"945742204"];
-            break;
-        case SYBannerSize600_260:
-            sizeValue = [sizeDcit objectForKey:@"945741009"];
-            break;
-        case SYBannerSize600_90 :
-            sizeValue = [sizeDcit objectForKey:@"945741009"];
-            break;
-        case SYBannerSize600_150:
-            sizeValue = [sizeDcit objectForKey:@"945741009"];
-            break;
-        case SYBannerSize640_100:
-            sizeValue = [sizeDcit objectForKey:@"945741009"];
-            break;
-        case SYBannerSize690_388:
-            sizeValue = [sizeDcit objectForKey:@"945742204"];
-            break;
-        default:
-            sizeValue = [sizeDcit objectForKey:@"945741009"];
-            break;
-    }
-    
-    CGSize size = [sizeValue CGSizeValue];
-    self.bannerView = [[BUNativeExpressBannerView alloc] initWithSlotID:@"945742204" rootViewController:rootViewController adSize:size];
-    self.bannerView.delegate = self;
     
     return self;
 }
 
 - (void)loadAdData {
-    [self.bannerView loadAdData];
-    [self addSubview:self.bannerView];
+    [self.nativeExpressAdManager loadAd:1];
 }
 
 /*
@@ -95,51 +98,67 @@
 }
 */
 
-#pragma mark - events
 
-- (void)nativeExpressBannerAdViewDidLoad:(BUNativeExpressBannerView *)bannerAdView {
+#pragma mark - BUNativeExpressAdViewDelegate
+- (void)nativeExpressAdSuccessToLoad:(BUNativeExpressAdManager *)nativeExpressAd views:(NSArray<__kindof BUNativeExpressAdView *> *)views {
+    if (views.count <= 0) {
+        return;
+    }
+    
     [self.delegate bannerAdViewDidLoad:self];
+    
+    BUNativeExpressAdView *expressView = (BUNativeExpressAdView *)views[0];
+    expressView.rootViewController = self.rootViewController;
+    [expressView render];
+    
+    self.expressAdViews = expressView;
 }
 
-- (void)nativeExpressBannerAdView:(BUNativeExpressBannerView *)bannerAdView didLoadFailWithError:(NSError *)error {
+- (void)nativeExpressAdFailToLoad:(BUNativeExpressAdManager *)nativeExpressAd error:(NSError *)error {
     [self.delegate bannerAdViewLoadFailed:self];
 }
 
-- (void)nativeExpressBannerAdViewRenderSuccess:(BUNativeExpressBannerView *)bannerAdView {
+- (void)nativeExpressAdViewRenderSuccess:(BUNativeExpressAdView *)nativeExpressAdView {
+    NSLog(@"nativeExpressAdViewRenderSuccess");
     [self.delegate bannerAdViewRenderSuccess:self];
+    
+    [self addSubview:self.expressAdViews];
 }
 
-- (void)nativeExpressBannerAdViewRenderFail:(BUNativeExpressBannerView *)bannerAdView error:(NSError *)error {
+- (void)updateCurrentPlayedTime {
+    NSLog(@"nativeExpressAdViewRenderSuccess");
+
+}
+
+- (void)nativeExpressAdView:(BUNativeExpressAdView *)nativeExpressAdView stateDidChanged:(BUPlayerPlayState)playerState {
+}
+
+- (void)nativeExpressAdViewRenderFail:(BUNativeExpressAdView *)nativeExpressAdView error:(NSError *)error {
     [self.delegate bannerAdViewRenderFail:self];
 }
 
-- (void)nativeExpressBannerAdViewWillBecomVisible:(BUNativeExpressBannerView *)bannerAdView {
+- (void)nativeExpressAdViewWillShow:(BUNativeExpressAdView *)nativeExpressAdView {
     [self.delegate bannerAdViewWillBecomVisible:self];
 }
 
-- (void)nativeExpressBannerAdViewDidClick:(BUNativeExpressBannerView *)bannerAdView {
+- (void)nativeExpressAdViewDidClick:(BUNativeExpressAdView *)nativeExpressAdView {
     [self.delegate bannerAdViewDidClick:self];
 }
 
-- (void)nativeExpressBannerAdView:(BUNativeExpressBannerView *)bannerAdView dislikeWithReason:(NSArray<BUDislikeWords *> *)filterwords {
-    [UIView animateWithDuration:0.25 animations:^{
-        bannerAdView.alpha = 0;
-    } completion:^(BOOL finished) {
-        [bannerAdView removeFromSuperview];
-        self.bannerView = nil;
-    }];
-
+- (void)nativeExpressAdViewPlayerDidPlayFinish:(BUNativeExpressAdView *)nativeExpressAdView error:(NSError *)error {
 }
 
-- (void)nativeExpressBannerAdViewDidCloseOtherController:(BUNativeExpressBannerView *)bannerAdView interactionType:(BUInteractionType)interactionType {
-    NSString *str;
-    if (interactionType == BUInteractionTypePage) {
-        str = @"ladingpage";
-    } else if (interactionType == BUInteractionTypeVideoAdDetail) {
-        str = @"videoDetail";
-    } else {
-        str = @"appstoreInApp";
-    }
+- (void)nativeExpressAdView:(BUNativeExpressAdView *)nativeExpressAdView dislikeWithReason:(NSArray<BUDislikeWords *> *)filterWords {
+    
+}
+
+- (void)nativeExpressAdViewDidClosed:(BUNativeExpressAdView *)nativeExpressAdView {
+}
+
+- (void)nativeExpressAdViewWillPresentScreen:(BUNativeExpressAdView *)nativeExpressAdView {
+}
+
+- (void)nativeExpressAdViewDidCloseOtherController:(BUNativeExpressAdView *)nativeExpressAdView interactionType:(BUInteractionType)interactionType {
 }
 
 
