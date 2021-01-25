@@ -8,9 +8,9 @@
 #ifndef SYAdSDK_h
 #define SYAdSDK_h
 
-#import <SYAdSDKDefines.h>
-#import <SYAdSDKManager.h>
-#import <SYSplashAdView.h>
-#import <SYBannerView.h>
+#import <SYAdSDK/SYAdSDKDefines.h>
+#import <SYAdSDK/SYAdSDKManager.h>
+#import <SYAdSDK/SYSplashAdView.h>
+#import <SYAdSDK/SYBannerView.h>
 
 #endif /* SYAdSDK_h */

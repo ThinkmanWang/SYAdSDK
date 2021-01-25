@@ -18,19 +18,73 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self initView];
 }
 
 - (void)initView {
+    self.bannerView = [[[SYBannerView alloc] init] initWithSlotID:@"945742204" rootViewController:self adSize:SYBannerSize600_300];
+    self.bannerView.delegate = self;
+    [self.bannerView loadAdData];
 }
 
-/*
-#pragma mark - Navigation
+#pragma mark - SYAdSDK events
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+/**
+ This method is called when bannerAdView ad slot loaded successfully.
+ @param bannerAdView : view for bannerAdView
+ */
+- (void)bannerAdViewDidLoad:(SYBannerView *)bannerAdView {
+    
 }
-*/
+
+/**
+ This method is called when bannerAdView ad slot failed to load.
+ */
+- (void)bannerAdViewLoadFailed:(SYBannerView *)bannerAdView {
+    
+}
+
+
+/**
+ This method is called when rendering a nativeExpressAdView successed.
+ */
+- (void)bannerAdViewRenderSuccess:(SYBannerView *)bannerAdView {
+    CGFloat topbarHeight = ([UIApplication sharedApplication].statusBarFrame.size.height +
+           (self.navigationController.navigationBar.frame.size.height ?: 0.0));
+    
+    self.bannerView.frame = CGRectMake(0
+                                       , topbarHeight
+                                       , CGRectGetWidth(self.view.frame)
+                                       , CGRectGetWidth(self.view.frame) / 2);
+    
+    [self.view addSubview:self.bannerView];
+}
+
+
+/**
+ This method is called when a nativeExpressAdView failed to render.
+ */
+- (void)bannerAdViewRenderFail:(SYBannerView *)bannerAdView {
+    
+}
+
+
+/**
+ This method is called when bannerAdView ad slot showed new ad.
+ */
+- (void)bannerAdViewWillBecomVisible:(SYBannerView *)bannerAdView {
+    
+}
+
+
+/**
+ This method is called when bannerAdView is clicked.
+ */
+- (void)bannerAdViewDidClick:(SYBannerView *)bannerAdView {
+    NSLog(@"bannerAdViewDidClick");
+    
+}
+
 
 @end

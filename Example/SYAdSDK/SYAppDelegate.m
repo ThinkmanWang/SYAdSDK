@@ -10,6 +10,12 @@
 #import <SYAdSDK/SYAdSDK.h>
 #import <AppTrackingTransparency/AppTrackingTransparency.h>
 
+#import "SYViewController.h"
+
+@interface SYAppDelegate() <SYSplashAdDelegate>
+@property SYSplashAdView* splashAdView;
+@end
+
 @implementation SYAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -57,10 +63,9 @@
 - (void)requestIDFA {
     if (@available(iOS 14.0, *)) {
         ATTrackingManagerAuthorizationStatus states = [ATTrackingManager trackingAuthorizationStatus];
-//        if (ATTrackingManagerAuthorizationStatusAuthorized == states) {
-//            NSLog(@"Request IDFA SUCCESS!!!");
-//            [self initLaunchScreen];
-//        }
+        if (ATTrackingManagerAuthorizationStatusAuthorized == states) {
+            NSLog(@"Request IDFA SUCCESS!!!");
+        }
     }
     
     [self initLaunchScreen];
