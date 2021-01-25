@@ -81,8 +81,6 @@
     self.nativeExpressAdManager.adSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, 0);
     self.nativeExpressAdManager.delegate = self;
 
-    
-    
     return self;
 }
 
