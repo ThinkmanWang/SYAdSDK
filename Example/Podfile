@@ -1,0 +1,13 @@
+use_frameworks!
+
+platform :ios, '9.0'
+
+target 'SYAdSDK_Example' do
+  pod 'SYAdSDK', :path => '../'
+
+  target 'SYAdSDK_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
