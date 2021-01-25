@@ -7,12 +7,22 @@
 //
 
 #import "SYAppDelegate.h"
+#import <SYAdSDK/SYAdSDK.h>
+#import <AppTrackingTransparency/AppTrackingTransparency.h>
 
 @implementation SYAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.backgroundColor = [UIColor whiteColor];
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[SYViewController alloc] init]];
+    [self.window makeKeyAndVisible];
+    
+    [self requestIDFA];
+    
     return YES;
 }
 
@@ -41,6 +51,101 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark - SYAdSDK
+- (void)requestIDFA {
+    if (@available(iOS 14.0, *)) {
+        ATTrackingManagerAuthorizationStatus states = [ATTrackingManager trackingAuthorizationStatus];
+//        if (ATTrackingManagerAuthorizationStatusAuthorized == states) {
+//            NSLog(@"Request IDFA SUCCESS!!!");
+//            [self initLaunchScreen];
+//        }
+    }
+    
+    [self initLaunchScreen];
+    
+    
+}
+
+- (void) initLaunchScreen {
+    [SYAdSDKManager setAppID:@"5134179"];
+    [SYAdSDKManager setLoglevel:SYAdSDKLogLevelDebug];
+    
+    self.splashAdView = [[[SYSplashAdView alloc] init] initWithSlotID:@"887421551"];
+    self.splashAdView.delegate = self;
+    
+    [self.window.rootViewController.view addSubview:self.splashAdView];
+    self.splashAdView.rootViewController = self.window.rootViewController;
+
+    [self.splashAdView loadAdData];
+}
+
+
+#pragma mark launchscreeen events
+/**
+ This method is called when splash ad material loaded successfully.
+ */
+- (void)splashAdDidLoad:(SYSplashAdView *)splashAd {
+    NSLog(@"splashAdDidLoad");
+}
+
+/**
+ This method is called when splash ad material failed to load.
+ @param error : the reason of error
+ */
+- (void)splashAd:(SYSplashAdView *)splashAd {
+    NSLog(@"splashAd");
+}
+
+/**
+ This method is called when splash ad slot will be showing.
+ */
+- (void)splashAdWillVisible:(SYSplashAdView *)splashAd {
+    NSLog(@"splashAdWillVisible");
+}
+
+/**
+ This method is called when splash ad is clicked.
+ */
+- (void)splashAdDidClick:(SYSplashAdView *)splashAd {
+    NSLog(@"splashAdDidClick");
+}
+
+/**
+ This method is called when splash ad is closed.
+ */
+- (void)splashAdDidClose:(SYSplashAdView *)splashAd {
+    NSLog(@"splashAdDidClose");
+}
+
+/**
+ This method is called when splash ad is about to close.
+ */
+- (void)splashAdWillClose:(SYSplashAdView *)splashAd {
+    NSLog(@"splashAdWillClose");
+}
+
+/**
+ This method is called when another controller has been closed.
+ @param interactionType : open appstore in app or open the webpage or view video ad details page.
+ */
+- (void)splashAdDidCloseOtherController:(SYSplashAdView *)splashAd {
+    NSLog(@"splashAdDidCloseOtherController");
+}
+
+/**
+ This method is called when spalashAd skip button  is clicked.
+ */
+- (void)splashAdDidClickSkip:(SYSplashAdView *)splashAd {
+    NSLog(@"splashAdDidClickSkip");
+}
+
+/**
+ This method is called when spalashAd countdown equals to zero
+ */
+- (void)splashAdCountdownToZero:(SYSplashAdView *)splashAd {
+    NSLog(@"splashAdCountdownToZero");
 }
 
 @end
