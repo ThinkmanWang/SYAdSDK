@@ -119,7 +119,7 @@
 }
 
 - (void)nativeExpressAdViewRenderSuccess:(BUNativeExpressAdView *)nativeExpressAdView {
-    NSLog(@"nativeExpressAdViewRenderSuccess");
+//    NSLog(@"nativeExpressAdViewRenderSuccess");
     self.frame = nativeExpressAdView.frame;
     [self addSubview:self.expressAdViews];
 
@@ -129,7 +129,7 @@
 }
 
 - (void)updateCurrentPlayedTime {
-    NSLog(@"nativeExpressAdViewRenderSuccess");
+    //NSLog(@"nativeExpressAdViewRenderSuccess");
 
 }
 

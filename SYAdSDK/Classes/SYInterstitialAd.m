@@ -80,7 +80,7 @@
 
 #pragma mark -BUNativeExpresInterstitialAdDelegate
 - (void)nativeExpresInterstitialAdDidLoad:(BUNativeExpressInterstitialAd *)interstitialAd {
-    NSLog(@"nativeExpresInterstitialAdDidLoad");
+    //NSLog(@"nativeExpresInterstitialAdDidLoad");
     if (self.delegate) {
         [self.delegate interstitialAdDidLoad:self];
     }
@@ -88,7 +88,7 @@
 
 - (void)nativeExpresInterstitialAd:(BUNativeExpressInterstitialAd *)interstitialAd didFailWithError:(NSError *)error {
 //    self.selectedView.promptStatus = BUDPromptStatusAdLoadedFail;
-    NSLog(@"nativeExpresInterstitialAd");
+    //NSLog(@"nativeExpresInterstitialAd");
     if (self.delegate) {
         [self.delegate interstitialAd:self];
     }
@@ -96,7 +96,7 @@
 
 - (void)nativeExpresInterstitialAdRenderSuccess:(BUNativeExpressInterstitialAd *)interstitialAd {
 //    self.selectedView.promptStatus = BUDPromptStatusAdLoaded;
-    NSLog(@"nativeExpresInterstitialAdRenderSuccess");
+    //NSLog(@"nativeExpresInterstitialAdRenderSuccess");
     
     if (self.delegate) {
         [self.delegate interstitialAdRenderSuccess:self];
@@ -105,7 +105,7 @@
 
 - (void)nativeExpresInterstitialAdRenderFail:(BUNativeExpressInterstitialAd *)interstitialAd error:(NSError *)error {
 //    self.selectedView.promptStatus = BUDPromptStatusAdLoadedFail;
-    NSLog(@"nativeExpresInterstitialAdRenderFail");
+    //NSLog(@"nativeExpresInterstitialAdRenderFail");
     
     if (self.delegate) {
         [self.delegate interstitialAdRenderFail:self];
@@ -113,7 +113,7 @@
 }
 
 - (void)nativeExpresInterstitialAdWillVisible:(BUNativeExpressInterstitialAd *)interstitialAd {
-    NSLog(@"nativeExpresInterstitialAdWillVisible");
+    //NSLog(@"nativeExpresInterstitialAdWillVisible");
     
     if (self.delegate) {
         [self.delegate interstitialAdWillVisible:self];
@@ -121,7 +121,7 @@
 }
 
 - (void)nativeExpresInterstitialAdDidClick:(BUNativeExpressInterstitialAd *)interstitialAd {
-    NSLog(@"nativeExpresInterstitialAdDidClick");
+    //NSLog(@"nativeExpresInterstitialAdDidClick");
     
     if (self.delegate) {
         [self.delegate interstitialAdDidClick:self];
@@ -129,7 +129,7 @@
 }
 
 - (void)nativeExpresInterstitialAdWillClose:(BUNativeExpressInterstitialAd *)interstitialAd {
-    NSLog(@"nativeExpresInterstitialAdWillClose");
+    //NSLog(@"nativeExpresInterstitialAdWillClose");
     
     if (self.delegate) {
         [self.delegate interstitialAdWillClose:self];
@@ -137,7 +137,7 @@
 }
 
 - (void)nativeExpresInterstitialAdDidClose:(BUNativeExpressInterstitialAd *)interstitialAd {
-    NSLog(@"nativeExpresInterstitialAdDidClose");
+    //NSLog(@"nativeExpresInterstitialAdDidClose");
     self.interstitialAd = nil;
     
     if (self.delegate) {
@@ -146,7 +146,7 @@
 }
 
 - (void)nativeExpresInterstitialAdDidCloseOtherController:(BUNativeExpressInterstitialAd *)interstitialAd interactionType:(BUInteractionType)interactionType {
-    NSLog(@"nativeExpresInterstitialAdDidCloseOtherController");
+    //NSLog(@"nativeExpresInterstitialAdDidCloseOtherController");
     
 }
 

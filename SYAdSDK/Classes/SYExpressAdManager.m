@@ -1,0 +1,198 @@
+//
+//  SYExpressAdManager.m
+//  SYAdSDK
+//
+//  Created by 王晓丰 on 2021/1/26.
+//
+
+#import "SYExpressAdManager.h"
+#import "SYExpressAdView.h"
+#import <BUAdSDK/BUAdSDK.h>
+
+
+@interface SYExpressAdManager () <BUSplashAdDelegate>
+
+@property(nonatomic, strong) NSString* buSlotID;
+
+@property(nonatomic, strong) BUNativeExpressAdManager* nativeExpressAdManager;
+@property (strong, nonatomic) NSMutableArray<__kindof BUNativeExpressAdView *> *expressAdViews;
+@property (strong, nonatomic) NSMutableArray<__kindof SYExpressAdView *> *syExpressAdViews;
+
+@end
+
+@implementation SYExpressAdManager
+
+- (id) init {
+    self = [super init];
+    if (self) {
+        self.delegate = nil;
+        self.buSlotID = @"945746795";
+        
+        self.expressAdViews = [NSMutableArray new];
+        self.syExpressAdViews = [NSMutableArray new];
+    }
+    
+    return self;
+}
+
+/**
+ @param size expected ad view size，when size.height is zero, acture height will match size.width
+ */
+- (instancetype)initWithSlotID:(NSString *)slotID adSize:(CGSize)size {
+    self.slotID = slotID;
+    
+    BUAdSlot *slot = [[BUAdSlot alloc] init];
+    slot.ID = self.buSlotID;
+    slot.AdType = BUAdSlotAdTypeFeed;
+    BUSize *imgSize = [BUSize sizeBy:BUProposalSize_Feed228_150];
+    slot.imgSize = imgSize;
+    slot.position = BUAdSlotPositionFeed;
+    // self.nativeExpressAdManager可以重用
+    if (!self.nativeExpressAdManager) {
+        self.nativeExpressAdManager = [[BUNativeExpressAdManager alloc] initWithSlot:slot adSize:size];
+    }
+
+    self.nativeExpressAdManager.delegate = self;
+    
+    return self;
+}
+
+/**
+ The number of ads requested,The maximum is 3
+ */
+- (void)loadAdDataWithCount:(NSInteger)count {
+    if (count < 1) {
+        count = 1;
+    }
+    
+    if (count > 3) {
+        count = 3;
+    }
+    
+    [self.nativeExpressAdManager loadAd:count];
+}
+
+/**
+ * Sent when views successfully load ad
+ */
+- (void)nativeExpressAdSuccessToLoad:(BUNativeExpressAdManager *)nativeExpressAd views:(NSArray<__kindof BUNativeExpressAdView *> *)views {
+    [self.expressAdViews removeAllObjects];
+    [self.syExpressAdViews removeAllObjects];
+    
+    if (views.count) {
+        [self.expressAdViews addObjectsFromArray:views];
+        
+        [views enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            BUNativeExpressAdView *expressView = (BUNativeExpressAdView *)obj;
+            expressView.rootViewController = self.rootViewController;
+            
+            //TODO: Add to SYExpressVieew
+            SYExpressAdView* syExpress = [[SYExpressAdView alloc] init];
+            [syExpress addSubview:expressView];
+            
+            [self.syExpressAdViews addObject:syExpress];
+            
+            
+            [expressView render];
+        }];
+    }
+    
+    if (self.delegate) {
+        [self.delegate expressAdSuccessToLoad:self views:self.syExpressAdViews];
+    }
+}
+
+/**
+ * Sent when views fail to load ad
+ */
+- (void)nativeExpressAdFailToLoad:(BUNativeExpressAdManager *)nativeExpressAd error:(NSError *_Nullable)error {
+    if (self.delegate) {
+        [self.delegate expressAdFailToLoad:self];
+    }
+}
+
+/**
+ * This method is called when rendering a nativeExpressAdView successed, and nativeExpressAdView.size.height has been updated
+ */
+- (void)nativeExpressAdViewRenderSuccess:(BUNativeExpressAdView *)nativeExpressAdView {
+    if (self.delegate) {
+        SYExpressAdView* view = nativeExpressAdView.superview;
+        view.frame = nativeExpressAdView.frame;
+        
+        [self.delegate expressAdFailToLoad:view];
+    }
+}
+
+/**
+ * This method is called when a nativeExpressAdView failed to render
+ */
+- (void)nativeExpressAdViewRenderFail:(BUNativeExpressAdView *)nativeExpressAdView error:(NSError *_Nullable)error {
+    if (self.delegate) {
+        [self.delegate expressAdViewRenderFail:nativeExpressAdView.superview];
+    }
+}
+
+/**
+ * Sent when an ad view is about to present modal content
+ */
+- (void)nativeExpressAdViewWillShow:(BUNativeExpressAdView *)nativeExpressAdView {
+    if (self.delegate) {
+        [self.delegate expressAdViewWillShow:nativeExpressAdView.superview];
+    }
+}
+
+/**
+ * Sent when an ad view is clicked
+ */
+- (void)nativeExpressAdViewDidClick:(BUNativeExpressAdView *)nativeExpressAdView {
+    if (self.delegate) {
+        [self.delegate expressAdViewDidClick:nativeExpressAdView.superview];
+    }
+}
+
+/**
+Sent when a playerw playback status changed.
+@param playerState : player state after changed
+*/
+- (void)nativeExpressAdView:(BUNativeExpressAdView *)nativeExpressAdView stateDidChanged:(BUPlayerPlayState)playerState {
+    
+}
+
+/**
+ * Sent when a player finished
+ * @param error : error of player
+ */
+- (void)nativeExpressAdViewPlayerDidPlayFinish:(BUNativeExpressAdView *)nativeExpressAdView error:(NSError *)error {
+    if (self.delegate) {
+        [self.delegate expressAdViewPlayerDidPlayFinish:nativeExpressAdView.superview];
+    }
+}
+
+/**
+ * Sent when a user clicked dislike reasons.
+ * @param filterWords : the array of reasons why the user dislikes the ad
+ */
+- (void)nativeExpressAdView:(BUNativeExpressAdView *)nativeExpressAdView dislikeWithReason:(NSArray<BUDislikeWords *> *)filterWords {
+    if (self.delegate) {
+        [self.delegate expressAdView:nativeExpressAdView.superview];
+    }
+}
+
+/**
+ * Sent after an ad view is clicked, a ad landscape view will present modal content
+ */
+- (void)nativeExpressAdViewWillPresentScreen:(BUNativeExpressAdView *)nativeExpressAdView {
+    if (self.delegate) {
+        [self.delegate expressAdViewWillPresentScreen:nativeExpressAdView.superview];
+    }
+}
+
+/**
+ This method is called when another controller has been closed.
+ @param interactionType : open appstore in app or open the webpage or view video ad details page.
+ */
+- (void)nativeExpressAdViewDidCloseOtherController:(BUNativeExpressAdView *)nativeExpressAdView interactionType:(BUInteractionType)interactionType {
+    
+}
+
+@end

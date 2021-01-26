@@ -51,7 +51,7 @@
 #pragma mark -events
 
 - (void)removeSplashAdView {
-    NSLog(@"removeSplashAdView");
+    //NSLog(@"removeSplashAdView");
     if (self.splashAdView) {
         [self.splashAdView removeFromSuperview];
         self.splashAdView = nil;
@@ -60,7 +60,7 @@
 
 
 - (void)splashAdDidLoad:(BUSplashAdView *)splashAd {
-    NSLog(@"splashAdDidLoad");
+    //NSLog(@"splashAdDidLoad");
     if (splashAd.zoomOutView) {
         UIViewController *parentVC = [UIApplication sharedApplication].keyWindow.rootViewController;
         [parentVC.view addSubview:splashAd.zoomOutView];
@@ -75,7 +75,7 @@
 }
 
 - (void)splashAdDidClose:(BUSplashAdView *)splashAd {
-    NSLog(@"splashAdDidClose");
+    //NSLog(@"splashAdDidClose");
     if (splashAd.zoomOutView) {
 //        [[BUDAnimationTool sharedInstance] transitionFromView:splashAd toView:splashAd.zoomOutView];
     } else{
@@ -86,7 +86,7 @@
 }
 
 - (void)splashAdDidClick:(BUSplashAdView *)splashAd {
-    NSLog(@"splashAdDidClick");
+    //NSLog(@"splashAdDidClick");
     if (splashAd.zoomOutView) {
         [splashAd.zoomOutView removeFromSuperview];
     }
@@ -98,7 +98,7 @@
 }
 
 - (void)splashAdDidClickSkip:(BUSplashAdView *)splashAd {
-    NSLog(@"splashAdDidClickSkip");
+    //NSLog(@"splashAdDidClickSkip");
     if (splashAd.zoomOutView) {
 //        [[BUDAnimationTool sharedInstance] transitionFromView:splashAd toView:splashAd.zoomOutView];
     } else{
@@ -110,7 +110,7 @@
 }
 
 - (void)splashAd:(BUSplashAdView *)splashAd didFailWithError:(NSError *)error {
-    NSLog(@"splashAd");
+    //NSLog(@"splashAd");
     // Display fails, completely remove 'splashAdView', avoid memory leak
     [self removeSplashAdView];
     
@@ -118,19 +118,19 @@
 }
 
 - (void)splashAdWillVisible:(BUSplashAdView *)splashAd {
-    NSLog(@"splashAdWillVisible");
+    //NSLog(@"splashAdWillVisible");
     [self.delegate splashAdWillVisible:self];
 }
 
 - (void)splashAdWillClose:(BUSplashAdView *)splashAd {
-    NSLog(@"splashAdWillClose");
+    //NSLog(@"splashAdWillClose");
     
     [self.delegate splashAdWillClose:self];
 }
 
 - (void)splashAdDidCloseOtherController:(BUSplashAdView *)splashAd interactionType:(BUInteractionType)interactionType {
     // No further action after closing the other Controllers, completely remove the 'splashAdView' and avoid memory leaks
-    NSLog(@"splashAdDidCloseOtherController");
+    //NSLog(@"splashAdDidCloseOtherController");
     [self removeSplashAdView];
     
     [self.delegate splashAdDidCloseOtherController:self];
@@ -140,7 +140,7 @@
 
 - (void)splashAdCountdownToZero:(BUSplashAdView *)splashAd {
     // When the countdown is over, it is equivalent to clicking Skip to completely remove 'splashAdView' and avoid memory leak
-    NSLog(@"splashAdCountdownToZero");
+    //NSLog(@"splashAdCountdownToZero");
     if (!splashAd.zoomOutView) {
         [self removeSplashAdView];
     }
@@ -150,24 +150,24 @@
 
 #pragma mark - BUSplashZoomOutViewDelegate
 - (void)splashZoomOutViewAdDidClick:(BUSplashZoomOutView *)splashAd {
-    NSLog(@"splashZoomOutViewAdDidClick");
+    //NSLog(@"splashZoomOutViewAdDidClick");
 }
 
 - (void)splashZoomOutViewAdDidClose:(BUSplashZoomOutView *)splashAd {
     // Click close, completely remove 'splashAdView', avoid memory leak
-    NSLog(@"splashZoomOutViewAdDidClose");
+    //NSLog(@"splashZoomOutViewAdDidClose");
     [self removeSplashAdView];
 }
 
 - (void)splashZoomOutViewAdDidAutoDimiss:(BUSplashZoomOutView *)splashAd {
     // Back down at the end of the countdown to completely remove the 'splashAdView' to avoid memory leaks
-    NSLog(@"splashZoomOutViewAdDidAutoDimiss");
+    //NSLog(@"splashZoomOutViewAdDidAutoDimiss");
     [self removeSplashAdView];
 }
 
 - (void)splashZoomOutViewAdDidCloseOtherController:(BUSplashZoomOutView *)splashAd interactionType:(BUInteractionType)interactionType {
     // No further action after closing the other Controllers, completely remove the 'splashAdView' and avoid memory leaks
-    NSLog(@"splashZoomOutViewAdDidCloseOtherController");
+    //NSLog(@"splashZoomOutViewAdDidCloseOtherController");
     [self removeSplashAdView];
 }
 
