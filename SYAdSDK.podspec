@@ -30,7 +30,7 @@ Shiyu Ad SDK for iOS
 
   s.ios.deployment_target = '9.0'
 
-  s.source_files = 'SYAdSDK/Classes/**/*.{h,m}'
+  s.source_files = 'SYAdSDK/Classes/**/*.{h}'
   s.public_header_files = "SYAdSDK/Classes/**/*.h"
   
   s.static_framework = true
