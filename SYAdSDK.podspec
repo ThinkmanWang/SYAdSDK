@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-SDK iOS
+Shiyu Ad SDK for iOS
                        DESC
 
   s.homepage         = 'http://gitlab.huina365.com:10080/iOS/SYAdSDK'
