@@ -74,7 +74,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  @param size expected ad view size，when size.height is zero, acture height will match size.width
  */
-- (instancetype)initWithSlotID:(NSString *)slotID adSize:(CGSize)size;
+- (instancetype)initWithSlotID:(NSString *)slotID rootViewController:(UIViewController *)rootViewController adSize:(CGSize)size;
 
 /**
  The number of ads requested,The maximum is 3

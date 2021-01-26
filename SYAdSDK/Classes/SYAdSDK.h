@@ -13,5 +13,8 @@
 #import <SYAdSDK/SYSplashAdView.h>
 #import <SYAdSDK/SYBannerView.h>
 #import <SYAdSDK/SYInterstitialAd.h>
+#import <SYAdSDK/SYExpressAdManager.h>
+#import <SYAdSDK/SYExpressAdView.h>
+
 
 #endif /* SYAdSDK_h */

@@ -49,7 +49,7 @@
         @{@"sectionTitle": @"视煜广告SDK", @"classes": @[
             @{@"title": @"Banner", @"class": @"SYBannerViewController"},
             @{@"title": @"插屏", @"class": @"SYInterstitialAdViewController"}
-            , @{@"title": @"原生广告", @"class": @"FeedViewController"}
+            , @{@"title": @"原生广告", @"class": @"SYExpressViewController"}
         ]},
         @{@"sectionTitle": @"", @"classes": @[
             @{@"title": @"", @"class": @""},

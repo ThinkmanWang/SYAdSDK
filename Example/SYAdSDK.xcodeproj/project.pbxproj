@@ -42,6 +42,7 @@
 		823157C625BEDA1900FF11C2 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 823157C525BEDA1900FF11C2 /* libiconv.tbd */; };
 		823157CA25BEDA1F00FF11C2 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 823157C925BEDA1F00FF11C2 /* Security.framework */; };
 		823157CC25BEDA2700FF11C2 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 823157CB25BEDA2700FF11C2 /* ImageIO.framework */; };
+		8246221125C00DB0001005C7 /* SYExpressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8246221025C00DB0001005C7 /* SYExpressViewController.m */; };
 		824857ED25BECF7100D7D801 /* SYBannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 824857EC25BECF7100D7D801 /* SYBannerViewController.m */; };
 		82A70D3625BFC4AA00316B2D /* SYInterstitialAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 82A70D3525BFC4AA00316B2D /* SYInterstitialAdViewController.m */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
@@ -109,6 +110,8 @@
 		823157CD25BEDA5300FF11C2 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		823157CE25BEDA5400FF11C2 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		823157CF25BEDA5400FF11C2 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		8246220F25C00DB0001005C7 /* SYExpressViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYExpressViewController.h; sourceTree = "<group>"; };
+		8246221025C00DB0001005C7 /* SYExpressViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYExpressViewController.m; sourceTree = "<group>"; };
 		824857EB25BECF7100D7D801 /* SYBannerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYBannerViewController.h; sourceTree = "<group>"; };
 		824857EC25BECF7100D7D801 /* SYBannerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYBannerViewController.m; sourceTree = "<group>"; };
 		82A70D3425BFC4AA00316B2D /* SYInterstitialAdViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYInterstitialAdViewController.h; sourceTree = "<group>"; };
@@ -225,6 +228,7 @@
 		6003F593195388D20070C39A /* Example for SYAdSDK */ = {
 			isa = PBXGroup;
 			children = (
+				828AA5C925C00A73008269D6 /* express */,
 				82A70D3325BFC47500316B2D /* interstitialAd */,
 				824857EA25BECF4500D7D801 /* banner */,
 				6003F59C195388D20070C39A /* SYAppDelegate.h */,
@@ -287,6 +291,15 @@
 				824857EC25BECF7100D7D801 /* SYBannerViewController.m */,
 			);
 			path = banner;
+			sourceTree = "<group>";
+		};
+		828AA5C925C00A73008269D6 /* express */ = {
+			isa = PBXGroup;
+			children = (
+				8246220F25C00DB0001005C7 /* SYExpressViewController.h */,
+				8246221025C00DB0001005C7 /* SYExpressViewController.m */,
+			);
+			path = express;
 			sourceTree = "<group>";
 		};
 		82A70D3325BFC47500316B2D /* interstitialAd */ = {
@@ -500,6 +513,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				824857ED25BECF7100D7D801 /* SYBannerViewController.m in Sources */,
+				8246221125C00DB0001005C7 /* SYExpressViewController.m in Sources */,
 				6003F59E195388D20070C39A /* SYAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* SYViewController.m in Sources */,
 				82A70D3625BFC4AA00316B2D /* SYInterstitialAdViewController.m in Sources */,

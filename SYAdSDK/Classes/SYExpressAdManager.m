@@ -38,8 +38,9 @@
 /**
  @param size expected ad view size，when size.height is zero, acture height will match size.width
  */
-- (instancetype)initWithSlotID:(NSString *)slotID adSize:(CGSize)size {
+- (instancetype)initWithSlotID:(NSString *)slotID rootViewController:(UIViewController *)rootViewController adSize:(CGSize)size {
     self.slotID = slotID;
+    self.rootViewController = rootViewController;
     
     BUAdSlot *slot = [[BUAdSlot alloc] init];
     slot.ID = self.buSlotID;
@@ -69,7 +70,7 @@
         count = 3;
     }
     
-    [self.nativeExpressAdManager loadAd:count];
+    [self.nativeExpressAdManager loadAdDataWithCount:count];
 }
 
 /**
@@ -119,7 +120,7 @@
         SYExpressAdView* view = nativeExpressAdView.superview;
         view.frame = nativeExpressAdView.frame;
         
-        [self.delegate expressAdFailToLoad:view];
+        [self.delegate expressAdViewRenderSuccess:view];
     }
 }
 
