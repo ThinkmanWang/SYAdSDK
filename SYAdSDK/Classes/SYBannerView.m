@@ -34,36 +34,38 @@
 - (instancetype)initWithSlotID:(NSString *)slotID
             rootViewController:(UIViewController *)rootViewController
                         adSize:(SYBannerSize)adsize {
-//    NSValue *sizeValue = nil;
-//    switch (adsize) {
-//        case SYBannerSize600_300:
-//            sizeValue = [sizeDcit objectForKey:@"945742204"];
-//            break;
-//        case SYBannerSize600_400:
-//            sizeValue = [sizeDcit objectForKey:@"945742204"];
-//            break;
-//        case SYBannerSize600_500:
-//            sizeValue = [sizeDcit objectForKey:@"945742204"];
-//            break;
-//        case SYBannerSize600_260:
-//            sizeValue = [sizeDcit objectForKey:@"945741009"];
-//            break;
-//        case SYBannerSize600_90 :
-//            sizeValue = [sizeDcit objectForKey:@"945741009"];
-//            break;
-//        case SYBannerSize600_150:
-//            sizeValue = [sizeDcit objectForKey:@"945741009"];
-//            break;
-//        case SYBannerSize640_100:
-//            sizeValue = [sizeDcit objectForKey:@"945741009"];
-//            break;
-//        case SYBannerSize690_388:
-//            sizeValue = [sizeDcit objectForKey:@"945742204"];
-//            break;
-//        default:
-//            sizeValue = [sizeDcit objectForKey:@"945741009"];
-//            break;
-//    }
+
+    CGFloat fWidth = [UIScreen mainScreen].bounds.size.width;
+    CGFloat fHeight = 0;
+    switch (adsize) {
+        case SYBannerSize600_300:
+            fHeight = 300 * fWidth / 600;
+            break;
+        case SYBannerSize600_400:
+            fHeight = 400 * fWidth / 600;
+            break;
+        case SYBannerSize600_500:
+            fHeight = 500 * fWidth / 600;
+            break;
+        case SYBannerSize600_260:
+            fHeight = 260 * fWidth / 600;
+            break;
+        case SYBannerSize600_90 :
+            fHeight = 90 * fWidth / 600;
+            break;
+        case SYBannerSize600_150:
+            fHeight = 150 * fWidth / 600;
+            break;
+        case SYBannerSize640_100:
+            fHeight = 100 * fWidth / 640;
+            break;
+        case SYBannerSize690_388:
+            fHeight = 388 * fWidth / 690;
+            break;
+        default:
+            fHeight = 300 * fWidth / 600;
+            break;
+    }
     
     self.slotID = slotID;
     self.rootViewController = rootViewController;
@@ -71,14 +73,14 @@
     BUAdSlot *slot = [[BUAdSlot alloc] init];
     slot.ID = self.buSlotID;
     slot.AdType = BUAdSlotAdTypeFeed;
-    BUSize *imgSize = [BUSize sizeBy:BUProposalSize_Feed228_150];
+    BUSize *imgSize = [BUSize sizeBy:BUProposalSize_Feed690_388];
     slot.imgSize = imgSize;
     slot.position = BUAdSlotPositionFeed;
     // self.nativeExpressAdManager可以重用
     if (!self.nativeExpressAdManager) {
-        self.nativeExpressAdManager = [[BUNativeExpressAdManager alloc] initWithSlot:slot adSize:CGSizeMake([UIScreen mainScreen].bounds.size.width, 0)];
+        self.nativeExpressAdManager = [[BUNativeExpressAdManager alloc] initWithSlot:slot adSize:CGSizeMake(fWidth, fHeight)];
     }
-    self.nativeExpressAdManager.adSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, 0);
+//    self.nativeExpressAdManager.adSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, 0);
     self.nativeExpressAdManager.delegate = self;
 
     return self;
@@ -118,9 +120,12 @@
 
 - (void)nativeExpressAdViewRenderSuccess:(BUNativeExpressAdView *)nativeExpressAdView {
     NSLog(@"nativeExpressAdViewRenderSuccess");
+    self.frame = nativeExpressAdView.frame;
+    [self addSubview:self.expressAdViews];
+
+    
     [self.delegate bannerAdViewRenderSuccess:self];
     
-    [self addSubview:self.expressAdViews];
 }
 
 - (void)updateCurrentPlayedTime {

@@ -55,8 +55,8 @@
     
     self.bannerView.frame = CGRectMake(0
                                        , topbarHeight
-                                       , CGRectGetWidth(self.view.frame)
-                                       , CGRectGetWidth(self.view.frame) / 2);
+                                       , CGRectGetWidth(self.bannerView.frame)
+                                       , CGRectGetHeight(self.bannerView.frame));
     
     [self.view addSubview:self.bannerView];
 }
