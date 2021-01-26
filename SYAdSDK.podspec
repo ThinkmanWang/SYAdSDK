@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+SDK iOS
                        DESC
 
   s.homepage         = 'http://gitlab.huina365.com:10080/iOS/SYAdSDK'
