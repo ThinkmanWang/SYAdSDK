@@ -23,4 +23,9 @@ typedef NS_ENUM(NSInteger, SYBannerSize) {
     , SYBannerSize690_388
 };
 
+typedef NS_ENUM(NSInteger, SYInterstitialAdSize) {
+    SYInterstitialAdSize600_600
+    , SYInterstitialAdSize600_900
+};
+
 #endif

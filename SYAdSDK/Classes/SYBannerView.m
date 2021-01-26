@@ -14,7 +14,7 @@
 @property(nonatomic, strong) NSString* slotID;
 @property(nonatomic, strong) NSString* buSlotID;
 
-@property (nonatomic, weak) UIViewController *rootViewController;
+@property (nonatomic, strong) UIViewController *rootViewController;
 
 @property (strong, nonatomic) BUNativeExpressAdManager *nativeExpressAdManager;
 @property (strong, nonatomic) BUNativeExpressAdView *expressAdViews;

@@ -48,7 +48,7 @@
     [self addSubview:self.splashAdView];
 }
 
-#pragma mark events
+#pragma mark -events
 
 - (void)removeSplashAdView {
     NSLog(@"removeSplashAdView");

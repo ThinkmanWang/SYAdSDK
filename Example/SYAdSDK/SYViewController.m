@@ -48,7 +48,7 @@
     self.dataArray = @[
         @{@"sectionTitle": @"视煜广告SDK", @"classes": @[
             @{@"title": @"Banner", @"class": @"SYBannerViewController"},
-            @{@"title": @"插屏", @"class": @"InterstitialViewController"}
+            @{@"title": @"插屏", @"class": @"SYInterstitialAdViewController"}
             , @{@"title": @"原生广告", @"class": @"FeedViewController"}
         ]},
         @{@"sectionTitle": @"", @"classes": @[
