@@ -2,6 +2,7 @@
 #import "SYSplashAdView.h"
 
 #import <UIKit/UIKit.h>
+#import "SYAdSDKManager.h"
 #import <BUAdSDK/BUAdSDK.h>
 #import <AdSupport/AdSupport.h>
 #import <AppTrackingTransparency/AppTrackingTransparency.h>
@@ -10,6 +11,7 @@
 @interface SYSplashAdView () <BUSplashAdDelegate>
 @property(nonatomic, strong) BUSplashAdView* splashAdView;
 @property(nonatomic, strong) NSString* buSlotID;
+@property(nonatomic, strong) NSNumber* m_nResourceType;
 @end
 
 @implementation SYSplashAdView
@@ -22,15 +24,56 @@
         self.needSplashZoomOutAd = NO;
         self.delegate = nil;
         self.buSlotID = @"887421551";
+        self.buSlotID = nil;
+        self.m_nResourceType = [NSNumber numberWithInt:2];
     }
     
     return self;
+}
+
+- (NSString*)getRealSlotID:(NSString *)slotID {
+    NSArray* arySlot = SYAdSDKManager.dictConfig[@"data"][@"slotInfo"];
+    if (nil == arySlot) {
+        return nil;
+    }
+    
+    for (int i = 0; i < [arySlot count]; ++i) {
+        NSDictionary* dictSlot = arySlot[i];
+        if (nil == dictSlot) {
+            return nil;
+        }
+        
+        if ([slotID isEqualToString:[NSString stringWithFormat:@"%@", dictSlot[@"slotId"]]]) {
+            NSDictionary* dictSlotConfig = dictSlot[@"config"][0];
+            
+            self.m_nResourceType = dictSlotConfig[@"resourceType"];
+            switch ([self.m_nResourceType longValue]) {
+                case 1:
+                    self.buSlotID = dictSlotConfig[@"configParams"][@"gdt_slot_id"];
+                    break;
+                case 2:
+                    self.buSlotID = dictSlotConfig[@"configParams"][@"tt_slot_id"];
+                    break;
+                case 3:
+                    self.buSlotID = dictSlotConfig[@"configParams"][@"shiyu_slot_id"];
+                    break;
+                default:
+                    self.buSlotID = dictSlotConfig[@"configParams"][@"tt_slot_id"];
+                    break;
+            }
+            
+            return self.buSlotID;
+        }
+    }
+    
+    return self.buSlotID;
 }
 
 - (instancetype)initWithSlotID:(NSString *)slotID {
     self.slotID = slotID;
     
     CGRect frame = [UIScreen mainScreen].bounds;
+    self.buSlotID = [self getRealSlotID:slotID];
     self.splashAdView = [[BUSplashAdView alloc] initWithSlotID:self.buSlotID frame:frame];
     
     return self;
