@@ -70,20 +70,20 @@
     
     [self initLaunchScreen];
     
-    
 }
 
 - (void) initLaunchScreen {
-    [SYAdSDKManager setAppID:@"5134179"];
-    [SYAdSDKManager setLoglevel:SYAdSDKLogLevelDebug];
-    
-    self.splashAdView = [[[SYSplashAdView alloc] init] initWithSlotID:@"887421551"];
-    self.splashAdView.delegate = self;
-    
-    [self.window.rootViewController.view addSubview:self.splashAdView];
-    self.splashAdView.rootViewController = self.window.rootViewController;
+    [SYAdSDKManager initSSDK:@"MjUzMDU3MDAyNzU2" level:SYAdSDKLogLevelDebug onInitFinish:^(BOOL bSuccess) {
+        if (bSuccess) {
+            self.splashAdView = [[[SYSplashAdView alloc] init] initWithSlotID:@"887421551"];
+            self.splashAdView.delegate = self;
+            
+            [self.window.rootViewController.view addSubview:self.splashAdView];
+            self.splashAdView.rootViewController = self.window.rootViewController;
 
-    [self.splashAdView loadAdData];
+            [self.splashAdView loadAdData];
+        }
+    }];
 }
 
 
