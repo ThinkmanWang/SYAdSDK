@@ -23,7 +23,7 @@
 }
 
 - (void)initView {
-    self.bannerView = [[[SYBannerView alloc] init] initWithSlotID:@"945742204" rootViewController:self adSize:SYBannerSize600_300];
+    self.bannerView = [[[SYBannerView alloc] init] initWithSlotID:@"24013" rootViewController:self adSize:SYBannerSize600_300];
     self.bannerView.delegate = self;
     [self.bannerView loadAdData];
 }

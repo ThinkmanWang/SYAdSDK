@@ -6,13 +6,17 @@
 //
 
 #import "SYExpressAdManager.h"
+
 #import "SYExpressAdView.h"
+#import "SYAdSDKManager.h"
+
 #import <BUAdSDK/BUAdSDK.h>
 
 
 @interface SYExpressAdManager () <BUSplashAdDelegate>
 
 @property(nonatomic, strong) NSString* buSlotID;
+@property(nonatomic, strong) NSNumber* m_nResourceType;
 
 @property(nonatomic, strong) BUNativeExpressAdManager* nativeExpressAdManager;
 @property (strong, nonatomic) NSMutableArray<__kindof BUNativeExpressAdView *> *expressAdViews;
@@ -26,7 +30,8 @@
     self = [super init];
     if (self) {
         self.delegate = nil;
-        self.buSlotID = @"945746795";
+        self.buSlotID = nil;
+        self.m_nResourceType = [NSNumber numberWithInt:2];
         
         self.expressAdViews = [NSMutableArray new];
         self.syExpressAdViews = [NSMutableArray new];
@@ -35,11 +40,51 @@
     return self;
 }
 
+- (NSString*)getRealSlotID:(NSString *)slotID {
+    NSArray* arySlot = SYAdSDKManager.dictConfig[@"data"][@"slotInfo"];
+    if (nil == arySlot) {
+        return nil;
+    }
+    
+    for (int i = 0; i < [arySlot count]; ++i) {
+        NSDictionary* dictSlot = arySlot[i];
+        if (nil == dictSlot) {
+            return nil;
+        }
+        
+        if ([slotID isEqualToString:[NSString stringWithFormat:@"%@", dictSlot[@"slotId"]]]) {
+            NSDictionary* dictSlotConfig = dictSlot[@"config"][0];
+            
+            self.m_nResourceType = dictSlotConfig[@"resourceType"];
+            switch ([self.m_nResourceType longValue]) {
+                case 1:
+                    self.buSlotID = dictSlotConfig[@"configParams"][@"gdt_slot_id"];
+                    break;
+                case 2:
+                    self.buSlotID = dictSlotConfig[@"configParams"][@"tt_slot_id"];
+                    break;
+                case 3:
+                    self.buSlotID = dictSlotConfig[@"configParams"][@"shiyu_slot_id"];
+                    break;
+                default:
+                    self.buSlotID = dictSlotConfig[@"configParams"][@"tt_slot_id"];
+                    break;
+            }
+            
+            return self.buSlotID;
+        }
+    }
+    
+    return self.buSlotID;
+}
+
 /**
  @param size expected ad view size，when size.height is zero, acture height will match size.width
  */
 - (instancetype)initWithSlotID:(NSString *)slotID rootViewController:(UIViewController *)rootViewController adSize:(CGSize)size {
     self.slotID = slotID;
+    self.buSlotID = [self getRealSlotID:slotID];
+    
     self.rootViewController = rootViewController;
     
     BUAdSlot *slot = [[BUAdSlot alloc] init];
@@ -50,7 +95,7 @@
     slot.position = BUAdSlotPositionFeed;
     // self.nativeExpressAdManager可以重用
     if (!self.nativeExpressAdManager) {
-        self.nativeExpressAdManager = [[BUNativeExpressAdManager alloc] initWithSlot:slot adSize:size];
+        self.nativeExpressAdManager = [[BUNativeExpressAdManager alloc] initWithSlot:self.buSlotID adSize:size];
     }
 
     self.nativeExpressAdManager.delegate = self;
