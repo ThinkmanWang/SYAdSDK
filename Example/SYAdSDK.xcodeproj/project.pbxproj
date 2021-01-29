@@ -374,6 +374,9 @@
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Thinkman Wang";
 				TargetAttributes = {
+					6003F589195388D20070C39A = {
+						DevelopmentTeam = B4SM829HZH;
+					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
 					};
@@ -648,6 +651,7 @@
 			baseConfigurationReference = C11F2B339C4066B98C4FF112 /* Pods-SYAdSDK_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = B4SM829HZH;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SYAdSDK/SYAdSDK-Prefix.pch";
 				INFOPLIST_FILE = "SYAdSDK/SYAdSDK-Info.plist";
@@ -664,6 +668,7 @@
 			baseConfigurationReference = 7109DE66172693520712DD09 /* Pods-SYAdSDK_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = B4SM829HZH;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SYAdSDK/SYAdSDK-Prefix.pch";
 				INFOPLIST_FILE = "SYAdSDK/SYAdSDK-Info.plist";
