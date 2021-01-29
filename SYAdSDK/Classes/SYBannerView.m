@@ -121,7 +121,7 @@
     slot.position = BUAdSlotPositionFeed;
     // self.nativeExpressAdManager可以重用
     if (!self.nativeExpressAdManager) {
-        self.nativeExpressAdManager = [[BUNativeExpressAdManager alloc] initWithSlot:@"945746795" adSize:CGSizeMake(fWidth, fHeight)];
+        self.nativeExpressAdManager = [[BUNativeExpressAdManager alloc] initWithSlot:slot adSize:CGSizeMake(fWidth, fHeight)];
     }
 //    self.nativeExpressAdManager.adSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, 0);
     self.nativeExpressAdManager.delegate = self;
