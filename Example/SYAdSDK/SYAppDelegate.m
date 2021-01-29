@@ -73,7 +73,7 @@
 }
 
 - (void) initLaunchScreen {
-    [SYAdSDKManager initSSDK:@"MjUzMDU3MDAyNzU2" level:SYAdSDKLogLevelDebug onInitFinish:^(BOOL bSuccess) {
+    [SYAdSDKManager initSDK:@"MjUzMDU3MDAyNzU2" level:SYAdSDKLogLevelDebug onInitFinish:^(BOOL bSuccess) {
         if (bSuccess) {
             self.splashAdView = [[[SYSplashAdView alloc] init] initWithSlotID:@"24011"];
             self.splashAdView.delegate = self;

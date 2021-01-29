@@ -8,8 +8,9 @@
 
 + (NSString *)appID;
 + (NSDictionary*) dictConfig;
++ (NSString*) idfa;
 
-+ (void) initSSDK:(NSString *)appID level:(SYAdSDKLogLevel)level onInitFinish: (void (^)(BOOL bSuccess)) handler;
++ (void) initSDK:(NSString *)appID level:(SYAdSDKLogLevel)level onInitFinish: (void (^)(BOOL bSuccess)) handler;
 
 ///**
 // Register the App key that’s already been applied before requesting an ad from TikTok Audience Network.
