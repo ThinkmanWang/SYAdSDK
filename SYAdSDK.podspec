@@ -11,7 +11,7 @@
 Pod::Spec.new do |s|
 	
   s.name             = 'SYAdSDK'
-  s.version          = '0.3.2'
+  s.version          = '0.6.0'
   s.summary          = 'Shiyu Ad SDK for iOS'
 
 # This description is used to generate tags and improve search results.
@@ -38,7 +38,7 @@ Shiyu Ad SDK for iOS
   
   s.static_framework = true
   s.dependency 'Bytedance-UnionAD', '~> 3.3.1.5'
-  s.dependency 'AFNetworking', '~> 2.3'
+  # s.dependency 'AFNetworking', '~> 2.3'
   
   # s.resource_bundles = {
   #   'SYAdSDK' => ['SYAdSDK/Assets/*.png']
