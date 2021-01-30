@@ -11,6 +11,7 @@
 #import "SYAdSDKManager.h"
 
 #import <BUAdSDK/BUAdSDK.h>
+#import "log/SYLogUtils.h"
 
 
 @interface SYExpressAdManager () <BUSplashAdDelegate>
@@ -116,6 +117,7 @@
     }
     
     [self.nativeExpressAdManager loadAdDataWithCount:count];
+    [SYLogUtils report:self.slotID sourceId:0 type:11008];
 }
 
 /**
@@ -141,6 +143,8 @@
             
             [expressView render];
         }];
+        
+        [SYLogUtils report:self.slotID sourceId:0 type:11020];
     }
     
     if (self.delegate) {
@@ -155,6 +159,8 @@
     if (self.delegate) {
         [self.delegate expressAdFailToLoad:self];
     }
+    
+    [SYLogUtils report:self.slotID sourceId:0 type:11009];
 }
 
 /**
@@ -167,6 +173,8 @@
         
         [self.delegate expressAdViewRenderSuccess:view];
     }
+    
+    [SYLogUtils report:self.slotID sourceId:0 type:1];
 }
 
 /**
@@ -176,6 +184,8 @@
     if (self.delegate) {
         [self.delegate expressAdViewRenderFail:nativeExpressAdView.superview];
     }
+    
+    [SYLogUtils report:self.slotID sourceId:0 type:11009];
 }
 
 /**
@@ -194,6 +204,8 @@
     if (self.delegate) {
         [self.delegate expressAdViewDidClick:nativeExpressAdView.superview];
     }
+    
+    [SYLogUtils report:self.slotID sourceId:0 type:2];
 }
 
 /**

@@ -10,6 +10,8 @@
 
 #import <BUAdSDK/BUAdSDK.h>
 
+#import "log/SYLogUtils.h"
+
 @interface SYInterstitialAd () <BUNativeExpresInterstitialAdDelegate>
 @property(nonatomic, strong) NSString* slotID;
 @property(nonatomic, strong) NSString* buSlotID;
@@ -101,6 +103,7 @@
  Load interstitial ad datas.
  */
 - (void)loadAdData {
+    [SYLogUtils report:self.slotID sourceId:0 type:11008];
     return [self.interstitialAd loadAdData];
 }
 
@@ -111,6 +114,7 @@
  */
 - (BOOL)showAdFromRootViewController:(UIViewController *)rootViewController {
     
+    [SYLogUtils report:self.slotID sourceId:0 type:1];
     self.rootViewController = rootViewController;
     
     if (self.interstitialAd) {
@@ -126,6 +130,8 @@
     if (self.delegate) {
         [self.delegate interstitialAdDidLoad:self];
     }
+    
+    [SYLogUtils report:self.slotID sourceId:0 type:11020];
 }
 
 - (void)nativeExpresInterstitialAd:(BUNativeExpressInterstitialAd *)interstitialAd didFailWithError:(NSError *)error {
@@ -134,6 +140,8 @@
     if (self.delegate) {
         [self.delegate interstitialAd:self];
     }
+    
+    [SYLogUtils report:self.slotID sourceId:0 type:11009];
 }
 
 - (void)nativeExpresInterstitialAdRenderSuccess:(BUNativeExpressInterstitialAd *)interstitialAd {
@@ -143,6 +151,8 @@
     if (self.delegate) {
         [self.delegate interstitialAdRenderSuccess:self];
     }
+    
+    [SYLogUtils report:self.slotID sourceId:0 type:1];
 }
 
 - (void)nativeExpresInterstitialAdRenderFail:(BUNativeExpressInterstitialAd *)interstitialAd error:(NSError *)error {
@@ -152,6 +162,8 @@
     if (self.delegate) {
         [self.delegate interstitialAdRenderFail:self];
     }
+    
+    [SYLogUtils report:self.slotID sourceId:0 type:11009];
 }
 
 - (void)nativeExpresInterstitialAdWillVisible:(BUNativeExpressInterstitialAd *)interstitialAd {
@@ -160,6 +172,8 @@
     if (self.delegate) {
         [self.delegate interstitialAdWillVisible:self];
     }
+    
+    [SYLogUtils report:self.slotID sourceId:0 type:1];
 }
 
 - (void)nativeExpresInterstitialAdDidClick:(BUNativeExpressInterstitialAd *)interstitialAd {
@@ -168,6 +182,8 @@
     if (self.delegate) {
         [self.delegate interstitialAdDidClick:self];
     }
+    
+    [SYLogUtils report:self.slotID sourceId:0 type:2];
 }
 
 - (void)nativeExpresInterstitialAdWillClose:(BUNativeExpressInterstitialAd *)interstitialAd {

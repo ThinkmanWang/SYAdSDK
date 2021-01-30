@@ -11,6 +11,8 @@
 
 
 #import <BUAdSDK/BUAdSDK.h>
+#import "log/SYLogUtils.h"
+
 
 @interface SYBannerView () <BUNativeExpressBannerViewDelegate>
 @property(nonatomic, strong) NSString* slotID;
@@ -30,6 +32,7 @@
     if (self) {
         self.buSlotID = nil;
         self.m_nResourceType = [NSNumber numberWithInt:2];
+        self.delegate = nil;
     }
     
     return self;
@@ -131,6 +134,7 @@
 
 - (void)loadAdData {
     [self.nativeExpressAdManager loadAd:1];
+    [SYLogUtils report:self.slotID sourceId:0 type:11008];
 }
 
 /*
@@ -148,17 +152,22 @@
         return;
     }
     
-    [self.delegate bannerAdViewDidLoad:self];
+    if (self.delegate) {
+        [self.delegate bannerAdViewDidLoad:self];
+    }
     
     BUNativeExpressAdView *expressView = (BUNativeExpressAdView *)views[0];
     expressView.rootViewController = self.rootViewController;
     [expressView render];
     
     self.expressAdViews = expressView;
+    [SYLogUtils report:self.slotID sourceId:0 type:11020];
 }
 
 - (void)nativeExpressAdFailToLoad:(BUNativeExpressAdManager *)nativeExpressAd error:(NSError *)error {
-    [self.delegate bannerAdViewLoadFailed:self];
+    if (self.delegate) {
+        [self.delegate bannerAdViewLoadFailed:self];
+    }
 }
 
 - (void)nativeExpressAdViewRenderSuccess:(BUNativeExpressAdView *)nativeExpressAdView {
@@ -167,8 +176,10 @@
     [self addSubview:self.expressAdViews];
 
     
-    [self.delegate bannerAdViewRenderSuccess:self];
-    
+    if (self.delegate) {
+        [self.delegate bannerAdViewRenderSuccess:self];
+    }
+    [SYLogUtils report:self.slotID sourceId:0 type:1];
 }
 
 - (void)updateCurrentPlayedTime {
@@ -180,15 +191,22 @@
 }
 
 - (void)nativeExpressAdViewRenderFail:(BUNativeExpressAdView *)nativeExpressAdView error:(NSError *)error {
-    [self.delegate bannerAdViewRenderFail:self];
+    if (self.delegate) {
+        [self.delegate bannerAdViewRenderFail:self];
+    }
+    [SYLogUtils report:self.slotID sourceId:0 type:11009];
 }
 
 - (void)nativeExpressAdViewWillShow:(BUNativeExpressAdView *)nativeExpressAdView {
-    [self.delegate bannerAdViewWillBecomVisible:self];
+    if (self.delegate) {
+        [self.delegate bannerAdViewWillBecomVisible:self];
+    }
 }
 
 - (void)nativeExpressAdViewDidClick:(BUNativeExpressAdView *)nativeExpressAdView {
-    [self.delegate bannerAdViewDidClick:self];
+    if (self.delegate) {
+        [self.delegate bannerAdViewDidClick:self];
+    }
 }
 
 - (void)nativeExpressAdViewPlayerDidPlayFinish:(BUNativeExpressAdView *)nativeExpressAdView error:(NSError *)error {

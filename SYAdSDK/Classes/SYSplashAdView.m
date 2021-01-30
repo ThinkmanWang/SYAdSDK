@@ -117,7 +117,9 @@
         splashAd.zoomOutView.delegate = self;
     }
     
-    [self.delegate splashAdDidLoad:self];
+    if (self.delegate) {
+        [self.delegate splashAdDidLoad:self];
+    }
     [SYLogUtils report:self.slotID sourceId:0 type:11020];
 }
 
@@ -129,7 +131,9 @@
         [splashAd removeFromSuperview];
     }
     
-    [self.delegate splashAdDidClose:self];
+    if (self.delegate) {
+        [self.delegate splashAdDidClose:self];
+    }
 }
 
 - (void)splashAdDidClick:(BUSplashAdView *)splashAd {
@@ -141,7 +145,9 @@
     // Subsequent agent callbacks will not be triggered after the 'splashAdView' is released early.
     [splashAd removeFromSuperview];
     
-    [self.delegate splashAdDidClick:self];
+    if (self.delegate) {
+        [self.delegate splashAdDidClick:self];
+    }
     [SYLogUtils report:self.slotID sourceId:0 type:2];
 }
 
@@ -154,7 +160,9 @@
         [self removeSplashAdView];
     }
     
-    [self.delegate splashAdDidClickSkip:self];
+    if (self.delegate) {
+        [self.delegate splashAdDidClickSkip:self];
+    }
 }
 
 - (void)splashAd:(BUSplashAdView *)splashAd didFailWithError:(NSError *)error {
@@ -162,20 +170,26 @@
     // Display fails, completely remove 'splashAdView', avoid memory leak
     [self removeSplashAdView];
     
-    [self.delegate splashAd:self];
+    if (self.delegate) {
+        [self.delegate splashAd:self];
+    }
     [SYLogUtils report:self.slotID sourceId:0 type:11009];
 }
 
 - (void)splashAdWillVisible:(BUSplashAdView *)splashAd {
     //NSLog(@"splashAdWillVisible");
-    [self.delegate splashAdWillVisible:self];
+    if (self.delegate) {
+        [self.delegate splashAdWillVisible:self];
+    }
     [SYLogUtils report:self.slotID sourceId:0 type:1];
 }
 
 - (void)splashAdWillClose:(BUSplashAdView *)splashAd {
     //NSLog(@"splashAdWillClose");
     
-    [self.delegate splashAdWillClose:self];
+    if (self.delegate) {
+        [self.delegate splashAdWillClose:self];
+    }
 }
 
 - (void)splashAdDidCloseOtherController:(BUSplashAdView *)splashAd interactionType:(BUInteractionType)interactionType {
@@ -183,7 +197,9 @@
     //NSLog(@"splashAdDidCloseOtherController");
     [self removeSplashAdView];
     
-    [self.delegate splashAdDidCloseOtherController:self];
+    if (self.delegate) {
+        [self.delegate splashAdDidCloseOtherController:self];
+    }
 }
 
 
@@ -195,7 +211,9 @@
         [self removeSplashAdView];
     }
     
-    [self.delegate splashAdCountdownToZero:self];
+    if (self.delegate) {
+        [self.delegate splashAdCountdownToZero:self];
+    }
 }
 
 #pragma mark - BUSplashZoomOutViewDelegate
