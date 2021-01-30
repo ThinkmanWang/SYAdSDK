@@ -45,32 +45,52 @@
     return mutStr;
 }
 
-+ (void) report:(NSString*) pszUserID slotId:(NSString*) pszSlotID sourceId:(NSNumber*) nSourceID type:(NSNumber*) nType {
-    NSString* pszRequestId = [SYLogUtils uuidString];
++ (void) report:(NSString*) pszSlotID sourceId:(int) nSourceID type:(int) nType {
+    NSString* pszRequestId = [[SYLogUtils uuidString] stringByReplacingOccurrencesOfString:@"-" withString:@""];
     NSString* pszAppID = SYAdSDKManager.appID;
     NSNumber* nTimestamp = [NSNumber numberWithUnsignedLong:[[NSDate date] timeIntervalSince1970]*1000];
     NSNumber* nOSType = [NSNumber numberWithInt:1];
     NSNumber* nInteractionType = [NSNumber numberWithInt:2];
- 
-    NSDictionary* dictData = @{
-        @"requestId": pszRequestId
-        , @"appId": pszAppID
-        , @"slotId": pszSlotID
-        , @"sourceId": nSourceID
-        , @"type": nType
-        , @"timestamp": nTimestamp
-        , @"userId": SYAdSDKManager.idfa
-        , @"osType": @"1"
-        , @"interactionType": nInteractionType
-    };
     
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://openapi.jiegames.com/Advertise/getSdkSlotResourceConfig"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0];
+    NSDictionary* dictData = @{
+        @"appId": pszAppID
+        , @"sdkId": @""
+        , @"pluginId": @""
+        , @"userId": SYAdSDKManager.idfa
+        , @"logInfo": @{
+                @"requestId": pszRequestId
+                , @"appId": pszAppID
+                , @"slotId": pszSlotID
+                , @"sourceId": [NSNumber numberWithInt:nSourceID]
+                , @"type": [NSNumber numberWithInt:nType]
+                , @"timestamp": nTimestamp
+                , @"userId": SYAdSDKManager.idfa
+                , @"osType": @"1"
+                , @"interactionType": nInteractionType
+            }
+        , @"logType": @"palmar_info_message"
+        , @"timestamp": nTimestamp
+    };
+ 
+//    NSDictionary* dictData = @{
+//        @"requestId": pszRequestId
+//        , @"appId": pszAppID
+//        , @"slotId": pszSlotID
+//        , @"sourceId": nSourceID
+//        , @"type": nType
+//        , @"timestamp": nTimestamp
+//        , @"userId": SYAdSDKManager.idfa
+//        , @"osType": @"1"
+//        , @"interactionType": nInteractionType
+//    };
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://openapi.jiegames.com/logger/logInfoUpload"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0];
     NSDictionary *headers = @{
         @"Content-Type": @"text/plain"
     };
 
     [request setAllHTTPHeaderFields:headers];
-    NSString* body = [SYLogUtils convertToJsonData:dictData];
+    NSString* body = [NSString stringWithFormat:@"[%@]", [SYLogUtils convertToJsonData:dictData]];
     NSData *postData = [[NSData alloc] initWithData:[body dataUsingEncoding:NSUTF8StringEncoding]];
     [request setHTTPBody:postData];
     [request setHTTPMethod:@"POST"];

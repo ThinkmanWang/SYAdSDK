@@ -7,6 +7,8 @@
 #import <AdSupport/AdSupport.h>
 #import <AppTrackingTransparency/AppTrackingTransparency.h>
 
+#import "log/SYLogUtils.h"
+
 
 @interface SYSplashAdView () <BUSplashAdDelegate>
 @property(nonatomic, strong) BUSplashAdView* splashAdView;
@@ -89,6 +91,7 @@
     
     
     [self addSubview:self.splashAdView];
+    [SYLogUtils report:self.slotID sourceId:0 type:11008];
 }
 
 #pragma mark -events
@@ -115,6 +118,7 @@
     }
     
     [self.delegate splashAdDidLoad:self];
+    [SYLogUtils report:self.slotID sourceId:0 type:11020];
 }
 
 - (void)splashAdDidClose:(BUSplashAdView *)splashAd {
@@ -138,6 +142,7 @@
     [splashAd removeFromSuperview];
     
     [self.delegate splashAdDidClick:self];
+    [SYLogUtils report:self.slotID sourceId:0 type:2];
 }
 
 - (void)splashAdDidClickSkip:(BUSplashAdView *)splashAd {
@@ -158,11 +163,13 @@
     [self removeSplashAdView];
     
     [self.delegate splashAd:self];
+    [SYLogUtils report:self.slotID sourceId:0 type:11009];
 }
 
 - (void)splashAdWillVisible:(BUSplashAdView *)splashAd {
     //NSLog(@"splashAdWillVisible");
     [self.delegate splashAdWillVisible:self];
+    [SYLogUtils report:self.slotID sourceId:0 type:1];
 }
 
 - (void)splashAdWillClose:(BUSplashAdView *)splashAd {

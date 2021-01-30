@@ -5,6 +5,7 @@
 #import <AppTrackingTransparency/AppTrackingTransparency.h>
 #import <AdSupport/AdSupport.h>
 
+#import "log/SYLogUtils.h"
 
 @interface SYAdSDKManager ()
 +(NSString*) buAppID;
@@ -93,6 +94,11 @@ static NSString* idfa = nil;
             
     }];
 }
+
++ (NSString*) appID {
+    return appID;
+}
+
 /**
  Register the App key that’s already been applied before requesting an ad from TikTok Audience Network.
  @param appID : the unique identifier of the App

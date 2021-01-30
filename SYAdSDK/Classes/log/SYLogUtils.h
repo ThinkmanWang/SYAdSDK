@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SYLogUtils : NSObject
 
-+ (void) report:(NSString*) pszUserID slotId:(NSString*) pszSlotID sourceId:(NSNumber*) nSourceID type:(NSNumber*) nType ;
++ (void) report:(NSString*) pszSlotID sourceId:(int) nSourceID type:(int) nType ;
 
 @end
 
