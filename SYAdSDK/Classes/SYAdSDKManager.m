@@ -96,7 +96,7 @@ static NSString* idfa = nil;
             dictConfig = dictRet;
             buAppID = dictConfig[@"data"][@"appConfig"][@"tt_appid"];
             [BUAdSDKManager setAppID:buAppID];
-            [BUAdSDKManager setCustomIDFA:idfa];
+//            [BUAdSDKManager setCustomIDFA:idfa];
         }
         
         handler(connectionError == nil);
