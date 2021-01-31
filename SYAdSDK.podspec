@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = "SYAdSDK"
-  s.version = "0.7.4"
+  s.version = "0.7.5"
   s.summary = "Shiyu Ad SDK for iOS"
   s.license = {"type"=>"MIT", "file"=>"LICENSE"}
   s.authors = {"Thinkman Wang"=>"wangxf1985@gmail.com"}
@@ -11,5 +11,5 @@ Pod::Spec.new do |s|
   s.source = { :path => 'https://github.com/ThinkmanWang/SYAdSDK.git', :tag => s.version.to_s }
 
   s.ios.deployment_target    = '9.0'
-  s.ios.vendored_framework   = 'SYAdSDK.framework'
+  s.ios.vendored_framework   = 'SYAdSDK.framework', 'frameworks/BUAdSDK.bundle', 'frameworks/BUAdSDK.framework', 'frameworks/BUFoundation.framework'
 end
