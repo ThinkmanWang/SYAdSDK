@@ -34,6 +34,14 @@ static NSString* idfa = nil;
     idfa = val;
 }
 
++ (NSString*) buAppID {
+    return buAppID;
+}
+
++ (void) setBuAppID:(NSString*)val {
+    buAppID = val;
+}
+
 //+ (void)initIDFA{
 //    if (@available(iOS 14.0, *)) {
 //        ATTrackingManagerAuthorizationStatus states = [ATTrackingManager trackingAuthorizationStatus];
