@@ -11,5 +11,5 @@ Pod::Spec.new do |s|
   s.source = { :path => 'https://github.com/ThinkmanWang/SYAdSDK.git', :tag => s.version.to_s }
 
   s.ios.deployment_target    = '9.0'
-  s.vendored_framework   = 'ios/SYAdSDK.framework'
+  s.ios.vendored_framework   = 'SYAdSDK.framework'
 end
