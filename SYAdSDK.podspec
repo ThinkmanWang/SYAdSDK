@@ -38,7 +38,7 @@ Shiyu Ad SDK for iOS
   s.public_header_files = ['SYAdSDK/Classes/SYAdSDK.h', 'SYAdSDK/Classes/SYAdSDKDefines.h', 'SYAdSDK/Classes/SYAdSDKManager.h', 'SYAdSDK/Classes/SYBannerView.h', 'SYAdSDK/Classes/SYExpressAdManager.h', 'SYAdSDK/Classes/SYExpressAdView.h', 'SYAdSDK/Classes/SYInterstitialAd.h', 'SYAdSDK/Classes/SYSplashAdView.h']
   
   s.static_framework = true
-  s.vendored_frameworks = 'lib/BUAdSDK.bundle', 'lib/BUAdSDK.framework', 'lib/BUFoundation.framework'
+  s.vendored_frameworks = 'frameworks/BUAdSDK.bundle', 'frameworks/BUAdSDK.framework', 'frameworks/BUFoundation.framework'
 #  s.dependency 'Bytedance-UnionAD', '~> 3.3.1.5'
   
   # s.resource_bundles = {

@@ -2,8 +2,8 @@
 #import "SYAdSDKManager.h"
 
 #import <BUAdSDK/BUAdSDK.h>
-#import <AppTrackingTransparency/AppTrackingTransparency.h>
-#import <AdSupport/AdSupport.h>
+//#import <AppTrackingTransparency/AppTrackingTransparency.h>
+//#import <AdSupport/AdSupport.h>
 
 #import "log/SYLogUtils.h"
 
@@ -34,34 +34,34 @@ static NSString* idfa = nil;
     idfa = val;
 }
 
-+ (void)initIDFA{
-    if (@available(iOS 14.0, *)) {
-        ATTrackingManagerAuthorizationStatus states = [ATTrackingManager trackingAuthorizationStatus];
-        if (ATTrackingManagerAuthorizationStatusAuthorized == states) {
-            idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
-        } else {
-            idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
-//            idfa = @"00000000-0000-0000-0000-000000000000";
-        }
-    } else {
-        // iOS14以下版本依然使用老方法
-        // 判断在设置-隐私里用户是否打开了广告跟踪
+//+ (void)initIDFA{
+//    if (@available(iOS 14.0, *)) {
+//        ATTrackingManagerAuthorizationStatus states = [ATTrackingManager trackingAuthorizationStatus];
+//        if (ATTrackingManagerAuthorizationStatusAuthorized == states) {
+//            idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+//        } else {
+//            idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+////            idfa = @"00000000-0000-0000-0000-000000000000";
+//        }
+//    } else {
+//        // iOS14以下版本依然使用老方法
+//        // 判断在设置-隐私里用户是否打开了广告跟踪
+//
+//        if ([[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled]) {
+//            idfa = [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString];
+//            NSLog(@"%@",idfa);
+//        }else{
+//            NSLog(@"请在设置-隐私-广告中打开广告跟踪功能");
+//        }
+//    }
+//}
 
-        if ([[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled]) {
-            idfa = [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString];
-            NSLog(@"%@",idfa);
-        }else{
-            NSLog(@"请在设置-隐私-广告中打开广告跟踪功能");
-        }
-    }
-}
-
-+ (void) initSDK:(NSString *)appID level:(SYAdSDKLogLevel)level onInitFinish: (void (^)(BOOL bSuccess)) handler {
++ (void) initSDK:(NSString*)_idfa appID:(NSString *)appID level:(SYAdSDKLogLevel)level onInitFinish: (void (^)(BOOL bSuccess)) handler {
     [SYAdSDKManager setAppID:appID];
     [SYAdSDKManager setLoglevel:level];
     
     if (nil == idfa) {
-        [SYAdSDKManager initIDFA];
+        idfa = _idfa;
     }
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://openapi.jiegames.com/Advertise/getSdkSlotResourceConfig"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0];
@@ -88,6 +88,7 @@ static NSString* idfa = nil;
             dictConfig = dictRet;
             buAppID = dictConfig[@"data"][@"appConfig"][@"tt_appid"];
             [BUAdSDKManager setAppID:buAppID];
+            [BUAdSDKManager setCustomIDFA:idfa];
         }
         
         handler(connectionError == nil);
