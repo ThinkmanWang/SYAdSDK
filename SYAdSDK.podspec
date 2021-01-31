@@ -11,7 +11,7 @@
 Pod::Spec.new do |s|
 	
   s.name             = 'SYAdSDK'
-  s.version          = '0.6.0'
+  s.version          = '0.7.0'
   s.summary          = 'Shiyu Ad SDK for iOS'
 
 # This description is used to generate tags and improve search results.
@@ -24,7 +24,7 @@ Pod::Spec.new do |s|
 Shiyu Ad SDK for iOS
                        DESC
 
-  s.homepage         = 'http://gitlab.huina365.com:10080/iOS/SYAdSDK'
+  s.homepage         = 'https://github.com/ThinkmanWang/SYAdSDK'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Thinkman Wang' => 'wangxf1985@gmail.com' }
@@ -33,12 +33,12 @@ Shiyu Ad SDK for iOS
 
   s.ios.deployment_target = '9.0'
 
-  s.source_files = 'SYAdSDK/Classes/**/*.{h,m}'
-  s.public_header_files = "SYAdSDK/Classes/**/*.h"
+  s.source_files = 'SYAdSDK/Classes/**/*'
+#  s.public_header_files = "SYAdSDK/Classes/**/*.h"
+  s.public_header_files = ['SYAdSDK/Classes/SYAdSDK.h', 'SYAdSDK/Classes/SYAdSDKDefines.h', 'SYAdSDK/Classes/SYAdSDKManager.h', 'SYAdSDK/Classes/SYBannerView.h', 'SYAdSDK/Classes/SYExpressAdManager.h', 'SYAdSDK/Classes/SYExpressAdView.h', 'SYAdSDK/Classes/SYInterstitialAd.h', 'SYAdSDK/Classes/SYSplashAdView.h']
   
   s.static_framework = true
   s.dependency 'Bytedance-UnionAD', '~> 3.3.1.5'
-  # s.dependency 'AFNetworking', '~> 2.3'
   
   # s.resource_bundles = {
   #   'SYAdSDK' => ['SYAdSDK/Assets/*.png']
