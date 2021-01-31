@@ -1,0 +1,6 @@
+framework module SYAdSDK {
+  umbrella header "SYAdSDK.h"
+
+  export *
+  module * { export * }
+}
