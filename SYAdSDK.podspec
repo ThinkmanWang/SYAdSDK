@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = "SYAdSDK"
-  s.version = "0.7.2"
+  s.version = "0.7.4"
   s.summary = "Shiyu Ad SDK for iOS"
   s.license = {"type"=>"MIT", "file"=>"LICENSE"}
   s.authors = {"Thinkman Wang"=>"wangxf1985@gmail.com"}
