@@ -163,7 +163,6 @@
     [expressView render];
     
     self.expressAdViews = expressView;
-    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11020];
 }
 
 - (void)nativeExpressAdFailToLoad:(BUNativeExpressAdManager *)nativeExpressAd error:(NSError *)error {
@@ -182,6 +181,7 @@
         [self.delegate bannerAdViewRenderSuccess:self];
     }
     
+    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11020];
 }
 
 - (void)updateCurrentPlayedTime {
@@ -211,6 +211,8 @@
     if (self.delegate) {
         [self.delegate bannerAdViewDidClick:self];
     }
+    
+    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:2];
 }
 
 - (void)nativeExpressAdViewPlayerDidPlayFinish:(BUNativeExpressAdView *)nativeExpressAdView error:(NSError *)error {

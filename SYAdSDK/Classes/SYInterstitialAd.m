@@ -133,7 +133,6 @@
         [self.delegate interstitialAdDidLoad:self];
     }
     
-    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11020];
 }
 
 - (void)nativeExpresInterstitialAd:(BUNativeExpressInterstitialAd *)interstitialAd didFailWithError:(NSError *)error {
@@ -154,7 +153,7 @@
         [self.delegate interstitialAdRenderSuccess:self];
     }
     
-    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:1];
+    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11020];
 }
 
 - (void)nativeExpresInterstitialAdRenderFail:(BUNativeExpressInterstitialAd *)interstitialAd error:(NSError *)error {

@@ -146,7 +146,6 @@
             [expressView render];
         }];
         
-        [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11020];
     }
     
     if (self.delegate) {
@@ -161,8 +160,6 @@
     if (self.delegate) {
         [self.delegate expressAdFailToLoad:self];
     }
-    
-    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11009];
 }
 
 /**
@@ -175,6 +172,8 @@
         
         [self.delegate expressAdViewRenderSuccess:view];
     }
+    
+    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11020];
 }
 
 /**
