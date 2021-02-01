@@ -11,7 +11,7 @@
 Pod::Spec.new do |s|
 	
   s.name             = 'SYAdSDK'
-  s.version          = '0.7.5'
+  s.version          = '0.7.9'
   s.summary          = 'Shiyu Ad SDK for iOS'
 
 # This description is used to generate tags and improve search results.
@@ -38,7 +38,8 @@ Shiyu Ad SDK for iOS
   s.public_header_files = ['SYAdSDK/Classes/SYAdSDK.h', 'SYAdSDK/Classes/SYAdSDKDefines.h', 'SYAdSDK/Classes/SYAdSDKManager.h', 'SYAdSDK/Classes/SYBannerView.h', 'SYAdSDK/Classes/SYExpressAdManager.h', 'SYAdSDK/Classes/SYExpressAdView.h', 'SYAdSDK/Classes/SYInterstitialAd.h', 'SYAdSDK/Classes/SYSplashAdView.h']
   
   s.static_framework = true
-  s.vendored_frameworks = 'frameworks/BUAdSDK.bundle', 'frameworks/BUAdSDK.framework', 'frameworks/BUFoundation.framework'
+  s.vendored_frameworks = 'frameworks/BUAdSDK.framework', 'frameworks/BUFoundation.framework'
+  s.resource = 'frameworks/BUAdSDK.bundle'
 #  s.dependency 'Bytedance-UnionAD', '~> 3.3.1.5'
   
   # s.resource_bundles = {

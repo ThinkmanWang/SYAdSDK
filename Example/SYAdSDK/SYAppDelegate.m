@@ -9,6 +9,7 @@
 #import "SYAppDelegate.h"
 #import <SYAdSDK/SYAdSDK.h>
 #import <AppTrackingTransparency/AppTrackingTransparency.h>
+#import <AdSupport/AdSupport.h>
 
 #import "SYViewController.h"
 
@@ -61,19 +62,25 @@
 
 #pragma mark - SYAdSDK
 - (void)requestIDFA {
-    if (@available(iOS 14.0, *)) {
-        ATTrackingManagerAuthorizationStatus states = [ATTrackingManager trackingAuthorizationStatus];
-        if (ATTrackingManagerAuthorizationStatusAuthorized == states) {
-            NSLog(@"Request IDFA SUCCESS!!!");
-        }
+    
+    if (@available(iOS 14, *)) {
+        [ATTrackingManager requestTrackingAuthorizationWithCompletionHandler:^(ATTrackingManagerAuthorizationStatus status) {
+            if (status == ATTrackingManagerAuthorizationStatusAuthorized) {
+                NSString* idfa = [[ASIdentifierManager sharedManager] advertisingIdentifier].UUIDString;
+                [self initLaunchScreen:idfa];
+            } else {
+                [self initLaunchScreen:@"00000000-0000-0000-0000-000000000000"];
+            }
+        }];
+    } else {
+        // 使用原方式访问 IDFA
+        NSString* idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+        [self initLaunchScreen:idfa];
     }
-    
-    [self initLaunchScreen];
-    
 }
 
-- (void) initLaunchScreen {
-    [SYAdSDKManager initSDK:@"MjUzMDU3MDAyNzU2" level:SYAdSDKLogLevelDebug onInitFinish:^(BOOL bSuccess) {
+- (void) initLaunchScreen:(NSString*) idfa {
+    [SYAdSDKManager initSDK:idfa appID:@"MjUzMDU3MDAyNzU2" level:SYAdSDKLogLevelDebug onInitFinish:^(BOOL bSuccess) {
         if (bSuccess) {
             self.splashAdView = [[[SYSplashAdView alloc] init] initWithSlotID:@"24011"];
             self.splashAdView.delegate = self;

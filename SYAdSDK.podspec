@@ -11,7 +11,7 @@
 Pod::Spec.new do |s|
 	
   s.name             = 'SYAdSDK'
-  s.version          = '0.7.0'
+  s.version          = '0.7.9'
   s.summary          = 'Shiyu Ad SDK for iOS'
 
 # This description is used to generate tags and improve search results.
@@ -28,7 +28,7 @@ Shiyu Ad SDK for iOS
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Thinkman Wang' => 'wangxf1985@gmail.com' }
-  s.source           = { :git => 'ssh://git@gitlab.huina365.com:10022/iOS/SYAdSDK.git', :tag => s.version.to_s }
+  s.source           = { :git => '/Users/wangxiaofeng/Github-Thinkman/MyPods/SYAdSDK', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '9.0'
@@ -38,7 +38,9 @@ Shiyu Ad SDK for iOS
   s.public_header_files = ['SYAdSDK/Classes/SYAdSDK.h', 'SYAdSDK/Classes/SYAdSDKDefines.h', 'SYAdSDK/Classes/SYAdSDKManager.h', 'SYAdSDK/Classes/SYBannerView.h', 'SYAdSDK/Classes/SYExpressAdManager.h', 'SYAdSDK/Classes/SYExpressAdView.h', 'SYAdSDK/Classes/SYInterstitialAd.h', 'SYAdSDK/Classes/SYSplashAdView.h']
   
   s.static_framework = true
-  s.dependency 'Bytedance-UnionAD', '~> 3.3.1.5'
+  s.vendored_frameworks = 'frameworks/BUAdSDK.framework', 'frameworks/BUFoundation.framework'
+  s.resource = 'frameworks/BUAdSDK.bundle'
+#  s.dependency 'Bytedance-UnionAD', '~> 3.3.1.5'
   
   # s.resource_bundles = {
   #   'SYAdSDK' => ['SYAdSDK/Assets/*.png']
