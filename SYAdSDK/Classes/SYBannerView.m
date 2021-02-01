@@ -137,6 +137,7 @@
 - (void)loadAdData {
     [self.nativeExpressAdManager loadAd:1];
     [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11008];
+    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11010];
 }
 
 /*
@@ -181,6 +182,7 @@
         [self.delegate bannerAdViewRenderSuccess:self];
     }
     
+    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11011];
     [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11020];
 }
 
@@ -196,6 +198,8 @@
     if (self.delegate) {
         [self.delegate bannerAdViewRenderFail:self];
     }
+    
+    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11012];
     [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11009];
 }
 
