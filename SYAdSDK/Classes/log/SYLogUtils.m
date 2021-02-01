@@ -10,8 +10,7 @@
 
 @implementation SYLogUtils
 
-+ (NSString *)uuidString
-{
++ (NSString *)uuidString {
     CFUUIDRef uuid_ref = CFUUIDCreate(NULL);
     CFStringRef uuid_string_ref= CFUUIDCreateString(NULL, uuid_ref);
     NSString* uuid = [NSString stringWithString:(__bridge NSString* )uuid_string_ref];
@@ -20,9 +19,7 @@
     return [uuid lowercaseString];
 }
 
-+ (NSString *)convertToJsonData:(NSDictionary *)dict
-
-{
++ (NSString *)convertToJsonData:(NSDictionary *)dict {
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&error];
     NSString *jsonString;
@@ -47,6 +44,15 @@
 
 + (void) report:(NSString*) pszSlotID sourceId:(int) nSourceID type:(int) nType {
     NSString* pszRequestId = [[SYLogUtils uuidString] stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    
+    [SYLogUtils report:pszSlotID requestID:pszRequestId sourceId:nSourceID type:nType];
+}
+
++ (void) report:(NSString*) pszSlotID requestID:(NSString*) pszRequestId sourceId:(int) nSourceID type:(int) nType {
+    [SYLogUtils report:pszSlotID requestID:pszRequestId sourceId:nSourceID type:nType adCount:1];
+}
+
++ (void) report:(NSString*) pszSlotID requestID:(NSString*) pszRequestId sourceId:(int) nSourceID type:(int) nType adCount:(int) nAdCount {
     NSString* pszAppID = SYAdSDKManager.appID;
     NSNumber* nTimestamp = [NSNumber numberWithUnsignedLong:[[NSDate date] timeIntervalSince1970]*1000];
     NSNumber* nOSType = [NSNumber numberWithInt:1];
@@ -67,22 +73,11 @@
                 , @"userId": SYAdSDKManager.idfa
                 , @"osType": @"1"
                 , @"interactionType": nInteractionType
+                , @"adCount": [NSNumber numberWithInt:nAdCount]
             }
         , @"logType": @"palmar_info_message"
         , @"timestamp": nTimestamp
     };
- 
-//    NSDictionary* dictData = @{
-//        @"requestId": pszRequestId
-//        , @"appId": pszAppID
-//        , @"slotId": pszSlotID
-//        , @"sourceId": nSourceID
-//        , @"type": nType
-//        , @"timestamp": nTimestamp
-//        , @"userId": SYAdSDKManager.idfa
-//        , @"osType": @"1"
-//        , @"interactionType": nInteractionType
-//    };
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://openapi.jiegames.com/logger/logInfoUpload"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0];
     NSDictionary *headers = @{
@@ -103,7 +98,7 @@
             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
             NSError *parseError = nil;
             NSDictionary *dictRet = [NSJSONSerialization JSONObjectWithData:data options:0 error:&parseError];
-            NSLog(@"%@", dictRet);
+//            NSLog(@"%@", dictRet);
         }
         
     }];

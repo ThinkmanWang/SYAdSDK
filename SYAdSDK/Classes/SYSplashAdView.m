@@ -14,6 +14,7 @@
 @property(nonatomic, strong) BUSplashAdView* splashAdView;
 @property(nonatomic, strong) NSString* buSlotID;
 @property(nonatomic, strong) NSNumber* m_nResourceType;
+@property(nonatomic, strong) NSString* pszRequestId;
 @end
 
 @implementation SYSplashAdView
@@ -28,6 +29,7 @@
         self.buSlotID = @"887421551";
         self.buSlotID = nil;
         self.m_nResourceType = [NSNumber numberWithInt:2];
+        self.pszRequestId = [[SYLogUtils uuidString] stringByReplacingOccurrencesOfString:@"-" withString:@""];
     }
     
     return self;
@@ -91,7 +93,7 @@
     
     
     [self addSubview:self.splashAdView];
-    [SYLogUtils report:self.slotID sourceId:0 type:11008];
+    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11008];
 }
 
 #pragma mark -events
@@ -120,7 +122,7 @@
     if (self.delegate) {
         [self.delegate splashAdDidLoad:self];
     }
-    [SYLogUtils report:self.slotID sourceId:0 type:11020];
+    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11020];
 }
 
 - (void)splashAdDidClose:(BUSplashAdView *)splashAd {
@@ -148,7 +150,7 @@
     if (self.delegate) {
         [self.delegate splashAdDidClick:self];
     }
-    [SYLogUtils report:self.slotID sourceId:0 type:2];
+    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:2];
 }
 
 - (void)splashAdDidClickSkip:(BUSplashAdView *)splashAd {
@@ -173,7 +175,7 @@
     if (self.delegate) {
         [self.delegate splashAd:self];
     }
-    [SYLogUtils report:self.slotID sourceId:0 type:11009];
+    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11009];
 }
 
 - (void)splashAdWillVisible:(BUSplashAdView *)splashAd {
@@ -181,7 +183,7 @@
     if (self.delegate) {
         [self.delegate splashAdWillVisible:self];
     }
-    [SYLogUtils report:self.slotID sourceId:0 type:1];
+    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:1];
 }
 
 - (void)splashAdWillClose:(BUSplashAdView *)splashAd {

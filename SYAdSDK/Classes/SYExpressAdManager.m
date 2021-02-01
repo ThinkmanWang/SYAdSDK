@@ -18,6 +18,7 @@
 
 @property(nonatomic, strong) NSString* buSlotID;
 @property(nonatomic, strong) NSNumber* m_nResourceType;
+@property(nonatomic, strong) NSString* pszRequestId;
 
 @property(nonatomic, strong) BUNativeExpressAdManager* nativeExpressAdManager;
 @property (strong, nonatomic) NSMutableArray<__kindof BUNativeExpressAdView *> *expressAdViews;
@@ -36,6 +37,7 @@
         
         self.expressAdViews = [NSMutableArray new];
         self.syExpressAdViews = [NSMutableArray new];
+        self.pszRequestId = [[SYLogUtils uuidString] stringByReplacingOccurrencesOfString:@"-" withString:@""];
     }
     
     return self;
@@ -117,7 +119,7 @@
     }
     
     [self.nativeExpressAdManager loadAdDataWithCount:count];
-    [SYLogUtils report:self.slotID sourceId:0 type:11008];
+    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11008 adCount:count];
 }
 
 /**
@@ -144,7 +146,7 @@
             [expressView render];
         }];
         
-        [SYLogUtils report:self.slotID sourceId:0 type:11020];
+        [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11020];
     }
     
     if (self.delegate) {
@@ -160,7 +162,7 @@
         [self.delegate expressAdFailToLoad:self];
     }
     
-    [SYLogUtils report:self.slotID sourceId:0 type:11009];
+    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11009];
 }
 
 /**
@@ -173,8 +175,6 @@
         
         [self.delegate expressAdViewRenderSuccess:view];
     }
-    
-    [SYLogUtils report:self.slotID sourceId:0 type:1];
 }
 
 /**
@@ -185,7 +185,7 @@
         [self.delegate expressAdViewRenderFail:nativeExpressAdView.superview];
     }
     
-    [SYLogUtils report:self.slotID sourceId:0 type:11009];
+    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11009];
 }
 
 /**
@@ -195,6 +195,8 @@
     if (self.delegate) {
         [self.delegate expressAdViewWillShow:nativeExpressAdView.superview];
     }
+    
+    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:1];
 }
 
 /**
@@ -205,7 +207,7 @@
         [self.delegate expressAdViewDidClick:nativeExpressAdView.superview];
     }
     
-    [SYLogUtils report:self.slotID sourceId:0 type:2];
+    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:2];
 }
 
 /**

@@ -18,6 +18,7 @@
 @property(nonatomic, strong) NSString* slotID;
 @property(nonatomic, strong) NSString* buSlotID;
 @property(nonatomic, strong) NSNumber* m_nResourceType;
+@property(nonatomic, strong) NSString* pszRequestId;
 
 @property (nonatomic, strong) UIViewController *rootViewController;
 
@@ -33,6 +34,7 @@
         self.buSlotID = nil;
         self.m_nResourceType = [NSNumber numberWithInt:2];
         self.delegate = nil;
+        self.pszRequestId = [[SYLogUtils uuidString] stringByReplacingOccurrencesOfString:@"-" withString:@""];
     }
     
     return self;
@@ -134,7 +136,7 @@
 
 - (void)loadAdData {
     [self.nativeExpressAdManager loadAd:1];
-    [SYLogUtils report:self.slotID sourceId:0 type:11008];
+    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11008];
 }
 
 /*
@@ -161,7 +163,7 @@
     [expressView render];
     
     self.expressAdViews = expressView;
-    [SYLogUtils report:self.slotID sourceId:0 type:11020];
+    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11020];
 }
 
 - (void)nativeExpressAdFailToLoad:(BUNativeExpressAdManager *)nativeExpressAd error:(NSError *)error {
@@ -179,7 +181,7 @@
     if (self.delegate) {
         [self.delegate bannerAdViewRenderSuccess:self];
     }
-    [SYLogUtils report:self.slotID sourceId:0 type:1];
+    
 }
 
 - (void)updateCurrentPlayedTime {
@@ -194,13 +196,15 @@
     if (self.delegate) {
         [self.delegate bannerAdViewRenderFail:self];
     }
-    [SYLogUtils report:self.slotID sourceId:0 type:11009];
+    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11009];
 }
 
 - (void)nativeExpressAdViewWillShow:(BUNativeExpressAdView *)nativeExpressAdView {
     if (self.delegate) {
         [self.delegate bannerAdViewWillBecomVisible:self];
     }
+    
+    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:1];
 }
 
 - (void)nativeExpressAdViewDidClick:(BUNativeExpressAdView *)nativeExpressAdView {
