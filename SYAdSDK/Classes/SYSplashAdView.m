@@ -91,20 +91,31 @@
     [self.splashAdView loadAdData];
     self.splashAdView.rootViewController = self.rootViewController;
     
-    
+    self.frame = self.splashAdView.frame;
     [self addSubview:self.splashAdView];
     [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11008];
 }
 
+- (void) removeMyself {
+    if (self.splashAdView) {
+        if (self.splashAdView.zoomOutView) {
+            [self.splashAdView.zoomOutView removeFromSuperview];
+        }
+        
+        [self.splashAdView removeFromSuperview];
+    }
+    [self removeFromSuperview];
+}
+
 #pragma mark -events
 
-- (void)removeSplashAdView {
-    //NSLog(@"removeSplashAdView");
-    if (self.splashAdView) {
-        [self.splashAdView removeFromSuperview];
-        self.splashAdView = nil;
-    }
-}
+//- (void)removeSplashAdView {
+//    //NSLog(@"removeSplashAdView");
+//    if (self.splashAdView) {
+//        [self.splashAdView removeFromSuperview];
+//        self.splashAdView = nil;
+//    }
+//}
 
 
 - (void)splashAdDidLoad:(BUSplashAdView *)splashAd {
@@ -127,11 +138,7 @@
 
 - (void)splashAdDidClose:(BUSplashAdView *)splashAd {
     //NSLog(@"splashAdDidClose");
-    if (splashAd.zoomOutView) {
-//        [[BUDAnimationTool sharedInstance] transitionFromView:splashAd toView:splashAd.zoomOutView];
-    } else{
-        [splashAd removeFromSuperview];
-    }
+    [self removeMyself];
     
     if (self.delegate) {
         [self.delegate splashAdDidClose:self];
@@ -140,27 +147,18 @@
 
 - (void)splashAdDidClick:(BUSplashAdView *)splashAd {
     //NSLog(@"splashAdDidClick");
-    if (splashAd.zoomOutView) {
-        [splashAd.zoomOutView removeFromSuperview];
-    }
-    // Be careful not to say 'self.splashadview = nil' here.
-    // Subsequent agent callbacks will not be triggered after the 'splashAdView' is released early.
-    [splashAd removeFromSuperview];
+    [self removeMyself];
     
     if (self.delegate) {
         [self.delegate splashAdDidClick:self];
     }
+    
     [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:2];
 }
 
 - (void)splashAdDidClickSkip:(BUSplashAdView *)splashAd {
     //NSLog(@"splashAdDidClickSkip");
-    if (splashAd.zoomOutView) {
-//        [[BUDAnimationTool sharedInstance] transitionFromView:splashAd toView:splashAd.zoomOutView];
-    } else{
-        // Click Skip, there is no subsequent operation, completely remove 'splashAdView', avoid memory leak
-        [self removeSplashAdView];
-    }
+    [self removeMyself];
     
     if (self.delegate) {
         [self.delegate splashAdDidClickSkip:self];
@@ -170,7 +168,7 @@
 - (void)splashAd:(BUSplashAdView *)splashAd didFailWithError:(NSError *)error {
     //NSLog(@"splashAd");
     // Display fails, completely remove 'splashAdView', avoid memory leak
-    [self removeSplashAdView];
+    [self removeMyself];
     
     if (self.delegate) {
         [self.delegate splashAd:self];
@@ -183,11 +181,12 @@
     if (self.delegate) {
         [self.delegate splashAdWillVisible:self];
     }
+    
     [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:1];
 }
 
 - (void)splashAdWillClose:(BUSplashAdView *)splashAd {
-    //NSLog(@"splashAdWillClose");
+    [self removeMyself];
     
     if (self.delegate) {
         [self.delegate splashAdWillClose:self];
@@ -197,7 +196,7 @@
 - (void)splashAdDidCloseOtherController:(BUSplashAdView *)splashAd interactionType:(BUInteractionType)interactionType {
     // No further action after closing the other Controllers, completely remove the 'splashAdView' and avoid memory leaks
     //NSLog(@"splashAdDidCloseOtherController");
-    [self removeSplashAdView];
+    [self removeMyself];
     
     if (self.delegate) {
         [self.delegate splashAdDidCloseOtherController:self];
@@ -209,9 +208,7 @@
 - (void)splashAdCountdownToZero:(BUSplashAdView *)splashAd {
     // When the countdown is over, it is equivalent to clicking Skip to completely remove 'splashAdView' and avoid memory leak
     //NSLog(@"splashAdCountdownToZero");
-    if (!splashAd.zoomOutView) {
-        [self removeSplashAdView];
-    }
+    [self removeMyself];
     
     if (self.delegate) {
         [self.delegate splashAdCountdownToZero:self];
@@ -221,24 +218,25 @@
 #pragma mark - BUSplashZoomOutViewDelegate
 - (void)splashZoomOutViewAdDidClick:(BUSplashZoomOutView *)splashAd {
     //NSLog(@"splashZoomOutViewAdDidClick");
+    [self removeMyself];
 }
 
 - (void)splashZoomOutViewAdDidClose:(BUSplashZoomOutView *)splashAd {
     // Click close, completely remove 'splashAdView', avoid memory leak
     //NSLog(@"splashZoomOutViewAdDidClose");
-    [self removeSplashAdView];
+    [self removeMyself];
 }
 
 - (void)splashZoomOutViewAdDidAutoDimiss:(BUSplashZoomOutView *)splashAd {
     // Back down at the end of the countdown to completely remove the 'splashAdView' to avoid memory leaks
     //NSLog(@"splashZoomOutViewAdDidAutoDimiss");
-    [self removeSplashAdView];
+    [self removeMyself];
 }
 
 - (void)splashZoomOutViewAdDidCloseOtherController:(BUSplashZoomOutView *)splashAd interactionType:(BUInteractionType)interactionType {
     // No further action after closing the other Controllers, completely remove the 'splashAdView' and avoid memory leaks
     //NSLog(@"splashZoomOutViewAdDidCloseOtherController");
-    [self removeSplashAdView];
+    [self removeMyself];
 }
 
 
