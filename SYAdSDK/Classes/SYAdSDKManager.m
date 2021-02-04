@@ -7,6 +7,8 @@
 
 #import "log/SYLogUtils.h"
 
+#import "gdt/GDTSplashAd.h"
+
 @interface SYAdSDKManager ()
 +(NSString*) buAppID;
 @end
