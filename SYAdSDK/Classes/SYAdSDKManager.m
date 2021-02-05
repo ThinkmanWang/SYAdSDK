@@ -89,7 +89,10 @@ static NSString* idfa = nil;
             [BUAdSDKManager setAppID:buAppID];
             
             gdtAppID = dictConfig[@"data"][@"appConfig"][@"gdt_appid"];
-            [GDTSDKConfig registerAppId:gdtAppID];
+            BOOL result = [GDTSDKConfig registerAppId:gdtAppID];
+            if (result) {
+//                NSLog(@"%@", result);
+            }
 //            [BUAdSDKManager setCustomIDFA:idfa];
         }
         
