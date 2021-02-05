@@ -7,14 +7,17 @@
 
 #import "log/SYLogUtils.h"
 
-#import "gdt/GDTSplashAd.h"
+#import "gdt/GDTSDKConfig.h"
 
 @interface SYAdSDKManager ()
 +(NSString*) buAppID;
++(NSString*) gdtAppID;
 @end
 
 static NSString* appID = nil;
 static NSString* buAppID = nil;
+static NSString* gdtAppID = nil;
+
 static NSDictionary* dictConfig = nil;
 static NSString* idfa = nil;
 
@@ -42,6 +45,14 @@ static NSString* idfa = nil;
 
 + (void) setBuAppID:(NSString*)val {
     buAppID = val;
+}
+
++ (NSString*) gdtAppID {
+    return gdtAppID;
+}
+
++ (void) setGdtAppID:(NSString*)val {
+    gdtAppID = val;
 }
 
 + (void) initSDK:(NSString*)_idfa appID:(NSString *)appID level:(SYAdSDKLogLevel)level onInitFinish: (void (^)(BOOL bSuccess)) handler {
@@ -76,6 +87,9 @@ static NSString* idfa = nil;
             dictConfig = dictRet;
             buAppID = dictConfig[@"data"][@"appConfig"][@"tt_appid"];
             [BUAdSDKManager setAppID:buAppID];
+            
+            gdtAppID = dictConfig[@"data"][@"appConfig"][@"gdt_appid"];
+            [GDTSDKConfig registerAppId:gdtAppID];
 //            [BUAdSDKManager setCustomIDFA:idfa];
         }
         
