@@ -1,4 +1,7 @@
 
+#ifndef SYAdSDKManager_h
+#define SYAdSDKManager_h
+
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
@@ -33,3 +36,5 @@
 
 
 @end
+
+#endif

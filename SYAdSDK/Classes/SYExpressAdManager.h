@@ -5,6 +5,9 @@
 //  Created by 王晓丰 on 2021/1/26.
 //
 
+#ifndef SYExpressAdManager_h
+#define SYExpressAdManager_h
+
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -84,3 +87,5 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+
+#endif

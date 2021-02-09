@@ -1,4 +1,7 @@
 
+#ifndef SYSplashAdView_h
+#define SYSplashAdView_h
+
 #import <UIKit/UIKit.h>
 
 @protocol SYSplashAdDelegate;
@@ -100,3 +103,5 @@ The unique identifier of splash ad.
 - (void)splashAdCountdownToZero:(SYSplashAdView *)splashAd;
 
 @end
+
+#endif

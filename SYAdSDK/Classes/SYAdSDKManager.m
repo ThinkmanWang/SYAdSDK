@@ -6,7 +6,6 @@
 //#import <AdSupport/AdSupport.h>
 
 #import "log/SYLogUtils.h"
-
 #import "gdt/GDTSDKConfig.h"
 
 @interface SYAdSDKManager ()

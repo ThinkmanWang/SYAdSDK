@@ -1,9 +1,10 @@
 
-#ifndef BUAdSDK_DEFINES_h
-#define BUAdSDK_DEFINES_h
+#ifndef SYAdSDK_DEFINES_h
+#define SYAdSDK_DEFINES_h
 
 #import <Foundation/Foundation.h>
-#include <CoreGraphics/CGBase.h>
+//#import <Foundation/Foundation.h>
+//#import <CoreGraphics/CGBase.h>
 
 typedef NS_ENUM(NSInteger, SYAdSDKLogLevel) {
     SYAdSDKLogLevelNone,
@@ -16,7 +17,7 @@ typedef NS_ENUM(NSInteger, SYBannerSize) {
     , SYBannerSize600_400
     , SYBannerSize600_500
     , SYBannerSize600_260
-    
+
     , SYBannerSize600_90
     , SYBannerSize600_150
     , SYBannerSize640_100
@@ -27,5 +28,6 @@ typedef NS_ENUM(NSInteger, SYInterstitialAdSize) {
     SYInterstitialAdSize600_600
     , SYInterstitialAdSize600_900
 };
+
 
 #endif

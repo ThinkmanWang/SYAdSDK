@@ -5,6 +5,9 @@
 //  Created by 王晓丰 on 2021/1/26.
 //
 
+#ifndef SYInterstitialAd_h
+#define SYInterstitialAd_h
+
 #import <Foundation/Foundation.h>
 #import "SYAdSDKDefines.h"
 
@@ -78,3 +81,5 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+
+#endif
