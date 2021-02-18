@@ -8,11 +8,16 @@
 #ifndef ISplashAdView_h
 #define ISplashAdView_h
 
+@protocol ISplashAdViewDelegate;
+
 @protocol ISplashAdView <NSObject>
 @required
 - (instancetype)initWithSlotID:(NSString *)slotID;
 - (void)loadAdData;
-
+- (void)removeMyself;
+- (CGRect)getFrame;
+- (void)setSYRootViewController:(UIViewController*)rootViewController;
+- (void)setSYDelegate:(id<ISplashAdViewDelegate>)delegate;
 @end
 
 
@@ -66,6 +71,8 @@
  This method is called when spalashAd countdown equals to zero
  */
 - (void)splashAdCountdownToZero:(id<ISplashAdView>)splashAd;
+
+
 
 @end
 

@@ -10,6 +10,30 @@
 
 @implementation SlotUtils
 
++ (NSNumber*)getResourceType:(NSString *)slotID {
+    NSArray* arySlot = SYAdSDKManager.dictConfig[@"data"][@"slotInfo"];
+    if (nil == arySlot) {
+        return [NSNumber numberWithInt:2];
+    }
+    
+    for (int i = 0; i < [arySlot count]; ++i) {
+        NSDictionary* dictSlot = arySlot[i];
+        if (nil == dictSlot) {
+            return nil;
+        }
+        
+        if ([slotID isEqualToString:[NSString stringWithFormat:@"%@", dictSlot[@"slotId"]]]) {
+            NSDictionary* dictSlotConfig = dictSlot[@"config"][0];
+            
+            NSNumber* nResourceType = dictSlotConfig[@"resourceType"];
+            
+            return nResourceType;
+        }
+    }
+    
+    return [NSNumber numberWithInt:2];
+}
+
 + (NSString*)getRealSlotID:(NSString *)slotID {
     NSArray* arySlot = SYAdSDKManager.dictConfig[@"data"][@"slotInfo"];
     if (nil == arySlot) {

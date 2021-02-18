@@ -68,6 +68,18 @@
     [self removeFromSuperview];
 }
 
+- (CGRect)getFrame {
+    return self.frame;
+}
+
+- (void)setSYRootViewController:(UIViewController*)rootViewController {
+    self.rootViewController = rootViewController;
+}
+
+- (void)setSYDelegate:(id<ISplashAdViewDelegate>)delegate {
+    self.syDelegate = delegate;
+}
+
 #pragma mark -events
 
 
@@ -94,8 +106,8 @@
     //NSLog(@"splashAdDidClose");
     [self removeMyself];
     
-    if (self.delegate) {
-        [self.delegate splashAdDidClose:self];
+    if (self.syDelegate) {
+        [self.syDelegate splashAdDidClose:self];
     }
 }
 
@@ -103,8 +115,8 @@
     //NSLog(@"splashAdDidClick");
     [self removeMyself];
     
-    if (self.delegate) {
-        [self.delegate splashAdDidClick:self];
+    if (self.syDelegate) {
+        [self.syDelegate splashAdDidClick:self];
     }
     
     [SYLogUtils report:self.slotID requestID:self.m_pszRequestId sourceId:0 type:2];
@@ -114,8 +126,8 @@
     //NSLog(@"splashAdDidClickSkip");
     [self removeMyself];
     
-    if (self.delegate) {
-        [self.delegate splashAdDidClickSkip:self];
+    if (self.syDelegate) {
+        [self.syDelegate splashAdDidClickSkip:self];
     }
 }
 
@@ -134,8 +146,8 @@
 
 - (void)splashAdWillVisible:(BUSplashAdView *)splashAd {
     //NSLog(@"splashAdWillVisible");
-    if (self.delegate) {
-        [self.delegate splashAdWillVisible:self];
+    if (self.syDelegate) {
+        [self.syDelegate splashAdWillVisible:self];
     }
     
     [SYLogUtils report:self.slotID requestID:self.m_pszRequestId sourceId:0 type:1];
@@ -144,8 +156,8 @@
 - (void)splashAdWillClose:(BUSplashAdView *)splashAd {
     [self removeMyself];
     
-    if (self.delegate) {
-        [self.delegate splashAdWillClose:self];
+    if (self.syDelegate) {
+        [self.syDelegate splashAdWillClose:self];
     }
 }
 

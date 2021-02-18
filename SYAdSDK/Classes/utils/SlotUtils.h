@@ -14,6 +14,8 @@
 @interface SlotUtils : NSObject
 
 + (NSString*)getRealSlotID:(NSString *)slotID;
++ (NSNumber*)getResourceType:(NSString *)slotID;
+
 
 @end
 
