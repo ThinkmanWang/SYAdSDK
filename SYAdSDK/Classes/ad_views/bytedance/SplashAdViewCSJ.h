@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  The delegate for receiving state change messages.
  */
-@property (nonatomic, weak, nullable) id<SYSplashAdDelegate> syDelegate;
+@property (nonatomic, weak, nullable) id<ISplashAdViewDelegate> syDelegate;
 
 - (instancetype)initWithSlotID:(NSString *)slotID;
 - (void)loadAdData;

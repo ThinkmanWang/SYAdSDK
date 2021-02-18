@@ -110,14 +110,6 @@
 
 #pragma mark -events
 
-//- (void)removeSplashAdView {
-//    //NSLog(@"removeSplashAdView");
-//    if (self.splashAdView) {
-//        [self.splashAdView removeFromSuperview];
-//        self.splashAdView = nil;
-//    }
-//}
-
 
 - (void)splashAdDidLoad:(BUSplashAdView *)splashAd {
     //NSLog(@"splashAdDidLoad");

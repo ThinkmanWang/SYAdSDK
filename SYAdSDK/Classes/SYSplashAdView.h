@@ -5,6 +5,7 @@
 #import <UIKit/UIKit.h>
 
 @protocol SYSplashAdDelegate;
+@protocol ISplashAdView;
 
 @interface SYSplashAdView : UIView
 
