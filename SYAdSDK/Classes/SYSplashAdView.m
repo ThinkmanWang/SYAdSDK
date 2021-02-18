@@ -82,7 +82,7 @@
 #pragma mark -events
 
 
-- (void)splashAdDidLoad:(BUSplashAdView *)splashAd {
+- (void)splashAdDidLoad:(id<ISplashAdView>)splashAd {
     //NSLog(@"splashAdDidLoad");
     
     if (self.delegate) {
@@ -95,7 +95,7 @@
     [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11020];
 }
 
-- (void)splashAdDidClose:(BUSplashAdView *)splashAd {
+- (void)splashAdDidClose:(id<ISplashAdView>)splashAd {
     //NSLog(@"splashAdDidClose");
     [self removeMyself];
     
@@ -104,7 +104,7 @@
     }
 }
 
-- (void)splashAdDidClick:(BUSplashAdView *)splashAd {
+- (void)splashAdDidClick:(id<ISplashAdView>)splashAd {
     //NSLog(@"splashAdDidClick");
     [self removeMyself];
     
@@ -115,7 +115,7 @@
     [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:2];
 }
 
-- (void)splashAdDidClickSkip:(BUSplashAdView *)splashAd {
+- (void)splashAdDidClickSkip:(id<ISplashAdView>)splashAd {
     //NSLog(@"splashAdDidClickSkip");
     [self removeMyself];
     
@@ -124,7 +124,7 @@
     }
 }
 
-- (void)splashAd:(BUSplashAdView *)splashAd didFailWithError:(NSError *)error {
+- (void)splashAd:(id<ISplashAdView>)splashAd {
     //NSLog(@"splashAd");
     // Display fails, completely remove 'splashAdView', avoid memory leak
     [self removeMyself];
@@ -136,7 +136,7 @@
     [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11009];
 }
 
-- (void)splashAdWillVisible:(BUSplashAdView *)splashAd {
+- (void)splashAdWillVisible:(id<ISplashAdView>)splashAd {
     //NSLog(@"splashAdWillVisible");
     if (self.delegate) {
         [self.delegate splashAdWillVisible:self];
@@ -145,7 +145,7 @@
     [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:1];
 }
 
-- (void)splashAdWillClose:(BUSplashAdView *)splashAd {
+- (void)splashAdWillClose:(id<ISplashAdView>)splashAd {
     [self removeMyself];
     
     if (self.delegate) {
@@ -153,7 +153,7 @@
     }
 }
 
-- (void)splashAdDidCloseOtherController:(BUSplashAdView *)splashAd interactionType:(BUInteractionType)interactionType {
+- (void)splashAdDidCloseOtherController:(id<ISplashAdView>)splashAd {
     // No further action after closing the other Controllers, completely remove the 'splashAdView' and avoid memory leaks
     //NSLog(@"splashAdDidCloseOtherController");
     [self removeMyself];
@@ -165,7 +165,7 @@
 
 
 
-- (void)splashAdCountdownToZero:(BUSplashAdView *)splashAd {
+- (void)splashAdCountdownToZero:(id<ISplashAdView>)splashAd {
     // When the countdown is over, it is equivalent to clicking Skip to completely remove 'splashAdView' and avoid memory leak
     //NSLog(@"splashAdCountdownToZero");
     [self removeMyself];
@@ -176,24 +176,24 @@
 }
 
 #pragma mark - BUSplashZoomOutViewDelegate
-- (void)splashZoomOutViewAdDidClick:(BUSplashZoomOutView *)splashAd {
+- (void)splashZoomOutViewAdDidClick:(id<ISplashAdView>)splashAd {
     //NSLog(@"splashZoomOutViewAdDidClick");
     [self removeMyself];
 }
 
-- (void)splashZoomOutViewAdDidClose:(BUSplashZoomOutView *)splashAd {
+- (void)splashZoomOutViewAdDidClose:(id<ISplashAdView>)splashAd {
     // Click close, completely remove 'splashAdView', avoid memory leak
     //NSLog(@"splashZoomOutViewAdDidClose");
     [self removeMyself];
 }
 
-- (void)splashZoomOutViewAdDidAutoDimiss:(BUSplashZoomOutView *)splashAd {
+- (void)splashZoomOutViewAdDidAutoDimiss:(id<ISplashAdView>)splashAd {
     // Back down at the end of the countdown to completely remove the 'splashAdView' to avoid memory leaks
     //NSLog(@"splashZoomOutViewAdDidAutoDimiss");
     [self removeMyself];
 }
 
-- (void)splashZoomOutViewAdDidCloseOtherController:(BUSplashZoomOutView *)splashAd interactionType:(BUInteractionType)interactionType {
+- (void)splashZoomOutViewAdDidCloseOtherController:(id<ISplashAdView>)splashAd {
     // No further action after closing the other Controllers, completely remove the 'splashAdView' and avoid memory leaks
     //NSLog(@"splashZoomOutViewAdDidCloseOtherController");
     [self removeMyself];
