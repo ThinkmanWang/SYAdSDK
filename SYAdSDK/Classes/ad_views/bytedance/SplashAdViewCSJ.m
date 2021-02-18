@@ -33,7 +33,7 @@
         self.m_pszSlotID = @"";
         self.syDelegate = nil;
         self.m_nResourceType = [NSNumber numberWithInt:2];
-        self.m_pszRequestId = [[SYLogUtils uuidString] stringByReplacingOccurrencesOfString:@"-" withString:@""];
+//        self.m_pszRequestId = [[SYLogUtils uuidString] stringByReplacingOccurrencesOfString:@"-" withString:@""];
     }
     
     return self;
@@ -53,6 +53,10 @@
     self = [super initWithSlotID:self.m_pszBuSlotID frame:frame];
     
     return self;
+}
+
+- (void)setRequestID:(NSString*)requestID {
+    self.m_pszRequestId = requestID;
 }
 
 - (void)loadAdData {

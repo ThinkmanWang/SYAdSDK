@@ -56,7 +56,7 @@
             break;
     }
     
-    
+    [self.splashAdView setRequestID:self.pszRequestId];
     [self.splashAdView initWithSlotID:slotID];
     
     return self;

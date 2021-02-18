@@ -18,6 +18,7 @@
 - (CGRect)getFrame;
 - (void)setSYRootViewController:(UIViewController*)rootViewController;
 - (void)setSYDelegate:(id<ISplashAdViewDelegate>)delegate;
+- (void)setRequestID:(NSString*)requestID;
 @end
 
 
