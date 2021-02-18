@@ -13,7 +13,7 @@
 #import "ad_views/bytedance/SplashAdViewCSJ.h"
 
 
-@interface SYSplashAdView () <BUSplashAdDelegate>
+@interface SYSplashAdView () <ISplashAdViewDelegate>
 @property(nonatomic, strong) id<ISplashAdView> splashAdView;
 @property(nonatomic, strong) NSNumber* m_nResourceType;
 @property(nonatomic, strong) NSString* pszRequestId;

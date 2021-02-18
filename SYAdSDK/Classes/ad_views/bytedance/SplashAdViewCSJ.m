@@ -20,7 +20,6 @@
 @interface SplashAdViewCSJ () <BUSplashAdDelegate>
 @property(nonatomic, strong) NSString* m_pszSlotID;
 @property(nonatomic, strong) NSString* m_pszBuSlotID;
-@property(nonatomic, strong) NSNumber* m_nResourceType;
 @property(nonatomic, strong) NSString* m_pszRequestId;
 @end
 
@@ -32,7 +31,6 @@
     if (self) {
         self.m_pszSlotID = @"";
         self.syDelegate = nil;
-        self.m_nResourceType = [NSNumber numberWithInt:2];
 //        self.m_pszRequestId = [[SYLogUtils uuidString] stringByReplacingOccurrencesOfString:@"-" withString:@""];
     }
     
@@ -63,7 +61,7 @@
     //optional
     [super loadAdData];
     
-    [SYLogUtils report:self.slotID requestID:self.m_pszRequestId sourceId:0 type:11010];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11010];
 }
 
 - (void) removeMyself {
@@ -105,7 +103,7 @@
         [self.syDelegate splashAdDidLoad:self];
     }
     
-    [SYLogUtils report:self.slotID requestID:self.m_pszRequestId sourceId:0 type:11011];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11011];
 }
 
 - (void)splashAdDidClose:(BUSplashAdView *)splashAd {
@@ -144,7 +142,7 @@
         [self.syDelegate splashAd:self];
     }
     
-    [SYLogUtils report:self.slotID requestID:self.m_pszRequestId sourceId:0 type:11012];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11012];
 }
 
 - (void)splashAdWillVisible:(BUSplashAdView *)splashAd {
