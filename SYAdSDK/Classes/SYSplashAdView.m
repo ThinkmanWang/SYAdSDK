@@ -15,7 +15,6 @@
 
 @interface SYSplashAdView () <BUSplashAdDelegate>
 @property(nonatomic, strong) id<ISplashAdView> splashAdView;
-@property(nonatomic, strong) NSString* buSlotID;
 @property(nonatomic, strong) NSNumber* m_nResourceType;
 @property(nonatomic, strong) NSString* pszRequestId;
 @end
@@ -27,9 +26,8 @@
     if (self) {
         self.tolerateTimeout = 3;
         self.hideSkipButton = NO;
-        self.needSplashZoomOutAd = NO;
+        self.needSplashZoomOutAd = YES;
         self.delegate = nil;
-        self.buSlotID = nil;
         self.m_nResourceType = [NSNumber numberWithInt:2];
         self.pszRequestId = [[SYLogUtils uuidString] stringByReplacingOccurrencesOfString:@"-" withString:@""];
     }
@@ -41,7 +39,6 @@
     self.slotID = slotID;
     
     CGRect frame = [UIScreen mainScreen].bounds;
-    self.buSlotID = [SlotUtils getRealSlotID:slotID];
     self.m_nResourceType = [SlotUtils getResourceType:slotID];
     
     switch ([self.m_nResourceType longValue]) {
@@ -59,6 +56,7 @@
             break;
     }
     
+    
     [self.splashAdView initWithSlotID:slotID];
     
     return self;
@@ -67,12 +65,11 @@
 - (void)loadAdData {
     
     [self.splashAdView setSYRootViewController:self.rootViewController];
-    self.frame = [self.splashAdView getFrame];
-    [self.splashAdView loadAdData];
     [self.splashAdView setSYDelegate:self];
 
+    [self.splashAdView loadAdData];
+
     [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11008];
-    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11010];
 }
 
 - (void) removeMyself {
@@ -87,23 +84,14 @@
 
 - (void)splashAdDidLoad:(BUSplashAdView *)splashAd {
     //NSLog(@"splashAdDidLoad");
-//    if (splashAd.zoomOutView) {
-//        UIViewController *parentVC = [UIApplication sharedApplication].keyWindow.rootViewController;
-//        [parentVC.view addSubview:splashAd.zoomOutView];
-//        [parentVC.view bringSubviewToFront:splashAd];
-//        //Add this view to your container
-//        [parentVC.view insertSubview:splashAd.zoomOutView belowSubview:splashAd];
-//        splashAd.zoomOutView.rootViewController = parentVC;
-//        splashAd.zoomOutView.delegate = self;
-//    }
     
     if (self.delegate) {
         [self.delegate splashAdDidLoad:self];
     }
     
+    self.frame = [self.splashAdView getFrame];
     [self addSubview:splashAd];
     
-    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11011];
     [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11020];
 }
 
@@ -145,7 +133,6 @@
         [self.delegate splashAd:self];
     }
     
-    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11012];
     [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11009];
 }
 
