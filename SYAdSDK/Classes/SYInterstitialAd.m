@@ -11,15 +11,17 @@
 #import <BUAdSDK/BUAdSDK.h>
 
 #import "log/SYLogUtils.h"
+#import "ad_views/IInterstitialAd.h"
+#import "ad_views/bytedance/InterstitialAdCSJ.h"
+#import "SlotUtils.h"
 
-@interface SYInterstitialAd () <BUNativeExpresInterstitialAdDelegate>
-@property(nonatomic, strong) NSString* slotID;
-@property(nonatomic, strong) NSString* buSlotID;
+@interface SYInterstitialAd () <SYInterstitialAdDelegate>
+@property(nonatomic, strong) NSString* m_pszSlotID;
 @property(nonatomic, strong) NSNumber* m_nResourceType;
-@property(nonatomic, strong) NSString* pszRequestId;
+@property(nonatomic, strong) NSString* m_pszRequestId;
 
 @property (nonatomic, strong) UIViewController *rootViewController;
-@property (nonatomic, strong) BUNativeExpressInterstitialAd *interstitialAd;
+@property (nonatomic, strong) id<IInterstitialAd> interstitialAd;
 
 @end
 
@@ -28,75 +30,37 @@
 - (id) init {
     self = [super init];
     if (self) {
-        self.buSlotID = nil;
         self.m_nResourceType = [NSNumber numberWithInt:2];
-        self.pszRequestId = [[SYLogUtils uuidString] stringByReplacingOccurrencesOfString:@"-" withString:@""];
+        self.m_pszRequestId = [[SYLogUtils uuidString] stringByReplacingOccurrencesOfString:@"-" withString:@""];
     }
     
     return self;
 }
 
-- (NSString*)getRealSlotID:(NSString *)slotID {
-    NSArray* arySlot = SYAdSDKManager.dictConfig[@"data"][@"slotInfo"];
-    if (nil == arySlot) {
-        return nil;
-    }
-    
-    for (int i = 0; i < [arySlot count]; ++i) {
-        NSDictionary* dictSlot = arySlot[i];
-        if (nil == dictSlot) {
-            return nil;
-        }
-        
-        if ([slotID isEqualToString:[NSString stringWithFormat:@"%@", dictSlot[@"slotId"]]]) {
-            NSDictionary* dictSlotConfig = dictSlot[@"config"][0];
-            
-            self.m_nResourceType = dictSlotConfig[@"resourceType"];
-            switch ([self.m_nResourceType longValue]) {
-                case 1:
-                    self.buSlotID = dictSlotConfig[@"configParams"][@"gdt_slot_id"];
-                    break;
-                case 2:
-                    self.buSlotID = dictSlotConfig[@"configParams"][@"tt_slot_id"];
-                    break;
-                case 3:
-                    self.buSlotID = dictSlotConfig[@"configParams"][@"shiyu_slot_id"];
-                    break;
-                default:
-                    self.buSlotID = dictSlotConfig[@"configParams"][@"tt_slot_id"];
-                    break;
-            }
-            
-            return self.buSlotID;
-        }
-    }
-    
-    return self.buSlotID;
-}
-
 - (instancetype)initWithSlotID:(NSString *)slotID adSize:(SYInterstitialAdSize)adsize {
-    CGFloat fWidth = 0;
-    CGFloat fHeight = 0;
+    self.m_pszSlotID = slotID;
     
-    switch (adsize) {
-        case SYInterstitialAdSize600_600:
-            fWidth = [UIScreen mainScreen].bounds.size.width * 6 / 10;
-            fHeight = fWidth;
+    CGRect frame = [UIScreen mainScreen].bounds;
+    self.m_nResourceType = [SlotUtils getResourceType:slotID];
+    
+    switch ([self.m_nResourceType longValue]) {
+        case 1: //gdt
+            self.interstitialAd = [[InterstitialAdCSJ alloc] init];
             break;
-        case SYInterstitialAdSize600_900:
-            fWidth = [UIScreen mainScreen].bounds.size.width * 6 / 10;
-            fHeight = fWidth * 3 / 2;
+        case 2: //bytedance
+            self.interstitialAd = [[InterstitialAdCSJ alloc] init];
             break;
-        default:
-            fWidth = [UIScreen mainScreen].bounds.size.width * 6 / 10;
-            fHeight = fWidth;
+        case 3: //SY
+            self.interstitialAd = [[InterstitialAdCSJ alloc] init];
+            break;
+        default: //bytedance
+            self.interstitialAd = [[InterstitialAdCSJ alloc] init];
             break;
     }
     
-    self.slotID = slotID;
-    self.buSlotID = [self getRealSlotID:slotID];
-    self.interstitialAd = [[BUNativeExpressInterstitialAd alloc] initWithSlotID:self.buSlotID adSize:CGSizeMake(fWidth, fHeight)];
-    self.interstitialAd.delegate = self;
+    [self.interstitialAd setSYDelegate:self];
+    [self.interstitialAd setRequestID:self.m_pszRequestId];
+    [self.interstitialAd initWithSlotID:self.m_pszSlotID adSize:adsize];
     
     return self;
 }
@@ -105,8 +69,8 @@
  Load interstitial ad datas.
  */
 - (void)loadAdData {
-    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11008];
-    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11010];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11008];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11010];
     return [self.interstitialAd loadAdData];
 }
 
@@ -117,7 +81,7 @@
  */
 - (BOOL)showAdFromRootViewController:(UIViewController *)rootViewController {
     
-    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:1];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:1];
     self.rootViewController = rootViewController;
     
     if (self.interstitialAd) {
@@ -127,89 +91,175 @@
     return NO;
 }
 
-#pragma mark -BUNativeExpresInterstitialAdDelegate
-- (void)nativeExpresInterstitialAdDidLoad:(BUNativeExpressInterstitialAd *)interstitialAd {
-    //NSLog(@"nativeExpresInterstitialAdDidLoad");
+#pragma mark -events
+/**
+ This method is called when interstitial ad material loaded successfully.
+ */
+- (void)interstitialAdDidLoad:(id<IInterstitialAd>)interstitialAd {
     if (self.delegate) {
         [self.delegate interstitialAdDidLoad:self];
     }
-    
 }
 
-- (void)nativeExpresInterstitialAd:(BUNativeExpressInterstitialAd *)interstitialAd didFailWithError:(NSError *)error {
-//    self.selectedView.promptStatus = BUDPromptStatusAdLoadedFail;
-    //NSLog(@"nativeExpresInterstitialAd");
+/**
+ This method is called when interstitial ad material failed to load.
+ */
+- (void)interstitialAd:(id<IInterstitialAd>)interstitialAd {
     if (self.delegate) {
         [self.delegate interstitialAd:self];
     }
     
-    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11012];
-    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11009];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11012];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11009];
 }
 
-- (void)nativeExpresInterstitialAdRenderSuccess:(BUNativeExpressInterstitialAd *)interstitialAd {
-//    self.selectedView.promptStatus = BUDPromptStatusAdLoaded;
-    //NSLog(@"nativeExpresInterstitialAdRenderSuccess");
-    
+/**
+ This method is called when rendering a nativeExpressAdView successed.
+ */
+- (void)interstitialAdRenderSuccess:(id<IInterstitialAd>)interstitialAd {
     if (self.delegate) {
         [self.delegate interstitialAdRenderSuccess:self];
     }
     
-    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11011];
-    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11020];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11011];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11020];
 }
 
-- (void)nativeExpresInterstitialAdRenderFail:(BUNativeExpressInterstitialAd *)interstitialAd error:(NSError *)error {
-//    self.selectedView.promptStatus = BUDPromptStatusAdLoadedFail;
-    //NSLog(@"nativeExpresInterstitialAdRenderFail");
-    
+/**
+ This method is called when a nativeExpressAdView failed to render.
+ */
+- (void)interstitialAdRenderFail:(id<IInterstitialAd>)interstitialAd {
     if (self.delegate) {
         [self.delegate interstitialAdRenderFail:self];
     }
     
-    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11009];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11009];
 }
 
-- (void)nativeExpresInterstitialAdWillVisible:(BUNativeExpressInterstitialAd *)interstitialAd {
-    //NSLog(@"nativeExpresInterstitialAdWillVisible");
-    
+/**
+ This method is called when interstitial ad slot will be showing.
+ */
+- (void)interstitialAdWillVisible:(id<IInterstitialAd>)interstitialAd {
     if (self.delegate) {
         [self.delegate interstitialAdWillVisible:self];
     }
     
-    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:1];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:1];
 }
 
-- (void)nativeExpresInterstitialAdDidClick:(BUNativeExpressInterstitialAd *)interstitialAd {
-    //NSLog(@"nativeExpresInterstitialAdDidClick");
-    
+/**
+ This method is called when interstitial ad is clicked.
+ */
+- (void)interstitialAdDidClick:(id<IInterstitialAd>)interstitialAd {
     if (self.delegate) {
         [self.delegate interstitialAdDidClick:self];
     }
     
-    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:2];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:2];
 }
 
-- (void)nativeExpresInterstitialAdWillClose:(BUNativeExpressInterstitialAd *)interstitialAd {
-    //NSLog(@"nativeExpresInterstitialAdWillClose");
-    
+/**
+ This method is called when interstitial ad is about to close.
+ */
+- (void)interstitialAdWillClose:(id<IInterstitialAd>)interstitialAd {
     if (self.delegate) {
         [self.delegate interstitialAdWillClose:self];
     }
 }
 
-- (void)nativeExpresInterstitialAdDidClose:(BUNativeExpressInterstitialAd *)interstitialAd {
-    //NSLog(@"nativeExpresInterstitialAdDidClose");
-    self.interstitialAd = nil;
-    
+/**
+ This method is called when interstitial ad is closed.
+ */
+- (void)interstitialAdDidClose:(id<IInterstitialAd>)interstitialAd {
     if (self.delegate) {
         [self.delegate interstitialAdDidClose:self];
     }
 }
 
-- (void)nativeExpresInterstitialAdDidCloseOtherController:(BUNativeExpressInterstitialAd *)interstitialAd interactionType:(BUInteractionType)interactionType {
-    //NSLog(@"nativeExpresInterstitialAdDidCloseOtherController");
-    
-}
+
+//#pragma mark -BUNativeExpresInterstitialAdDelegate
+//- (void)nativeExpresInterstitialAdDidLoad:(id<IInterstitialAd>)interstitialAd {
+//    //NSLog(@"nativeExpresInterstitialAdDidLoad");
+//    if (self.delegate) {
+//        [self.delegate interstitialAdDidLoad:self];
+//    }
+//
+//}
+//
+//- (void)nativeExpresInterstitialAd:(id<IInterstitialAd>)interstitialAd {
+////    self.selectedView.promptStatus = BUDPromptStatusAdLoadedFail;
+//    //NSLog(@"nativeExpresInterstitialAd");
+//    if (self.delegate) {
+//        [self.delegate interstitialAd:self];
+//    }
+//
+//    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11012];
+//    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11009];
+//}
+//
+//- (void)nativeExpresInterstitialAdRenderSuccess:(BUNativeExpressInterstitialAd *)interstitialAd {
+////    self.selectedView.promptStatus = BUDPromptStatusAdLoaded;
+//    //NSLog(@"nativeExpresInterstitialAdRenderSuccess");
+//
+//    if (self.delegate) {
+//        [self.delegate interstitialAdRenderSuccess:self];
+//    }
+//
+//    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11011];
+//    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11020];
+//}
+//
+//- (void)nativeExpresInterstitialAdRenderFail:(id<IInterstitialAd>)interstitialAd {
+////    self.selectedView.promptStatus = BUDPromptStatusAdLoadedFail;
+//    //NSLog(@"nativeExpresInterstitialAdRenderFail");
+//
+//    if (self.delegate) {
+//        [self.delegate interstitialAdRenderFail:self];
+//    }
+//
+//    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11009];
+//}
+//
+//- (void)nativeExpresInterstitialAdWillVisible:(id<IInterstitialAd>)interstitialAd {
+//    //NSLog(@"nativeExpresInterstitialAdWillVisible");
+//
+//    if (self.delegate) {
+//        [self.delegate interstitialAdWillVisible:self];
+//    }
+//
+//    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:1];
+//}
+//
+//- (void)nativeExpresInterstitialAdDidClick:(id<IInterstitialAd>)interstitialAd {
+//    //NSLog(@"nativeExpresInterstitialAdDidClick");
+//
+//    if (self.delegate) {
+//        [self.delegate interstitialAdDidClick:self];
+//    }
+//
+//    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:2];
+//}
+//
+//- (void)nativeExpresInterstitialAdWillClose:(id<IInterstitialAd>)interstitialAd {
+//    //NSLog(@"nativeExpresInterstitialAdWillClose");
+//
+//    if (self.delegate) {
+//        [self.delegate interstitialAdWillClose:self];
+//    }
+//}
+//
+//- (void)nativeExpresInterstitialAdDidClose:(id<IInterstitialAd>)interstitialAd {
+//    //NSLog(@"nativeExpresInterstitialAdDidClose");
+//    self.interstitialAd = nil;
+//
+//    if (self.delegate) {
+//        [self.delegate interstitialAdDidClose:self];
+//    }
+//}
+//
+//- (void)nativeExpresInterstitialAdDidCloseOtherController:(id<IInterstitialAd>)interstitialAd interactionType:(BUInteractionType)interactionType {
+//    //NSLog(@"nativeExpresInterstitialAdDidCloseOtherController");
+//
+//}
 
 @end

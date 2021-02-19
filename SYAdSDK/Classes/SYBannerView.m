@@ -63,6 +63,7 @@
     }
     
     [self.bannerView setSYDelegate:self];
+    [self.bannerView setRequestID:self.m_pszRequestId];
     [self.bannerView initWithSlotID:self.m_pszSlotID rootViewController:rootViewController adSize:adsize];
 
     return self;
