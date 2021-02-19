@@ -96,15 +96,12 @@
         
         [views enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             UIView *expressView = (UIView *)obj;
-//            expressView.rootViewController = self.rootViewController;
             
             //TODO: Add to SYExpressVieew
             SYExpressAdView* syExpress = [[SYExpressAdView alloc] init];
             [syExpress addSubview:expressView];
             
             [self.syExpressAdViews addObject:syExpress];
-            
-//            [expressView render];
         }];
         
     }
