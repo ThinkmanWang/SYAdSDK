@@ -9,7 +9,6 @@
 #define BannerViewCSJ_h
 
 #import <Foundation/Foundation.h>
-#import <Foundation/Foundation.h>
 #import <BUAdSDK/BUAdSDK.h>
 #import <AdSupport/AdSupport.h>
 #import <AppTrackingTransparency/AppTrackingTransparency.h>
