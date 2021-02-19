@@ -109,6 +109,8 @@
     
     [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11011];
     [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11020];
+    
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:1];
 }
 
 /**
@@ -131,7 +133,6 @@
         [self.delegate bannerAdViewWillBecomVisible:self];
     }
     
-    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:1];
 }
 
 /**
