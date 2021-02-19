@@ -65,7 +65,7 @@
     slot.imgSize = imgSize;
     slot.position = BUAdSlotPositionFeed;
     // self.nativeExpressAdManager可以重用
-    BUNativeExpressAdManager* pObj = [super initWithSlot:self.m_pszBuSlotID adSize:size];
+    BUNativeExpressAdManager* pObj = [super initWithSlot:slot adSize:size];
 
     self.delegate = self;
     

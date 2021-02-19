@@ -15,16 +15,8 @@
 
 @protocol IExpressAdManager <NSObject>
 @required
-/**
- @param size expected ad view size，when size.height is zero, acture height will match size.width
- */
 - (instancetype)initWithSlotID:(NSString *)slotID rootViewController:(UIViewController *)rootViewController adSize:(CGSize)size;
-
-/**
- The number of ads requested,The maximum is 3
- */
 - (void)loadAdDataWithCount:(NSInteger)count;
-
 - (void)setSYDelegate:(id<IExpressAdManagerDelegate>)delegate;
 - (void)setRequestID:(NSString*)requestID;
 @end
@@ -46,39 +38,39 @@
 /**
  * This method is called when rendering a nativeExpressAdView successed, and nativeExpressAdView.size.height has been updated
  */
-- (void)expressAdViewRenderSuccess:(id<IExpressAdManager>)expressAdView;
+- (void)expressAdViewRenderSuccess:(UIView *)expressAdView;
 
 /**
  * This method is called when a nativeExpressAdView failed to render
  */
-- (void)expressAdViewRenderFail:(id<IExpressAdManager>)expressAdView;
+- (void)expressAdViewRenderFail:(UIView *)expressAdView;
 
 /**
  * Sent when an ad view is about to present modal content
  */
-- (void)expressAdViewWillShow:(id<IExpressAdManager>)expressAdView;
+- (void)expressAdViewWillShow:(UIView *)expressAdView;
 
 /**
  * Sent when an ad view is clicked
  */
-- (void)expressAdViewDidClick:(id<IExpressAdManager>)expressAdView;
+- (void)expressAdViewDidClick:(UIView *)expressAdView;
 
 /**
  * Sent when a player finished
  * @param error : error of player
  */
-- (void)expressAdViewPlayerDidPlayFinish:(id<IExpressAdManager>)expressAdView;
+- (void)expressAdViewPlayerDidPlayFinish:(UIView *)expressAdView;
 
 /**
  * Sent when a user clicked dislike reasons.
  * @param filterWords : the array of reasons why the user dislikes the ad
  */
-- (void)expressAdView:(id<IExpressAdManager>)expressAdView;
+- (void)expressAdView:(UIView *)expressAdView;
 
 /**
  * Sent after an ad view is clicked, a ad landscape view will present modal content
  */
-- (void)expressAdViewWillPresentScreen:(id<IExpressAdManager>)expressAdView;
+- (void)expressAdViewWillPresentScreen:(UIView *)expressAdView;
 
 @end
 
