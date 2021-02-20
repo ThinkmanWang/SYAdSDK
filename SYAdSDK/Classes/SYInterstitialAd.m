@@ -70,7 +70,6 @@
  */
 - (void)loadAdData {
     [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:-1 type:11008];
-    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:-1 type:11010];
     return [self.interstitialAd loadAdData];
 }
 
@@ -99,6 +98,8 @@
     if (self.delegate) {
         [self.delegate interstitialAdDidLoad:self];
     }
+    
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:-1 type:11020];
 }
 
 /**
@@ -109,7 +110,6 @@
         [self.delegate interstitialAd:self];
     }
     
-    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:-1 type:11012];
     [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:-1 type:11009];
 }
 
@@ -121,8 +121,7 @@
         [self.delegate interstitialAdRenderSuccess:self];
     }
     
-    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:-1 type:11011];
-    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:-1 type:11020];
+    
 }
 
 /**
@@ -143,8 +142,6 @@
     if (self.delegate) {
         [self.delegate interstitialAdWillVisible:self];
     }
-    
-    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:-1 type:1];
 }
 
 /**
@@ -153,9 +150,7 @@
 - (void)interstitialAdDidClick:(id<IInterstitialAd>)interstitialAd {
     if (self.delegate) {
         [self.delegate interstitialAdDidClick:self];
-    }
-    
-    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:-1 type:2];
+    }    
 }
 
 /**

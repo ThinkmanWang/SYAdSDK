@@ -74,7 +74,6 @@
  Load interstitial ad datas.
  */
 - (void)loadAdData {
-    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11008];
     [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11010];
     
     [super loadAdData];
@@ -107,9 +106,10 @@
         [self.syDelegate interstitialAdDidLoad:self];
     }
     
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11011];
 }
 
-- (void)nativeExpresInterstitialAd:(BUNativeExpressInterstitialAd *)interstitialAd {
+- (void)nativeExpresInterstitialAd:(BUNativeExpressInterstitialAd *)interstitialAd didFailWithError:(NSError *)error {
 //    self.selectedView.promptStatus = BUDPromptStatusAdLoadedFail;
     //NSLog(@"nativeExpresInterstitialAd");
     if (self.syDelegate) {
@@ -117,7 +117,6 @@
     }
     
     [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11012];
-    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11009];
 }
 
 - (void)nativeExpresInterstitialAdRenderSuccess:(BUNativeExpressInterstitialAd *)interstitialAd {
@@ -126,10 +125,7 @@
     
     if (self.syDelegate) {
         [self.syDelegate interstitialAdRenderSuccess:self];
-    }
-    
-    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11011];
-    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11020];
+    }    
 }
 
 - (void)nativeExpresInterstitialAdRenderFail:(BUNativeExpressInterstitialAd *)interstitialAd {
@@ -140,7 +136,7 @@
         [self.syDelegate interstitialAdRenderFail:self];
     }
     
-    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11009];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11012];
 }
 
 - (void)nativeExpresInterstitialAdWillVisible:(BUNativeExpressInterstitialAd *)interstitialAd {
