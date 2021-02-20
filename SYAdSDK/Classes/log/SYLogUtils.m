@@ -62,7 +62,7 @@
     NSNumber* nOSType = [NSNumber numberWithInt:1];
     NSNumber* nInteractionType = [NSNumber numberWithInt:2];
     
-    NSString* pszSourceID = nil;
+    NSString* pszSourceID = @"";
     if (nSourceID >= 0) {
         pszSourceID = [NSString stringWithFormat:@"%d", nSourceID];
     }
