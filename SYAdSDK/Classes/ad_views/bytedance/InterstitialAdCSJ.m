@@ -86,6 +86,7 @@
  */
 - (BOOL)showAdFromRootViewController:(UIViewController *)rootViewController {
     [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:1];
+//    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:1];
     self.rootViewController = rootViewController;
     
     return [super showAdFromRootViewController:self.rootViewController];
@@ -146,7 +147,7 @@
         [self.syDelegate interstitialAdWillVisible:self];
     }
     
-    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:1];
+//    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:1];
 }
 
 - (void)nativeExpresInterstitialAdDidClick:(BUNativeExpressInterstitialAd *)interstitialAd {

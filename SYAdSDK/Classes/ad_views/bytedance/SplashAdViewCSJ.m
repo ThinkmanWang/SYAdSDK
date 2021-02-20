@@ -123,7 +123,7 @@
         [self.syDelegate splashAdDidClick:self];
     }
     
-    [SYLogUtils report:self.slotID requestID:self.m_pszRequestId sourceId:0 type:2];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:2];
 }
 
 - (void)splashAdDidClickSkip:(BUSplashAdView *)splashAd {
@@ -153,7 +153,7 @@
         [self.syDelegate splashAdWillVisible:self];
     }
     
-    [SYLogUtils report:self.slotID requestID:self.m_pszRequestId sourceId:0 type:1];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:1];
 }
 
 - (void)splashAdWillClose:(BUSplashAdView *)splashAd {

@@ -80,7 +80,7 @@
  */
 - (BOOL)showAdFromRootViewController:(UIViewController *)rootViewController {
     
-    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:-1 type:1];
+//    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:-1 type:1];
     self.rootViewController = rootViewController;
     
     if (self.interstitialAd) {
