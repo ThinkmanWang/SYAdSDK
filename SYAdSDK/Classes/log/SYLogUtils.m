@@ -57,6 +57,10 @@
 }
 
 + (void) report:(NSString*) pszSlotID requestID:(NSString*) pszRequestId sourceId:(int) nSourceID type:(int) nType adCount:(int) nAdCount {
+    if (nil == pszSlotID || nil == pszRequestId) {
+        return;
+    }
+    
     NSString* pszAppID = SYAdSDKManager.appID;
     NSNumber* nTimestamp = [NSNumber numberWithUnsignedLong:[[NSDate date] timeIntervalSince1970]*1000];
     NSNumber* nOSType = [NSNumber numberWithInt:1];
