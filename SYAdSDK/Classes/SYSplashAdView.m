@@ -85,12 +85,12 @@
 - (void)splashAdDidLoad:(id<ISplashAdView>)splashAd {
     //NSLog(@"splashAdDidLoad");
     
+    self.frame = [self.splashAdView getFrame];
+    [self addSubview:splashAd];
+    
     if (self.delegate) {
         [self.delegate splashAdDidLoad:self];
     }
-    
-    self.frame = [self.splashAdView getFrame];
-    [self addSubview:splashAd];
     
     [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:-1 type:11020];
 }
