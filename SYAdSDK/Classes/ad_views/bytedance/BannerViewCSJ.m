@@ -151,8 +151,6 @@
     }
     
     [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11011];
-    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:1];
-
 }
 
 - (void)updateCurrentPlayedTime {
@@ -176,6 +174,7 @@
         [self.syDelegate bannerAdViewWillBecomVisible:self];
     }
     
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:1];
 }
 
 - (void)nativeExpressAdViewDidClick:(BUNativeExpressAdView *)nativeExpressAdView {
