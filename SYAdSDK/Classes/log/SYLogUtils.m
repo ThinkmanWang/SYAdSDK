@@ -42,6 +42,10 @@
     return mutStr;
 }
 
++ (void) report:(NSString*) pszSlotID requestID:(NSString*) pszRequestId type:(int) nType {
+    [SYLogUtils report:pszSlotID requestID:pszRequestId sourceId:-1 type:nType];
+}
+
 + (void) report:(NSString*) pszSlotID sourceId:(int) nSourceID type:(int) nType {
     NSString* pszRequestId = [[SYLogUtils uuidString] stringByReplacingOccurrencesOfString:@"-" withString:@""];
     
@@ -58,6 +62,11 @@
     NSNumber* nOSType = [NSNumber numberWithInt:1];
     NSNumber* nInteractionType = [NSNumber numberWithInt:2];
     
+    NSString* pszSourceID = nil;
+    if (nSourceID >= 0) {
+        pszSourceID = [NSString stringWithFormat:@"%d", nSourceID];
+    }
+    
     NSDictionary* dictData = @{
         @"appId": pszAppID
         , @"sdkId": @""
@@ -67,7 +76,7 @@
                 @"requestId": pszRequestId
                 , @"appId": pszAppID
                 , @"slotId": pszSlotID
-                , @"sourceId": [NSNumber numberWithInt:nSourceID]
+                , @"sourceId": pszSourceID
                 , @"type": [NSNumber numberWithInt:nType]
                 , @"timestamp": nTimestamp
                 , @"userId": SYAdSDKManager.idfa
@@ -98,7 +107,7 @@
             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
             NSError *parseError = nil;
             NSDictionary *dictRet = [NSJSONSerialization JSONObjectWithData:data options:0 error:&parseError];
-//            NSLog(@"%@", dictRet);
+            NSLog(@"%@", dictRet);
         }
         
     }];

@@ -72,8 +72,8 @@
 - (void)loadAdData {
     [self.bannerView loadAdData];
 //    [self.nativeExpressAdManager loadAd:1];
-    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11008];
-    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11010];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:-1 type:11008];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:-1 type:11010];
 }
 
 #pragma mark - events
@@ -108,10 +108,10 @@
         [self.delegate bannerAdViewRenderSuccess:self];
     }
     
-    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11011];
-    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11020];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:-1 type:11011];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:-1 type:11020];
     
-    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:1];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:-1 type:1];
 }
 
 /**
@@ -122,8 +122,8 @@
         [self.delegate bannerAdViewRenderFail:self];
     }
     
-    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11012];
-    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11009];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:-1 type:11012];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:-1 type:11009];
 }
 
 /**
@@ -144,7 +144,7 @@
         [self.delegate bannerAdViewDidClick:self];
     }
     
-    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:2];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:-1 type:2];
 }
 
 //#pragma mark - BUNativeExpressAdViewDelegate

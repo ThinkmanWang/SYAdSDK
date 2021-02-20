@@ -80,8 +80,8 @@
  */
 - (void)loadAdDataWithCount:(NSInteger)count {
     [self.nativeExpressAdManager loadAdDataWithCount:count];
-    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11008 adCount:count];
-    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11010 adCount:count];
+    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:-1 type:11008 adCount:count];
+    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:-1 type:11010 adCount:count];
 }
 
 /**
@@ -131,8 +131,8 @@
         [self.delegate expressAdViewRenderSuccess:view];
     }
     
-    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11011];
-    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11020];
+    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:-1 type:11011];
+    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:-1 type:11020];
 }
 
 /**
@@ -143,8 +143,8 @@
         [self.delegate expressAdViewRenderFail:expressAdView.superview];
     }
     
-    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11012];
-    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11009];
+    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:-1 type:11012];
+    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:-1 type:11009];
 }
 
 /**
@@ -155,7 +155,7 @@
         [self.delegate expressAdViewWillShow:expressAdView.superview];
     }
     
-    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:1];
+    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:-1 type:1];
 }
 
 /**
@@ -166,7 +166,7 @@
         [self.delegate expressAdViewDidClick:expressAdView.superview];
     }
     
-    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:2];
+    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:-1 type:2];
 }
 
 /**

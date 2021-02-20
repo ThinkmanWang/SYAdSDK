@@ -69,7 +69,7 @@
 
     [self.splashAdView loadAdData];
 
-    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11008];
+    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:-1 type:11008];
 }
 
 - (void) removeMyself {
@@ -92,7 +92,7 @@
     self.frame = [self.splashAdView getFrame];
     [self addSubview:splashAd];
     
-    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11020];
+    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:-1 type:11020];
 }
 
 - (void)splashAdDidClose:(id<ISplashAdView>)splashAd {
@@ -112,7 +112,6 @@
         [self.delegate splashAdDidClick:self];
     }
     
-    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:2];
 }
 
 - (void)splashAdDidClickSkip:(id<ISplashAdView>)splashAd {
@@ -133,7 +132,7 @@
         [self.delegate splashAd:self];
     }
     
-    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:11009];
+    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:-1 type:11009];
 }
 
 - (void)splashAdWillVisible:(id<ISplashAdView>)splashAd {
@@ -142,7 +141,6 @@
         [self.delegate splashAdWillVisible:self];
     }
     
-    [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:0 type:1];
 }
 
 - (void)splashAdWillClose:(id<ISplashAdView>)splashAd {

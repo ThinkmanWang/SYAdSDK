@@ -122,6 +122,8 @@
     if (self.syDelegate) {
         [self.syDelegate splashAdDidClick:self];
     }
+    
+    [SYLogUtils report:self.slotID requestID:self.m_pszRequestId sourceId:0 type:2];
 }
 
 - (void)splashAdDidClickSkip:(BUSplashAdView *)splashAd {
@@ -150,6 +152,8 @@
     if (self.syDelegate) {
         [self.syDelegate splashAdWillVisible:self];
     }
+    
+    [SYLogUtils report:self.slotID requestID:self.m_pszRequestId sourceId:0 type:1];
 }
 
 - (void)splashAdWillClose:(BUSplashAdView *)splashAd {

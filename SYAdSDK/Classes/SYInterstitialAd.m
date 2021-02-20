@@ -69,8 +69,8 @@
  Load interstitial ad datas.
  */
 - (void)loadAdData {
-    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11008];
-    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11010];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:-1 type:11008];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:-1 type:11010];
     return [self.interstitialAd loadAdData];
 }
 
@@ -81,7 +81,7 @@
  */
 - (BOOL)showAdFromRootViewController:(UIViewController *)rootViewController {
     
-    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:1];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:-1 type:1];
     self.rootViewController = rootViewController;
     
     if (self.interstitialAd) {
@@ -109,8 +109,8 @@
         [self.delegate interstitialAd:self];
     }
     
-    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11012];
-    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11009];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:-1 type:11012];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:-1 type:11009];
 }
 
 /**
@@ -121,8 +121,8 @@
         [self.delegate interstitialAdRenderSuccess:self];
     }
     
-    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11011];
-    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11020];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:-1 type:11011];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:-1 type:11020];
 }
 
 /**
@@ -133,7 +133,7 @@
         [self.delegate interstitialAdRenderFail:self];
     }
     
-    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11009];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:-1 type:11009];
 }
 
 /**
@@ -144,7 +144,7 @@
         [self.delegate interstitialAdWillVisible:self];
     }
     
-    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:1];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:-1 type:1];
 }
 
 /**
@@ -155,7 +155,7 @@
         [self.delegate interstitialAdDidClick:self];
     }
     
-    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:2];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:-1 type:2];
 }
 
 /**
