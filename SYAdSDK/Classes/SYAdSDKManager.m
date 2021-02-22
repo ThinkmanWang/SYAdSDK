@@ -8,6 +8,8 @@
 #import "log/SYLogUtils.h"
 #import "gdt/GDTSDKConfig.h"
 
+#import "SYAdSDKDefines.h"
+
 @interface SYAdSDKManager ()
 +(NSString*) buAppID;
 +(NSString*) gdtAppID;
@@ -88,6 +90,9 @@ static NSString* idfa = nil;
             [BUAdSDKManager setAppID:buAppID];
             
             gdtAppID = dictConfig[@"data"][@"appConfig"][@"gdt_appid"];
+#ifdef TEST_FOR_GDT
+            gdtAppID = @"1105344611";
+#endif
             BOOL result = [GDTSDKConfig registerAppId:gdtAppID];
             if (result) {
 //                NSLog(@"%@", result);

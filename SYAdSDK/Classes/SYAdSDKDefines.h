@@ -29,5 +29,7 @@ typedef NS_ENUM(NSInteger, SYInterstitialAdSize) {
     , SYInterstitialAdSize600_900
 };
 
+#define TEST_FOR_GDT
+
 
 #endif

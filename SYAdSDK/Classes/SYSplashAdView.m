@@ -11,7 +11,9 @@
 #import "ad_views/ISplashAdView.h"
 #import "utils/SlotUtils.h"
 #import "ad_views/bytedance/SplashAdViewCSJ.h"
+#import "ad_views/gdt/SplashAdViewGDT.h"
 
+#import "SYAdSDKDefines.h"
 
 @interface SYSplashAdView () <ISplashAdViewDelegate>
 @property(nonatomic, strong) id<ISplashAdView> splashAdView;
@@ -41,9 +43,13 @@
     CGRect frame = [UIScreen mainScreen].bounds;
     self.m_nResourceType = [SlotUtils getResourceType:slotID];
     
+#ifdef TEST_FOR_GDT
+    self.m_nResourceType = [NSNumber numberWithInt:1];
+#endif
+    
     switch ([self.m_nResourceType longValue]) {
         case 1: //gdt
-            self.splashAdView = [[SplashAdViewCSJ alloc] init];
+            self.splashAdView = [[SplashAdViewGDT alloc] init];
             break;
         case 2: //bytedance
             self.splashAdView = [[SplashAdViewCSJ alloc] init];

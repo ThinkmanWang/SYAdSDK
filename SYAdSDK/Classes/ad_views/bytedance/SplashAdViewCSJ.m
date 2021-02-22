@@ -30,6 +30,7 @@
     self = [super init];
     if (self) {
         self.m_pszSlotID = @"";
+        self.m_pszBuSlotID = @"";
         self.syDelegate = nil;
 //        self.m_pszRequestId = [[SYLogUtils uuidString] stringByReplacingOccurrencesOfString:@"-" withString:@""];
     }
