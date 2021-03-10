@@ -16,6 +16,7 @@
 #import "../../log/SYLogUtils.h"
 #import "../../SYAdSDKManager.h"
 #import "SlotUtils.h"
+#import "SYAdSDKDefines.h"
 
 @interface SplashAdViewGDT () <GDTSplashAdDelegate,GDTSplashZoomOutViewDelegate>
 @property(nonatomic, strong) NSString* m_pszSlotID;
