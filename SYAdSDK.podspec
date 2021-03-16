@@ -11,7 +11,7 @@
 Pod::Spec.new do |s|
 	
   s.name             = 'SYAdSDK'
-  s.version          = '0.8.3'
+  s.version          = '0.8.5'
   s.summary          = 'Shiyu Ad SDK for iOS'
 
 # This description is used to generate tags and improve search results.
