@@ -71,7 +71,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, nonnull) NSString *slotID;
 @property (nonatomic, weak, nullable) id<SYExpressAdViewDelegate> delegate;
-@property (nonatomic, strong) UIViewController *rootViewController;
+@property (nonatomic, weak) UIViewController *rootViewController;
 
 
 /**

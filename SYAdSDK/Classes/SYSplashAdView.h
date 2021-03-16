@@ -37,7 +37,7 @@ The unique identifier of splash ad.
  required.
  Root view controller for handling ad actions.
  */
-@property (nonatomic, strong) UIViewController *rootViewController;
+@property (nonatomic, weak) UIViewController *rootViewController;
 
 /**
  Initializes splash ad with slot id and frame.
