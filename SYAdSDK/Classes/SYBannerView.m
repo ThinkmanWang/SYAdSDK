@@ -23,7 +23,7 @@
 
 @property (nonatomic, weak) UIViewController *rootViewController;
 
-@property (nonatomic, weak) id<IBannerView> bannerView;
+@property (nonatomic, strong) id<IBannerView> bannerView;
 @end
 
 @implementation SYBannerView

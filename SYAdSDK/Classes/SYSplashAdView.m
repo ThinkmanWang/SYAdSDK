@@ -14,7 +14,7 @@
 
 
 @interface SYSplashAdView () <ISplashAdViewDelegate>
-@property(nonatomic, weak) id<ISplashAdView> splashAdView;
+@property(nonatomic, strong) id<ISplashAdView> splashAdView;
 @property(nonatomic, strong) NSNumber* m_nResourceType;
 @property(nonatomic, strong) NSString* pszRequestId;
 @end
