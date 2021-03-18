@@ -20,7 +20,7 @@
 @property(nonatomic, strong) NSNumber* m_nResourceType;
 @property(nonatomic, strong) NSString* m_pszRequestId;
 
-@property (nonatomic, strong) UIViewController *rootViewController;
+@property (nonatomic, weak) UIViewController *rootViewController;
 @property (nonatomic, strong) id<IInterstitialAd> interstitialAd;
 
 @end

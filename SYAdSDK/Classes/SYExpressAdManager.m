@@ -22,8 +22,8 @@
 @property(nonatomic, strong) NSString* pszRequestId;
 
 @property(nonatomic, strong) id<IExpressAdManager> nativeExpressAdManager;
-@property (strong, nonatomic) NSMutableArray<__kindof BUNativeExpressAdView *> *expressAdViews;
-@property (strong, nonatomic) NSMutableArray<__kindof SYExpressAdView *> *syExpressAdViews;
+@property (nonatomic, strong) NSMutableArray<__kindof BUNativeExpressAdView *> *expressAdViews;
+@property (nonatomic, strong) NSMutableArray<__kindof SYExpressAdView *> *syExpressAdViews;
 
 @end
 

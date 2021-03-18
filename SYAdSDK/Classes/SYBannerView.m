@@ -21,9 +21,9 @@
 @property(nonatomic, strong) NSNumber* m_nResourceType;
 @property(nonatomic, strong) NSString* m_pszRequestId;
 
-@property (nonatomic, strong) UIViewController *rootViewController;
+@property (nonatomic, weak) UIViewController *rootViewController;
 
-@property (strong, nonatomic) id<IBannerView> bannerView;
+@property (nonatomic, strong) id<IBannerView> bannerView;
 @end
 
 @implementation SYBannerView

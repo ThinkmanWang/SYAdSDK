@@ -24,6 +24,9 @@
 @property(nonatomic, strong) NSString* m_pszRequestId;
 @property (strong, nonatomic) BUNativeExpressAdManager *nativeExpressAdManager;
 @property (nonatomic, weak) UIViewController *rootViewController;
+@property CGFloat m_fWidth;
+@property CGFloat m_fHeight;
+
 //@property (nonatomic, weak, nullable) id<SYBannerViewDelegate> syDelegate;
 
 @end
@@ -40,6 +43,8 @@
         self.rootViewController = nil;
         
         self.syDelegate = nil;
+        self.m_fWidth = 0;
+        self.m_fHeight = 0;
         
 //        self.m_pszRequestId = [[SYLogUtils uuidString] stringByReplacingOccurrencesOfString:@"-" withString:@""];
     }
@@ -84,6 +89,9 @@
             fHeight = 300 * fWidth / 600;
             break;
     }
+    
+    self.m_fWidth = fWidth;
+    self.m_fHeight = fHeight;
 
     self.m_pszSlotID = slotID;
     self.m_pszBuSlotID = [SlotUtils getRealSlotID:slotID];
@@ -92,8 +100,8 @@
     BUAdSlot *slot = [[BUAdSlot alloc] init];
     slot.ID = self.m_pszBuSlotID;
     slot.AdType = BUAdSlotAdTypeFeed;
-    BUSize *imgSize = [BUSize sizeBy:BUProposalSize_Feed690_388];
-    slot.imgSize = imgSize;
+//    BUSize *imgSize = [BUSize sizeBy:BUProposalSize_Feed690_388];
+//    slot.imgSize = imgSize;
     slot.position = BUAdSlotPositionFeed;
     // self.nativeExpressAdManager可以重用
     if (!self.nativeExpressAdManager) {
