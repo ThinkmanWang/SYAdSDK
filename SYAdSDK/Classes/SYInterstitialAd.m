@@ -13,6 +13,7 @@
 #import "log/SYLogUtils.h"
 #import "ad_views/IInterstitialAd.h"
 #import "ad_views/bytedance/InterstitialAdCSJ.h"
+#import "ad_views/gdt/InterstitialAdGDT.h"
 #import "SlotUtils.h"
 
 @interface SYInterstitialAd () <SYInterstitialAdDelegate>
@@ -45,16 +46,16 @@
     
     switch ([self.m_nResourceType longValue]) {
         case 1: //gdt
-            self.interstitialAd = [[InterstitialAdCSJ alloc] init];
+            self.interstitialAd = [[InterstitialAdGDT alloc] init];
             break;
         case 2: //bytedance
-            self.interstitialAd = [[InterstitialAdCSJ alloc] init];
+            self.interstitialAd = [[InterstitialAdGDT alloc] init];
             break;
         case 3: //SY
-            self.interstitialAd = [[InterstitialAdCSJ alloc] init];
+            self.interstitialAd = [[InterstitialAdGDT alloc] init];
             break;
         default: //bytedance
-            self.interstitialAd = [[InterstitialAdCSJ alloc] init];
+            self.interstitialAd = [[InterstitialAdGDT alloc] init];
             break;
     }
     
