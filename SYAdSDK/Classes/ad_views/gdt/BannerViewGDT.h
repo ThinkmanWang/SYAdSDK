@@ -15,10 +15,13 @@
 #import <AdSupport/AdSupport.h>
 #import <AppTrackingTransparency/AppTrackingTransparency.h>
 #import "../IBannerView.h"
+#import "GDTUnifiedBannerView.h"
+#import "SYAdSDKDefines.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BannerViewGDT : UIView<IBannerView>
+@interface BannerViewGDT : GDTUnifiedBannerView<IBannerView>
 
 @end
 

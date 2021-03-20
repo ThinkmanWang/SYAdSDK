@@ -17,8 +17,7 @@
 #import "SlotUtils.h"
 #import "SYAdSDKDefines.h"
 
-#import "../../gdt/GDTNativeExpressAd.h"
-#import "../../gdt/GDTNativeExpressAdView.h"
+#import "GDTUnifiedBannerView.h"
 
 @interface BannerViewGDT ()
 
@@ -26,7 +25,6 @@
 @property(nonatomic, strong) NSString* m_pszBuSlotID;
 @property(nonatomic, strong) NSString* m_pszRequestId;
 
-@property (nonatomic, strong) GDTNativeExpressAd *nativeExpressAd;
 @property (nonatomic, weak) UIViewController *rootViewController;
 @property (nonatomic, weak, nullable) id<ISYBannerViewDelegate> syDelegate;
 
@@ -41,7 +39,6 @@
         self.m_pszBuSlotID = @"";
         self.m_pszRequestId = @"";
         
-        self.nativeExpressAd = nil;
         self.rootViewController = nil;
         self.syDelegate = nil;        
     }
@@ -89,14 +86,23 @@
     self.m_pszBuSlotID = [SlotUtils getRealSlotID:slotID];
     self.rootViewController = rootViewController;
 #ifdef TEST_FOR_GDT
-    self.m_pszBuSlotID = @"5030722621265924";
+    self.m_pszBuSlotID = @"1080958885885321";
 #endif
+    
+    CGRect rect = {CGPointZero, CGSizeMake(fWidth, fHeight)};
+    self = [super initWithFrame:rect placementId:self.m_pszBuSlotID viewController:rootViewController];
+    self.accessibilityIdentifier = @"banner_ad";
+    self.animated = NO;
+    self.autoSwitchInterval = 30;
+    self.delegate = self;
     
     return self;
 }
 
 - (void)loadAdData {
-    
+    [super loadAdAndShow];
+
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11010];
 }
 
 - (CGRect)getFrame {
@@ -111,5 +117,116 @@
     self.m_pszRequestId = requestID;
 }
 
+#pragma mark - GDTUnifiedBannerViewDelegate
+/**
+ *  请求广告条数据成功后调用
+ *  当接收服务器返回的广告数据成功后调用该函数
+ */
+- (void)unifiedBannerViewDidLoad:(GDTUnifiedBannerView *)unifiedBannerView
+{
+    NSLog(@"%s",__FUNCTION__);
+    NSLog(@"unified banner did load");
+    
+    if (self.syDelegate) {
+        [self.syDelegate bannerAdViewDidLoad:self];
+    }
+    
+    if (self.syDelegate) {
+        [self.syDelegate bannerAdViewRenderSuccess:self];
+    }
+    
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:3 type:11011];
+}
+
+/**
+ *  请求广告条数据失败后调用
+ *  当接收服务器返回的广告数据失败后调用该函数
+ */
+
+- (void)unifiedBannerViewFailedToLoad:(GDTUnifiedBannerView *)unifiedBannerView error:(NSError *)error
+{
+    NSLog(@"%s",__FUNCTION__);
+    if (self.syDelegate) {
+        [self.syDelegate bannerAdViewLoadFailed:self];
+    }
+    
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:3 type:11012];
+}
+
+/**
+ *  banner2.0曝光回调
+ */
+- (void)unifiedBannerViewWillExpose:(nonnull GDTUnifiedBannerView *)unifiedBannerView {
+    NSLog(@"%s",__FUNCTION__);
+    
+    if (self.syDelegate) {
+        [self.syDelegate bannerAdViewWillBecomVisible:self];
+    }
+    
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:3 type:1];
+
+}
+
+/**
+ *  banner2.0点击回调
+ */
+- (void)unifiedBannerViewClicked:(GDTUnifiedBannerView *)unifiedBannerView
+{
+    NSLog(@"%s",__FUNCTION__);
+    
+    if (self.syDelegate) {
+        [self.syDelegate bannerAdViewDidClick:self];
+    }
+    
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:2];
+}
+
+/**
+ *  应用进入后台时调用
+ *  当点击应用下载或者广告调用系统程序打开，应用将被自动切换到后台
+ */
+- (void)unifiedBannerViewWillLeaveApplication:(GDTUnifiedBannerView *)unifiedBannerView
+{
+    NSLog(@"%s",__FUNCTION__);
+}
+
+/**
+ *  全屏广告页已经被关闭
+ */
+- (void)unifiedBannerViewDidDismissFullScreenModal:(GDTUnifiedBannerView *)unifiedBannerView
+{
+    NSLog(@"%s",__FUNCTION__);
+}
+
+/**
+ *  全屏广告页即将被关闭
+ */
+- (void)unifiedBannerViewWillDismissFullScreenModal:(GDTUnifiedBannerView *)unifiedBannerView
+{
+    NSLog(@"%s",__FUNCTION__);
+}
+
+/**
+ *  banner2.0广告点击以后即将弹出全屏广告页
+ */
+- (void)unifiedBannerViewWillPresentFullScreenModal:(GDTUnifiedBannerView *)unifiedBannerView
+{
+    NSLog(@"%s",__FUNCTION__);
+}
+
+/**
+ *  banner2.0广告点击以后弹出全屏广告页完毕
+ */
+- (void)unifiedBannerViewDidPresentFullScreenModal:(GDTUnifiedBannerView *)unifiedBannerView
+{
+    NSLog(@"%s",__FUNCTION__);
+}
+
+/**
+ *  banner2.0被用户关闭时调用
+ */
+- (void)unifiedBannerViewWillClose:(nonnull GDTUnifiedBannerView *)unifiedBannerView {
+    NSLog(@"%s",__FUNCTION__);
+}
 
 @end
