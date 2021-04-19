@@ -8,7 +8,6 @@
 #import "BannerViewGDT.h"
 
 #import <UIKit/UIKit.h>
-#import <BUAdSDK/BUAdSDK.h>
 #import <AdSupport/AdSupport.h>
 #import <AppTrackingTransparency/AppTrackingTransparency.h>
 
@@ -102,7 +101,7 @@
 - (void)loadAdData {
     [super loadAdAndShow];
 
-    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11010];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:3 type:11010];
 }
 
 - (CGRect)getFrame {
@@ -178,7 +177,7 @@
         [self.syDelegate bannerAdViewDidClick:self];
     }
     
-    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:2];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:3 type:2];
 }
 
 /**

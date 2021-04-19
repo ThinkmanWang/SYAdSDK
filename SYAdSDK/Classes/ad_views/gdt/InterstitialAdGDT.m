@@ -9,7 +9,6 @@
 
 #import <UIKit/UIKit.h>
 //#import "SYAdSDKManager.h"
-#import <BUAdSDK/BUAdSDK.h>
 #import <AdSupport/AdSupport.h>
 #import <AppTrackingTransparency/AppTrackingTransparency.h>
 
@@ -87,7 +86,7 @@
  Load interstitial ad datas.
  */
 - (void)loadAdData {
-    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11010];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:3 type:11010];
     
     [super loadAd];
 }
@@ -98,7 +97,7 @@
  @return : whether it is successfully displayed.
  */
 - (BOOL)showAdFromRootViewController:(UIViewController *)rootViewController {
-    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:1];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:3 type:1];
 //    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:1];
     self.rootViewController = rootViewController;
     

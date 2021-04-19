@@ -67,7 +67,7 @@
     NSNumber* nInteractionType = [NSNumber numberWithInt:2];
     
     NSString* pszSourceID = @"";
-    if (nSourceID >= 0) {
+    if (nSourceID >= -1) {
         pszSourceID = [NSString stringWithFormat:@"%d", nSourceID];
     }
     
@@ -98,6 +98,7 @@
     };
 
     [request setAllHTTPHeaderFields:headers];
+    //NSLog([SYLogUtils convertToJsonData:dictData]);
     NSString* body = [NSString stringWithFormat:@"[%@]", [SYLogUtils convertToJsonData:dictData]];
     NSData *postData = [[NSData alloc] initWithData:[body dataUsingEncoding:NSUTF8StringEncoding]];
     [request setHTTPBody:postData];

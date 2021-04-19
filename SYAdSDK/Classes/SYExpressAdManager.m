@@ -17,13 +17,13 @@
 #import "ExpressAdManagerCSJ.h"
 #import "ExpressAdManagerGDT.h"
 
-@interface SYExpressAdManager () <BUSplashAdDelegate>
+@interface SYExpressAdManager ()
 
 @property(nonatomic, strong) NSNumber* m_nResourceType;
 @property(nonatomic, strong) NSString* pszRequestId;
 
 @property(nonatomic, strong) id<IExpressAdManager> nativeExpressAdManager;
-@property (nonatomic, strong) NSMutableArray<__kindof BUNativeExpressAdView *> *expressAdViews;
+//@property (nonatomic, strong) NSMutableArray<__kindof SYExpressAdView *> *expressAdViews;
 @property (nonatomic, strong) NSMutableArray<__kindof SYExpressAdView *> *syExpressAdViews;
 
 @end
@@ -88,11 +88,11 @@
  * Sent when views successfully load ad
  */
 - (void)expressAdSuccessToLoad:(id<IExpressAdManager>) expressAd views:(NSArray<__kindof UIView *> *)views {
-    [self.expressAdViews removeAllObjects];
+//    [self.expressAdViews removeAllObjects];
     [self.syExpressAdViews removeAllObjects];
     
     if (views.count) {
-        [self.expressAdViews addObjectsFromArray:views];
+//        [self.expressAdViews addObjectsFromArray:views];
         
         [views enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             UIView *expressView = (UIView *)obj;
@@ -149,6 +149,13 @@
  * Sent when an ad view is about to present modal content
  */
 - (void)expressAdViewWillShow:(UIView*)expressAdView {
+    SYExpressAdView* view = expressAdView.superview;
+    
+    view.frame = CGRectMake(view.frame.origin.x
+                            , view.frame.origin.y
+                            , CGRectGetWidth(expressAdView.frame)
+                            , CGRectGetHeight(expressAdView.frame));
+    
     if (self.delegate) {
         [self.delegate expressAdViewWillShow:expressAdView.superview];
     }    
@@ -204,8 +211,8 @@ Sent when a playerw playback status changed.
  This method is called when another controller has been closed.
  @param interactionType : open appstore in app or open the webpage or view video ad details page.
  */
-- (void)nativeExpressAdViewDidCloseOtherController:(UIView*)nativeExpressAdView interactionType:(BUInteractionType)interactionType {
-    
-}
+//- (void)nativeExpressAdViewDidCloseOtherController:(UIView*)nativeExpressAdView interactionType:(BUInteractionType)interactionType {
+//
+//}
 
 @end

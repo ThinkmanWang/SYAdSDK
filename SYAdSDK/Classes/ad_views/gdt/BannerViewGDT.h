@@ -11,7 +11,6 @@
 #import <UIKit/UIKit.h>
 
 #import <Foundation/Foundation.h>
-#import <BUAdSDK/BUAdSDK.h>
 #import <AdSupport/AdSupport.h>
 #import <AppTrackingTransparency/AppTrackingTransparency.h>
 #import "../IBannerView.h"

@@ -27,7 +27,7 @@
 @property (nonatomic, weak, nullable) id<IExpressAdManagerDelegate> syDelegate;
 @property (nonatomic, weak) UIViewController *rootViewController;
 
-@property (strong, nonatomic) NSMutableArray<__kindof GDTNativeExpressAdView *> *expressAdViews;
+//@property (strong, nonatomic) NSMutableArray<__kindof GDTNativeExpressAdView *> *expressAdViews;
 @property (strong, nonatomic) NSMutableArray<__kindof UIView *> *syExpressAdViews;
 
 @end
@@ -43,7 +43,7 @@
         self.syDelegate = nil;
         self.rootViewController = nil;
         
-        self.expressAdViews = [NSMutableArray new];
+//        self.expressAdViews = [NSMutableArray new];
         self.syExpressAdViews = [NSMutableArray new];
     }
     
@@ -58,13 +58,19 @@
     self.m_pszBuSlotID = [SlotUtils getRealSlotID:slotID];
     
 #ifdef TEST_FOR_GDT
-    self.m_pszBuSlotID = @"5030722621265924";
+    self.m_pszBuSlotID = @"1070493363284797";
 #endif
     
     self.rootViewController = rootViewController;
     
     self = [super initWithPlacementId:self.m_pszBuSlotID adSize:size];
     self.delegate = self;
+    
+    self.maxVideoDuration = 30;
+    self.minVideoDuration = 5;
+    self.videoMuted = YES;
+    self.detailPageVideoMuted = YES;
+    self.videoAutoPlayOnWWAN = NO;
     
 //    [self.nativeExpressAd loadAd:(NSInteger)self.adCountSliderValue];
 
@@ -104,11 +110,11 @@
 {
     NSLog(@"%s",__FUNCTION__);
     
-    [self.expressAdViews removeAllObjects];
+//    [self.expressAdViews removeAllObjects];
     [self.syExpressAdViews removeAllObjects];
     
     if (views.count) {
-        [self.expressAdViews addObjectsFromArray:views];
+//        [self.expressAdViews addObjectsFromArray:views];
         
         [views enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             GDTNativeExpressAdView *expressView = (GDTNativeExpressAdView *)obj;
@@ -189,18 +195,23 @@
         [self.syDelegate expressAdViewDidClick:nativeExpressAdView.superview];
     }
     
-    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:2];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:3 type:2];
 }
 
 - (void)nativeExpressAdViewClosed:(GDTNativeExpressAdView *)nativeExpressAdView
 {
     NSLog(@"%s",__FUNCTION__);
-    [self.expressAdViews removeObject:nativeExpressAdView];
+    UIView* view = nativeExpressAdView.superview;
+    [self.syExpressAdViews removeObject:view];
+//    [self.expressAdViews removeObject:nativeExpressAdView];
 }
 
 - (void)nativeExpressAdViewExposure:(GDTNativeExpressAdView *)nativeExpressAdView
 {
     NSLog(@"%s",__FUNCTION__);
+    
+    UIView* view = nativeExpressAdView.superview;
+    view.frame = nativeExpressAdView.frame;
     
     if (self.syDelegate) {
         [self.syDelegate expressAdViewWillShow:nativeExpressAdView.superview];
