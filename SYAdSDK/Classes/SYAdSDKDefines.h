@@ -29,7 +29,21 @@ typedef NS_ENUM(NSInteger, SYInterstitialAdSize) {
     , SYInterstitialAdSize600_900
 };
 
+#define UPLOAD_USER_INFO
+#define TEST_FOR_BYTEDANCE
+//#define USE_CIRCLE_PROGREESS_BUTTON
+
+#define TEST_ENV
+
 //#define TEST_FOR_GDT
+
+
+#define CRASH_TEST
+
+//#define CRASH_TEST_CODE_NOT_EXISTS
+//#define CRASH_TEST_DATA_NULL
+//#define CRASH_TEST_JSON_STRING_INCORRECT
+//#define CRASH_TEST_JSON_CONTENT_INCORRECT
 
 
 #endif

@@ -45,6 +45,9 @@
 - (instancetype)initWithSlotID:(NSString *)slotID adSize:(SYInterstitialAdSize)adsize {
     self.m_pszSlotID = slotID;
     self.m_pszBuSlotID = [SlotUtils getRealSlotID:slotID];
+#ifdef TEST_FOR_BYTEDANCE
+    self.m_pszBuSlotID = @"945746799";
+#endif
     
     CGFloat fWidth = 0;
     CGFloat fHeight = 0;

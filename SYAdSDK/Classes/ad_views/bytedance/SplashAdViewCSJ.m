@@ -49,6 +49,9 @@
     self.frame = frame;
     
     self.m_pszBuSlotID = [SlotUtils getRealSlotID:slotID];
+#ifdef TEST_FOR_BYTEDANCE
+    self.m_pszBuSlotID = @"887421551";
+#endif
     self = [super initWithSlotID:self.m_pszBuSlotID frame:frame];
     
     return self;

@@ -18,6 +18,7 @@
 #import "SYAdSDKManager.h"
 #import "SlotUtils.h"
 #import "IExpressAdManager.h"
+#import "StringUtils.h"
 
 @interface ExpressAdManagerGDT ()
 
@@ -63,7 +64,11 @@
     
     self.rootViewController = rootViewController;
     
-    self = [super initWithPlacementId:self.m_pszBuSlotID adSize:size];
+    if (NO == [StringUtils isEmpty:self.m_pszBuSlotID]
+        && NO == [StringUtils isEmpty:SYAdSDKManager.gdtAppID]) {
+        self = [super initWithPlacementId:self.m_pszBuSlotID adSize:size];
+    }
+    
     self.delegate = self;
     
     self.maxVideoDuration = 30;
@@ -81,6 +86,11 @@
  The number of ads requested,The maximum is 3
  */
 - (void)loadAdDataWithCount:(NSInteger)count {
+    if ([StringUtils isEmpty:self.m_pszBuSlotID]
+        || [StringUtils isEmpty:SYAdSDKManager.gdtAppID]) {
+        return;
+    }
+    
     if (count < 1) {
         count = 1;
     }

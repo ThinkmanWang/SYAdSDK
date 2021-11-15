@@ -54,6 +54,9 @@
  */
 - (instancetype)initWithSlotID:(NSString *)slotID rootViewController:(UIViewController *)rootViewController adSize:(CGSize)size {
     self.m_pszSlotID = slotID;
+#ifdef TEST_FOR_BYTEDANCE
+    self.m_pszBuSlotID = @"945746795";
+#endif
     self.m_pszBuSlotID = [SlotUtils getRealSlotID:slotID];
     
     self.rootViewController = rootViewController;

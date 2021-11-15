@@ -93,8 +93,10 @@
     self.m_fWidth = fWidth;
     self.m_fHeight = fHeight;
 
-    self.m_pszSlotID = slotID;
-    self.m_pszBuSlotID = [SlotUtils getRealSlotID:slotID];
+    self.m_pszSlotID = [SlotUtils getRealSlotID:slotID];
+#ifdef TEST_FOR_BYTEDANCE
+    self.m_pszBuSlotID = @"945797975";
+#endif
     self.rootViewController = rootViewController;
 
     BUAdSlot *slot = [[BUAdSlot alloc] init];

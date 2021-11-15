@@ -5,8 +5,8 @@
 //  Created by 王晓丰 on 2021/2/8.
 //
 
-#ifndef StringUtils_h
-#define StringUtils_h
+#ifndef SlotUtils_h
+#define SlotUtils_h
 
 #import <Foundation/Foundation.h>
 
@@ -15,7 +15,7 @@
 
 + (NSString*)getRealSlotID:(NSString *)slotID;
 + (NSNumber*)getResourceType:(NSString *)slotID;
-
++ (int) getSplashType:(NSString*) slotID;
 
 @end
 

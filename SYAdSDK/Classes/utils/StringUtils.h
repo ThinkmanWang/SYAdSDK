@@ -14,7 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface StringUtils : NSObject
 
-+(BOOL)isEmpty:(NSString*) pszVal;
++ (BOOL)isEmpty:(NSString*) pszVal;
++ (NSDictionary*) strToDict: (NSString*) pszJson;
++ (NSString*) dictToStr: (NSDictionary*) dictData;
 
 @end
 

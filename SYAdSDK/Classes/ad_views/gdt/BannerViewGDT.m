@@ -17,6 +17,7 @@
 #import "SYAdSDKDefines.h"
 
 #import "GDTUnifiedBannerView.h"
+#import "StringUtils.h"
 
 @interface BannerViewGDT ()
 
@@ -88,8 +89,12 @@
     self.m_pszBuSlotID = @"1080958885885321";
 #endif
     
-    CGRect rect = {CGPointZero, CGSizeMake(fWidth, fHeight)};
-    self = [super initWithFrame:rect placementId:self.m_pszBuSlotID viewController:rootViewController];
+    if (NO == [StringUtils isEmpty:self.m_pszBuSlotID]
+        && NO == [StringUtils isEmpty:SYAdSDKManager.gdtAppID]) {
+        CGRect rect = {CGPointZero, CGSizeMake(fWidth, fHeight)};
+        self = [super initWithFrame:rect placementId:self.m_pszBuSlotID viewController:rootViewController];
+    }
+    
     self.accessibilityIdentifier = @"banner_ad";
     self.animated = NO;
     self.autoSwitchInterval = 30;
@@ -99,6 +104,11 @@
 }
 
 - (void)loadAdData {
+    if ([StringUtils isEmpty:self.m_pszBuSlotID]
+        || [StringUtils isEmpty:SYAdSDKManager.gdtAppID]) {
+        return;
+    }
+    
     [super loadAdAndShow];
 
     [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:3 type:11010];

@@ -16,6 +16,7 @@
 #import "SYAdSDKManager.h"
 #import "SlotUtils.h"
 #import "IInterstitialAd.h"
+#import "StringUtils.h"
 
 @interface InterstitialAdGDT ()
 @property(nonatomic, strong) NSString* m_pszSlotID;
@@ -69,7 +70,10 @@
     self.m_pszBuSlotID = @"1050652855580392";
 #endif
     
-    self = [super initWithPlacementId:self.m_pszBuSlotID];
+    if (NO == [StringUtils isEmpty:self.m_pszBuSlotID]
+        && NO == [StringUtils isEmpty:SYAdSDKManager.gdtAppID]) {
+        self = [super initWithPlacementId:self.m_pszBuSlotID];
+    }
     
     self.delegate = self;
     self.videoMuted = YES;
@@ -86,6 +90,11 @@
  Load interstitial ad datas.
  */
 - (void)loadAdData {
+    if ([StringUtils isEmpty:self.m_pszBuSlotID]
+        || [StringUtils isEmpty:SYAdSDKManager.gdtAppID]) {
+        return;
+    }
+    
     [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:3 type:11010];
     
     [super loadAd];

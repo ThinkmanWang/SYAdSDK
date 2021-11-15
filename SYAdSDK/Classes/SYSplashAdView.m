@@ -43,6 +43,10 @@
     CGRect frame = [UIScreen mainScreen].bounds;
     self.m_nResourceType = [SlotUtils getResourceType:slotID];
     
+#ifdef TEST_FOR_BYTEDANCE
+    self.m_nResourceType = [NSNumber numberWithInt:2];
+#endif
+    
 #ifdef TEST_FOR_GDT
     self.m_nResourceType = [NSNumber numberWithInt:1];
 #endif

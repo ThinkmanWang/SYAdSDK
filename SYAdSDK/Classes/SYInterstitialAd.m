@@ -43,13 +43,19 @@
     
     CGRect frame = [UIScreen mainScreen].bounds;
     self.m_nResourceType = [SlotUtils getResourceType:slotID];
+#ifdef TEST_FOR_GDT
+    self.m_nResourceType = [NSNumber numberWithInt:1];
+#endif
+#ifdef TEST_FOR_BYTEDANCE
+    self.m_nResourceType = [NSNumber numberWithInt:2];
+#endif
     
     switch ([self.m_nResourceType longValue]) {
         case 1: //gdt
             self.interstitialAd = [[InterstitialAdGDT alloc] init];
             break;
         case 2: //bytedance
-            self.interstitialAd = [[InterstitialAdGDT alloc] init];
+            self.interstitialAd = [[InterstitialAdCSJ alloc] init];
             break;
         case 3: //SY
             self.interstitialAd = [[InterstitialAdGDT alloc] init];

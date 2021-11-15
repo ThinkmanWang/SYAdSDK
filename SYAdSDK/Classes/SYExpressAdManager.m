@@ -37,7 +37,7 @@
         self.m_nResourceType = [NSNumber numberWithInt:2];
         self.rootViewController = nil;
         
-        self.expressAdViews = [NSMutableArray new];
+//        self.expressAdViews = [NSMutableArray new];
         self.syExpressAdViews = [NSMutableArray new];
         self.pszRequestId = [[SYLogUtils uuidString] stringByReplacingOccurrencesOfString:@"-" withString:@""];
     }
@@ -53,13 +53,16 @@
     self.rootViewController = rootViewController;
 
     self.m_nResourceType = [SlotUtils getResourceType:slotID];
+#ifdef TEST_FOR_BYTEDANCE
+    self.m_nResourceType = [NSNumber numberWithInt:2];
+#endif
     
     switch ([self.m_nResourceType longValue]) {
         case 1: //gdt
             self.nativeExpressAdManager = [[ExpressAdManagerGDT alloc] init];
             break;
         case 2: //bytedance
-            self.nativeExpressAdManager = [[ExpressAdManagerGDT alloc] init];
+            self.nativeExpressAdManager = [[ExpressAdManagerCSJ alloc] init];
             break;
         case 3: //SY
             self.nativeExpressAdManager = [[ExpressAdManagerGDT alloc] init];

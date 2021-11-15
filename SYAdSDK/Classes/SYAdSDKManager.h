@@ -13,6 +13,9 @@
 + (NSDictionary*) dictConfig;
 + (NSString*) idfa;
 
++(NSString*) buAppID;
++(NSString*) gdtAppID;
+
 + (void) initSDK:(NSString*)_idfa appID:(NSString *)appID level:(SYAdSDKLogLevel)level onInitFinish: (void (^)(BOOL bSuccess)) handler;
 
 ///**
