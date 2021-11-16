@@ -179,7 +179,7 @@ static NSString* idfa = nil;
         dictConfig = dictRet;
         buAppID = dictConfig[@"data"][@"appConfig"][@"tt_appid"];
 #ifdef TEST_FOR_BYTEDANCE
-        buAppID = @"5134179";
+        buAppID = @"5234865";
 #endif
         [BUAdSDKManager setAppID:buAppID];
         

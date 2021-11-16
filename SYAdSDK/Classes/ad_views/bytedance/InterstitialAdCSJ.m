@@ -24,7 +24,7 @@
 @property(nonatomic, strong) NSString* m_pszRequestId;
 @property (nonatomic, weak, nullable) id<IInterstitialAdDelegate> syDelegate;
 @property (nonatomic, weak) UIViewController *rootViewController;
-
+@property (nonatomic, strong) BUNativeExpressInterstitialAd *interstitialAd;
 
 @end
 
@@ -37,6 +37,7 @@
         self.m_pszBuSlotID = @"";
         self.syDelegate = nil;
         self.rootViewController = nil;
+        self.interstitialAd = nil;
     }
     
     return self;
@@ -46,7 +47,7 @@
     self.m_pszSlotID = slotID;
     self.m_pszBuSlotID = [SlotUtils getRealSlotID:slotID];
 #ifdef TEST_FOR_BYTEDANCE
-    self.m_pszBuSlotID = @"945746799";
+    self.m_pszBuSlotID = @"947093633";
 #endif
     
     CGFloat fWidth = 0;
@@ -68,7 +69,8 @@
     }
     
     self.delegate = self;
-    
+    self.interstitialAd = [[BUNativeExpressInterstitialAd alloc] initWithSlotID:self.m_pszBuSlotID adSize:CGSizeMake(fWidth, fHeight)];
+    self.interstitialAd.delegate = self;
 //    BUInterstitialAd* pAdView = [super initWithSlotID:self.m_pszBuSlotID adSize:CGSizeMake(fWidth, fHeight)];
     return self;
 }
@@ -79,7 +81,8 @@
 - (void)loadAdData {
     [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11010];
     
-    [super loadAdData];
+    [self.interstitialAd loadAdData];
+//    [super loadAdData];
 }
 
 /**
@@ -91,8 +94,8 @@
     [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:1];
 //    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:1];
     self.rootViewController = rootViewController;
-    
-    return [super showAdFromRootViewController:self.rootViewController];
+    return [self.interstitialAd showAdFromRootViewController:self.rootViewController];
+//    return [self.interstitialAd:self.rootViewController];
 }
 
 - (void)setSYDelegate:(id<IInterstitialAdDelegate>)delegate {
