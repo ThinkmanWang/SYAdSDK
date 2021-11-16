@@ -35,7 +35,8 @@ Shiyu Ad SDK for iOS
 
   s.source_files = 'SYAdSDK/Classes/**/*'
 #  s.public_header_files = "SYAdSDK/Classes/**/*.h"
-  s.public_header_files = ['SYAdSDK/Classes/SYAdSDK.h', 'SYAdSDK/Classes/SYAdSDKDefines.h', 'SYAdSDK/Classes/SYAdSDKManager.h', 'SYAdSDK/Classes/SYBannerView.h', 'SYAdSDK/Classes/SYExpressAdManager.h', 'SYAdSDK/Classes/SYExpressAdView.h', 'SYAdSDK/Classes/SYInterstitialAd.h', 'SYAdSDK/Classes/SYSplashAdView.h']
+#  s.public_header_files = ['SYAdSDK/Classes/SYAdSDK.h', 'SYAdSDK/Classes/SYAdSDKDefines.h', 'SYAdSDK/Classes/SYAdSDKManager.h', 'SYAdSDK/Classes/SYBannerView.h', 'SYAdSDK/Classes/SYExpressAdManager.h', 'SYAdSDK/Classes/SYExpressAdView.h', 'SYAdSDK/Classes/SYInterstitialAd.h', 'SYAdSDK/Classes/SYSplashAdView.h']
+  s.public_header_files = ['SYAdSDK/Classes/SYAdSDK.h', 'SYAdSDK/Classes/SYAdSDKDefines.h', 'SYAdSDK/Classes/SYAdSDKManager.h', 'SYAdSDK/Classes/SYBannerView.h', 'SYAdSDK/Classes/SYExpressAdManager.h', 'SYAdSDK/Classes/SYExpressAdView.h', 'SYAdSDK/Classes/SYInterstitialAd.h', 'SYAdSDK/Classes/SYSplashAdView.h', 'SYAdSDK/Classes/ad_views/button/*.h', 'SYAdSDK/Classes/gdt/*.h']
   
   s.static_framework = true
   s.vendored_frameworks = 'frameworks/BUAdSDK.framework', 'frameworks/BUFoundation.framework'
