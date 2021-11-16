@@ -95,13 +95,14 @@
 
     self.m_pszSlotID = [SlotUtils getRealSlotID:slotID];
 #ifdef TEST_FOR_BYTEDANCE
-    self.m_pszBuSlotID = @"945797975";
+    self.m_pszBuSlotID = @"947093826";
 #endif
     self.rootViewController = rootViewController;
 
     BUAdSlot *slot = [[BUAdSlot alloc] init];
     slot.ID = self.m_pszBuSlotID;
     slot.AdType = BUAdSlotAdTypeFeed;
+    slot.supportRenderControl = YES;
 //    BUSize *imgSize = [BUSize sizeBy:BUProposalSize_Feed690_388];
 //    slot.imgSize = imgSize;
     slot.position = BUAdSlotPositionFeed;
@@ -116,7 +117,9 @@
 }
 
 - (void)loadAdData {
-    [self.nativeExpressAdManager loadAd:1];
+//    [self.nativeExpressAdManager loadAd:1];
+    [self.nativeExpressAdManager loadAdDataWithCount:1];
+//    [self.nativeExpressAdManager setExp]
     [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11010];
 }
 
