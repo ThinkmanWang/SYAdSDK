@@ -47,12 +47,13 @@
     
     self.dataArray = @[
         @{@"sectionTitle": @"视煜广告SDK", @"classes": @[
-            @{@"title": @"Banner", @"class": @"SYBannerViewController"},
-            @{@"title": @"插屏", @"class": @"SYInterstitialAdViewController"}
+            @{@"title": @"开屏", @"class": @"SYSplashViewController"}
+            , @{@"title": @"Banner", @"class": @"SYBannerViewController"}
+            , @{@"title": @"插屏", @"class": @"SYInterstitialAdViewController"}
             , @{@"title": @"原生广告", @"class": @"SYExpressViewController"}
         ]},
-        @{@"sectionTitle": @"", @"classes": @[
-            @{@"title": @"", @"class": @""},
+        @{@"sectionTitle": @"自定义UI", @"classes": @[
+            @{@"title": @"Skip按钮", @"class": @"SYSkipButtonController"},
             @{@"title": @"", @"class": @""},
             @{@"title": @"", @"class": @""},
         ]},

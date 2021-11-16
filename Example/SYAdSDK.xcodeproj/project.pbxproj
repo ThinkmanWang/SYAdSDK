@@ -45,6 +45,8 @@
 		8246221125C00DB0001005C7 /* SYExpressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8246221025C00DB0001005C7 /* SYExpressViewController.m */; };
 		824857ED25BECF7100D7D801 /* SYBannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 824857EC25BECF7100D7D801 /* SYBannerViewController.m */; };
 		82A70D3625BFC4AA00316B2D /* SYInterstitialAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 82A70D3525BFC4AA00316B2D /* SYInterstitialAdViewController.m */; };
+		82D67A4C274384E6001A4DA3 /* SYSplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 82D67A4A274384E6001A4DA3 /* SYSplashViewController.m */; };
+		82D67A51274385B9001A4DA3 /* SYSkipButtonController.m in Sources */ = {isa = PBXBuildFile; fileRef = 82D67A4F274385B8001A4DA3 /* SYSkipButtonController.m */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
 		AB0D7E20F316A1741991BA95 /* Pods_SYAdSDK_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56CBAE85177E66A5EA27545B /* Pods_SYAdSDK_Example.framework */; };
 		E91ED525A57165E4B3751E05 /* Pods_SYAdSDK_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BA29FDFDB154A7076F576EA /* Pods_SYAdSDK_Tests.framework */; };
@@ -116,6 +118,10 @@
 		824857EC25BECF7100D7D801 /* SYBannerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYBannerViewController.m; sourceTree = "<group>"; };
 		82A70D3425BFC4AA00316B2D /* SYInterstitialAdViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYInterstitialAdViewController.h; sourceTree = "<group>"; };
 		82A70D3525BFC4AA00316B2D /* SYInterstitialAdViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYInterstitialAdViewController.m; sourceTree = "<group>"; };
+		82D67A4A274384E6001A4DA3 /* SYSplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYSplashViewController.m; sourceTree = "<group>"; };
+		82D67A4B274384E6001A4DA3 /* SYSplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYSplashViewController.h; sourceTree = "<group>"; };
+		82D67A4F274385B8001A4DA3 /* SYSkipButtonController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYSkipButtonController.m; sourceTree = "<group>"; };
+		82D67A50274385B8001A4DA3 /* SYSkipButtonController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYSkipButtonController.h; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9F52170FA3B27B4583F74FBE /* Pods-SYAdSDK_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SYAdSDK_Tests.debug.xcconfig"; path = "Target Support Files/Pods-SYAdSDK_Tests/Pods-SYAdSDK_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		C11F2B339C4066B98C4FF112 /* Pods-SYAdSDK_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SYAdSDK_Example.debug.xcconfig"; path = "Target Support Files/Pods-SYAdSDK_Example/Pods-SYAdSDK_Example.debug.xcconfig"; sourceTree = "<group>"; };
@@ -228,6 +234,9 @@
 		6003F593195388D20070C39A /* Example for SYAdSDK */ = {
 			isa = PBXGroup;
 			children = (
+				82D67A50274385B8001A4DA3 /* SYSkipButtonController.h */,
+				82D67A4F274385B8001A4DA3 /* SYSkipButtonController.m */,
+				82D67A49274384CC001A4DA3 /* splash */,
 				828AA5C925C00A73008269D6 /* express */,
 				82A70D3325BFC47500316B2D /* interstitialAd */,
 				824857EA25BECF4500D7D801 /* banner */,
@@ -309,6 +318,15 @@
 				82A70D3525BFC4AA00316B2D /* SYInterstitialAdViewController.m */,
 			);
 			path = interstitialAd;
+			sourceTree = "<group>";
+		};
+		82D67A49274384CC001A4DA3 /* splash */ = {
+			isa = PBXGroup;
+			children = (
+				82D67A4B274384E6001A4DA3 /* SYSplashViewController.h */,
+				82D67A4A274384E6001A4DA3 /* SYSplashViewController.m */,
+			);
+			path = splash;
 			sourceTree = "<group>";
 		};
 		CA21996685C68A6EFB187804 /* Pods */ = {
@@ -515,9 +533,11 @@
 			files = (
 				824857ED25BECF7100D7D801 /* SYBannerViewController.m in Sources */,
 				8246221125C00DB0001005C7 /* SYExpressViewController.m in Sources */,
+				82D67A4C274384E6001A4DA3 /* SYSplashViewController.m in Sources */,
 				6003F59E195388D20070C39A /* SYAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* SYViewController.m in Sources */,
 				82A70D3625BFC4AA00316B2D /* SYInterstitialAdViewController.m in Sources */,
+				82D67A51274385B9001A4DA3 /* SYSkipButtonController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
