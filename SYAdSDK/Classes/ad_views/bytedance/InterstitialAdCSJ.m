@@ -69,7 +69,7 @@
     
     self.delegate = self;
     
-    BUInterstitialAd* pAdVieew = [super initWithSlotID:self.m_pszBuSlotID adSize:CGSizeMake(fWidth, fHeight)];
+//    BUInterstitialAd* pAdView = [super initWithSlotID:self.m_pszBuSlotID adSize:CGSizeMake(fWidth, fHeight)];
     return self;
 }
 

@@ -39,10 +39,10 @@ Shiyu Ad SDK for iOS
   s.public_header_files = ['SYAdSDK/Classes/SYAdSDK.h', 'SYAdSDK/Classes/SYAdSDKDefines.h', 'SYAdSDK/Classes/SYAdSDKManager.h', 'SYAdSDK/Classes/SYBannerView.h', 'SYAdSDK/Classes/SYExpressAdManager.h', 'SYAdSDK/Classes/SYExpressAdView.h', 'SYAdSDK/Classes/SYInterstitialAd.h', 'SYAdSDK/Classes/SYSplashAdView.h', 'SYAdSDK/Classes/ad_views/button/*.h', 'SYAdSDK/Classes/gdt/*.h']
   
   s.static_framework = true
-  s.vendored_frameworks = 'frameworks/BUAdSDK.framework', 'frameworks/BUFoundation.framework'
-  s.resource = 'frameworks/BUAdSDK.bundle'
+#  s.vendored_frameworks = 'frameworks/BUAdSDK.framework', 'frameworks/BUFoundation.framework', 'frameworks/BUCNAuxiliary.framework'
+#  s.resource = 'frameworks/BUAdSDK.bundle'
   s.vendored_library = 'frameworks/libGDTMobSDK.a'
-#  s.dependency 'Bytedance-UnionAD', '~> 3.3.1.5'
+  s.dependency 'Ads-CN'
   
   # s.resource_bundles = {
   #   'SYAdSDK' => ['SYAdSDK/Assets/*.png']

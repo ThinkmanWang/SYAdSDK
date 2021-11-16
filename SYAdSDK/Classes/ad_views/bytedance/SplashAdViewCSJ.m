@@ -43,7 +43,7 @@
     
     self.tolerateTimeout = 5;
     self.delegate = self;
-    self.needSplashZoomOutAd = YES;
+//    self.needSplashZoomOutAd = YES;
     
     CGRect frame = [UIScreen mainScreen].bounds;
     self.frame = frame;
