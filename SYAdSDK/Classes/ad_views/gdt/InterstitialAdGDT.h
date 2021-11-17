@@ -10,7 +10,7 @@
 
 #import <Foundation/Foundation.h>
 #import "../IInterstitialAd.h"
-#import "../../gdt/GDTUnifiedInterstitialAd.h"
+#import <GDTMobSDK/GDTUnifiedInterstitialAd.h>
 #import "SYAdSDKDefines.h"
 
 

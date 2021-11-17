@@ -10,8 +10,8 @@
 #import <AdSupport/AdSupport.h>
 #import <AppTrackingTransparency/AppTrackingTransparency.h>
 
-#import "../../gdt/GDTNativeExpressAd.h"
-#import "../../gdt/GDTNativeExpressAdView.h"
+#import <GDTMobSDK/GDTNativeExpressAd.h>
+#import <GDTMobSDK/GDTNativeExpressAdView.h>
 
 
 #import "SYLogUtils.h"

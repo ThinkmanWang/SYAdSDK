@@ -16,7 +16,7 @@
 #import "SlotUtils.h"
 #import "SYAdSDKDefines.h"
 
-#import "GDTUnifiedBannerView.h"
+#import <GDTMobSDK/GDTUnifiedBannerView.h>
 #import "StringUtils.h"
 
 @interface BannerViewGDT ()

@@ -41,8 +41,9 @@ Shiyu Ad SDK for iOS
   s.static_framework = true
 #  s.vendored_frameworks = 'frameworks/BUAdSDK.framework', 'frameworks/BUFoundation.framework', 'frameworks/BUCNAuxiliary.framework'
 #  s.resource = 'frameworks/BUAdSDK.bundle'
-  s.vendored_library = 'frameworks/libGDTMobSDK.a'
+#  s.vendored_library = 'frameworks/libGDTMobSDK.a'
   s.dependency 'Ads-CN'
+  s.dependency 'GDTMobSDK'
   
   # s.resource_bundles = {
   #   'SYAdSDK' => ['SYAdSDK/Assets/*.png']

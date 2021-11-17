@@ -7,8 +7,8 @@
 
 #import "SplashAdViewGDT.h"
 
-#import "../../gdt/GDTSplashAd.h"
-#import "../../gdt/GDTSDKConfig.h"
+#import <GDTMobSDK/GDTSplashAd.h>
+#import <GDTMobSDK/GDTSDKConfig.h>
 
 //#import "GDTSplashZoomOutView.h"
 

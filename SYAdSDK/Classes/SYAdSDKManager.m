@@ -6,7 +6,7 @@
 //#import <AdSupport/AdSupport.h>
 
 #import "log/SYLogUtils.h"
-#import "gdt/GDTSDKConfig.h"
+#import <GDTMobSDK/GDTSDKConfig.h>
 
 #import "SYAdSDKDefines.h"
 #import "StringUtils.h"

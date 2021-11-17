@@ -14,7 +14,7 @@
 #import <AdSupport/AdSupport.h>
 #import <AppTrackingTransparency/AppTrackingTransparency.h>
 #import "../IBannerView.h"
-#import "GDTUnifiedBannerView.h"
+#import <GDTMobSDK/GDTUnifiedBannerView.h>
 #import "SYAdSDKDefines.h"
 
 

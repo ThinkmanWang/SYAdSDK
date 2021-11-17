@@ -12,7 +12,7 @@
 #import <Foundation/Foundation.h>
 
 #import "../IExpressAdManager.h"
-#import "../../gdt/GDTNativeExpressAd.h"
+#import <GDTMobSDK/GDTNativeExpressAd.h>
 #import "SYAdSDKDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
