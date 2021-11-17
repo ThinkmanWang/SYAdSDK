@@ -15,7 +15,6 @@
 #import "utils/SlotUtils.h"
 #import "ad_views/IBannerView.h"
 #import "ad_views/bytedance/BannerViewCSJ.h"
-#import "ad_views/gdt/BannerViewGDT.h"
 
 @interface SYBannerView () <ISYBannerViewDelegate>
 @property(nonatomic, strong) NSString* m_pszSlotID;
@@ -57,16 +56,16 @@
     
     switch ([self.m_nResourceType longValue]) {
         case 1: //gdt
-            self.bannerView = [[BannerViewGDT alloc] init];
+            self.bannerView = [[BannerViewCSJ alloc] init];
             break;
         case 2: //bytedance
             self.bannerView = [[BannerViewCSJ alloc] init];
             break;
         case 3: //SY
-            self.bannerView = [[BannerViewGDT alloc] init];
+            self.bannerView = [[BannerViewCSJ alloc] init];
             break;
         default: //bytedance
-            self.bannerView = [[BannerViewGDT alloc] init];
+            self.bannerView = [[BannerViewCSJ alloc] init];
             break;
     }
     

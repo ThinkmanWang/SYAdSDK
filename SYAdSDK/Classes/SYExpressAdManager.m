@@ -15,7 +15,6 @@
 #import "SlotUtils.h"
 #import "IExpressAdManager.h"
 #import "ExpressAdManagerCSJ.h"
-#import "ExpressAdManagerGDT.h"
 
 @interface SYExpressAdManager ()
 
@@ -59,16 +58,16 @@
     
     switch ([self.m_nResourceType longValue]) {
         case 1: //gdt
-            self.nativeExpressAdManager = [[ExpressAdManagerGDT alloc] init];
+            self.nativeExpressAdManager = [[ExpressAdManagerCSJ alloc] init];
             break;
         case 2: //bytedance
             self.nativeExpressAdManager = [[ExpressAdManagerCSJ alloc] init];
             break;
         case 3: //SY
-            self.nativeExpressAdManager = [[ExpressAdManagerGDT alloc] init];
+            self.nativeExpressAdManager = [[ExpressAdManagerCSJ alloc] init];
             break;
         default: //bytedance
-            self.nativeExpressAdManager = [[ExpressAdManagerGDT alloc] init];
+            self.nativeExpressAdManager = [[ExpressAdManagerCSJ alloc] init];
             break;
     }
     

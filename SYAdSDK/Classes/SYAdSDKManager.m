@@ -6,7 +6,6 @@
 //#import <AdSupport/AdSupport.h>
 
 #import "log/SYLogUtils.h"
-#import <GDTMobSDK/GDTSDKConfig.h>
 
 #import "SYAdSDKDefines.h"
 #import "StringUtils.h"
@@ -198,12 +197,12 @@ static NSString* idfa = nil;
         gdtAppID = @"1105344611";
 #endif
         
-        BOOL result = [GDTSDKConfig registerAppId:gdtAppID];
-        if (NO == result) {
-            handler(NO);
-            return;
-            
-        }
+//        BOOL result = [GDTSDKConfig registerAppId:gdtAppID];
+//        if (NO == result) {
+//            handler(NO);
+//            return;
+//
+//        }
         
 //            [BUAdSDKManager setCustomIDFA:idfa];
         

@@ -11,7 +11,6 @@
 #import "ad_views/ISplashAdView.h"
 #import "utils/SlotUtils.h"
 #import "ad_views/bytedance/SplashAdViewCSJ.h"
-#import "ad_views/gdt/SplashAdViewGDT.h"
 
 #import "SYAdSDKDefines.h"
 
@@ -53,7 +52,7 @@
     
     switch ([self.m_nResourceType longValue]) {
         case 1: //gdt
-            self.splashAdView = [[SplashAdViewGDT alloc] init];
+            self.splashAdView = [[SplashAdViewCSJ alloc] init];
             break;
         case 2: //bytedance
             self.splashAdView = [[SplashAdViewCSJ alloc] init];
