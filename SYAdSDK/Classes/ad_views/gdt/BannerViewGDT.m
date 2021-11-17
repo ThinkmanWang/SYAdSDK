@@ -11,8 +11,8 @@
 #import <AdSupport/AdSupport.h>
 #import <AppTrackingTransparency/AppTrackingTransparency.h>
 
-#import "../../log/SYLogUtils.h"
-#import "../../SYAdSDKManager.h"
+#import "SYLogUtils.h"
+#import "SYAdSDKManager.h"
 #import "SlotUtils.h"
 #import "SYAdSDKDefines.h"
 

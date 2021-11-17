@@ -12,7 +12,7 @@
 #import <BUAdSDK/BUAdSDK.h>
 #import <AdSupport/AdSupport.h>
 #import <AppTrackingTransparency/AppTrackingTransparency.h>
-#import "../IBannerView.h"
+#import "IBannerView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -12,19 +12,19 @@
 
 //#import "GDTSplashZoomOutView.h"
 
-#import "../../SYAdSDKDefines.h"
-#import "../../log/SYLogUtils.h"
-#import "../../SYAdSDKManager.h"
+#import "SYAdSDKDefines.h"
+#import "SYLogUtils.h"
+#import "SYAdSDKManager.h"
 #import "SlotUtils.h"
 #import "SYAdSDKDefines.h"
 #import "StringUtils.h"
 
 
 #ifdef USE_CIRCLE_PROGREESS_BUTTON
-#import "../button/SYDrawingCircleProgressButton.h"
-#import "../button/SYCountDownButton.h"
-#import "../button/SYSkipButton.h"
-#import "../button/SYCircleCountDownButton.h"
+#import "SYDrawingCircleProgressButton.h"
+#import "SYCountDownButton.h"
+#import "SYSkipButton.h"
+#import "SYCircleCountDownButton.h"
 #endif
 
 

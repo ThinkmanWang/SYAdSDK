@@ -9,7 +9,7 @@
 #define InterstitialAdCSJ_h
 
 #import <Foundation/Foundation.h>
-#import "../IInterstitialAd.h"
+#import "IInterstitialAd.h"
 #import <BUAdSDK/BUAdSDK.h>
 
 

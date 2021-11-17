@@ -6,7 +6,7 @@
 //
 
 #import "SlotUtils.h"
-#import "../SYAdSDKManager.h"
+#import "SYAdSDKManager.h"
 
 #import "StringUtils.h"
 

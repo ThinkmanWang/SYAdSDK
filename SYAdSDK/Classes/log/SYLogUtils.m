@@ -6,10 +6,10 @@
 //
 
 #import "SYLogUtils.h"
-#import "../SYAdSDKManager.h"
-#import "../SYAdSDKDefines.h"
-#import "../utils/UserInfoUtils.h"
-#import "../utils/StringUtils.h"
+#import "SYAdSDKManager.h"
+#import "SYAdSDKDefines.h"
+#import "UserInfoUtils.h"
+#import "StringUtils.h"
 
 @implementation SYLogUtils
 

@@ -13,7 +13,7 @@
 #import <Foundation/Foundation.h>
 #import <AdSupport/AdSupport.h>
 #import <AppTrackingTransparency/AppTrackingTransparency.h>
-#import "../IBannerView.h"
+#import "IBannerView.h"
 #import <GDTMobSDK/GDTUnifiedBannerView.h>
 #import "SYAdSDKDefines.h"
 
