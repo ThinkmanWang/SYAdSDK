@@ -11,7 +11,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "../IExpressAdManager.h"
+#import "IExpressAdManager.h"
 #import <GDTMobSDK/GDTNativeExpressAd.h>
 #import "SYAdSDKDefines.h"
 

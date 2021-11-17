@@ -14,7 +14,7 @@
 #import <BUAdSDK/BUAdSDK.h>
 #import <AdSupport/AdSupport.h>
 #import <AppTrackingTransparency/AppTrackingTransparency.h>
-#import "../IExpressAdManager.h"
+#import "IExpressAdManager.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
