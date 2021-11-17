@@ -12,7 +12,7 @@
 #import <BUAdSDK/BUAdSDK.h>
 #import <AdSupport/AdSupport.h>
 #import <AppTrackingTransparency/AppTrackingTransparency.h>
-#import "../ISplashAdView.h"
+#import "ISplashAdView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
