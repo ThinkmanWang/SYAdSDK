@@ -110,7 +110,7 @@
     if (!self.nativeExpressAdManager) {
         self.nativeExpressAdManager = [[BUNativeExpressAdManager alloc] initWithSlot:slot adSize:CGSizeMake(fWidth, fHeight)];
     }
-//    self.nativeExpressAdManager.adSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, 0);
+    self.nativeExpressAdManager.adSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, 0);
     self.nativeExpressAdManager.delegate = self;
     
     return self;
