@@ -180,18 +180,20 @@ static NSString* idfa = nil;
 #ifdef TEST_FOR_BYTEDANCE
         buAppID = @"5234865";
 #endif
-        [BUAdSDKManager setAppID:buAppID];
-        
-        gdtAppID = [dictConfig valueForKeyPath:@"data.appConfig.gdt_appid"];
-        if (nil == gdtAppID) {
-            handler(NO);
-            return;
+        if (nil != buAppID && [@"1" isEqualToString:dictConfig[@"data"][@"appConfig"][@"tt_open"]]) {
+            [BUAdSDKManager setAppID:buAppID];
         }
         
-        if ([StringUtils isEmpty:gdtAppID]) {
-            handler(NO);
-            return;
-        }
+//        gdtAppID = [dictConfig valueForKeyPath:@"data.appConfig.gdt_appid"];
+//        if (nil == gdtAppID) {
+//            handler(NO);
+//            return;
+//        }
+//
+//        if ([StringUtils isEmpty:gdtAppID]) {
+//            handler(NO);
+//            return;
+//        }
         
 #ifdef TEST_FOR_GDT
         gdtAppID = @"1105344611";

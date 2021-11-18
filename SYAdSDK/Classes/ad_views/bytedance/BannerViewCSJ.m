@@ -93,7 +93,7 @@
     self.m_fWidth = fWidth;
     self.m_fHeight = fHeight;
 
-    self.m_pszSlotID = [SlotUtils getRealSlotID:slotID];
+    self.m_pszBuSlotID = [SlotUtils getRealSlotID:slotID];
 #ifdef TEST_FOR_BYTEDANCE
     self.m_pszBuSlotID = @"947093826";
 #endif
