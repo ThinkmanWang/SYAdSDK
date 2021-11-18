@@ -160,11 +160,11 @@ static NSString* idfa = nil;
             return;
         }
         
-        if (nil == [dictRet valueForKeyPath:@"data.appConfig.gdt_appid"]
-            || [NSNull null] == [dictRet valueForKeyPath:@"data.appConfig.gdt_appid"]) {
-            handler(NO);
-            return;
-        }
+//        if (nil == [dictRet valueForKeyPath:@"data.appConfig.gdt_appid"]
+//            || [NSNull null] == [dictRet valueForKeyPath:@"data.appConfig.gdt_appid"]) {
+//            handler(NO);
+//            return;
+//        }
         
         
         if (nil == [dictRet valueForKeyPath:@"data.slotInfo"]
