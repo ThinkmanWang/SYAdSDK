@@ -30,15 +30,15 @@ typedef NS_ENUM(NSInteger, SYInterstitialAdSize) {
 };
 
 #define UPLOAD_USER_INFO
-#define TEST_FOR_BYTEDANCE
+//#define TEST_FOR_BYTEDANCE
 //#define USE_CIRCLE_PROGREESS_BUTTON
 
-#define TEST_ENV
+//#define TEST_ENV
 
 //#define TEST_FOR_GDT
 
 
-#define CRASH_TEST
+//#define CRASH_TEST
 
 //#define CRASH_TEST_CODE_NOT_EXISTS
 //#define CRASH_TEST_DATA_NULL

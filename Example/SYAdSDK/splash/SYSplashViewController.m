@@ -28,7 +28,7 @@
 }
 
 - (void)initView {
-    self.splashAdView = [[[SYSplashAdView alloc] init] initWithSlotID:@"24011"];
+    self.splashAdView = [[[SYSplashAdView alloc] init] initWithSlotID:@"24032"];
     self.splashAdView.delegate = self;
     
     [self.view addSubview:self.splashAdView];

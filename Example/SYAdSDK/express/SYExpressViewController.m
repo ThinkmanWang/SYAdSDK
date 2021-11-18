@@ -26,7 +26,7 @@
 }
 
 - (void) initView {
-    self.expressAdManager = [[[SYExpressAdManager alloc] init] initWithSlotID:@"24012" rootViewController:self adSize:CGSizeMake(CGRectGetWidth(self.view.frame), CGRectGetWidth(self.view.frame) * 21 / 70)];
+    self.expressAdManager = [[[SYExpressAdManager alloc] init] initWithSlotID:@"24035" rootViewController:self adSize:CGSizeMake(CGRectGetWidth(self.view.frame), CGRectGetWidth(self.view.frame) * 21 / 70)];
     self.expressAdManager.delegate = self;
     
     [self.expressAdManager loadAdDataWithCount:1];

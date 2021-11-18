@@ -23,7 +23,7 @@
 }
 
 - (void)initView {
-    self.interstitialAd = [[[SYInterstitialAd alloc] init] initWithSlotID:@"24014" adSize:SYInterstitialAdSize600_600];
+    self.interstitialAd = [[[SYInterstitialAd alloc] init] initWithSlotID:@"24034" adSize:SYInterstitialAdSize600_600];
     self.interstitialAd.delegate = self;
     [self.interstitialAd loadAdData];
 }
