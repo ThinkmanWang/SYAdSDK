@@ -73,10 +73,16 @@ static NSString* idfa = nil;
     NSString* pszBoot = [DeviceUtils getBoot];
     NSLog(@"%@", pszBoot);
     
+    int pszStartSec = [DeviceUtils getStartSec];
+    NSLog(@"%@", pszStartSec);
+    
     NSString* pszUpdate = [DeviceUtils getUpdate];
     NSLog(@"%@", pszUpdate);
     
     NSString* pszOSVer = [DeviceUtils getOSVersion];
+    NSLog(@"%@", pszOSVer);
+    
+    int nDPI = [DeviceUtils getPPI];
     NSLog(@"%@", pszOSVer);
     
 #ifdef UPLOAD_USER_INFO

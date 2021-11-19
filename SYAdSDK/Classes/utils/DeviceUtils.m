@@ -29,6 +29,25 @@
     return timeString?:@"";
 }
 
++ (int) getStartSec {
+    int mib[2];
+    size_t size;
+    struct timeval  boottime;
+    
+    mib[0] = CTL_KERN;
+    mib[1] = KERN_BOOTTIME;
+    size = sizeof(boottime);
+    
+    if (sysctl(mib, 2, &boottime, &size, NULL, 0) != -1) {
+        NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970];
+        NSNumber* nTimestamp = [NSNumber numberWithDouble:timeStamp];
+        
+        return nTimestamp.intValue - boottime.tv_sec;
+    }
+    
+    return 0;
+}
+
 + (NSString *)getUpdate {
     NSString *timeString = nil;
     struct stat sb;
@@ -67,6 +86,17 @@
 + (int) getScreenHeight {
     CGRect rect = [[UIScreen mainScreen] bounds];
     return rect.size.height;
+}
+
++ (int) getPPI {
+    float scale = 1;
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
+        scale = [[UIScreen mainScreen] scale];
+    }
+    
+    float dpi = 160 * scale;
+    
+    return (int)dpi;
 }
 
 @end

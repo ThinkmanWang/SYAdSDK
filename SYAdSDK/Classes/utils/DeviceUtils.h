@@ -12,12 +12,14 @@ NS_ASSUME_NONNULL_BEGIN
 @interface DeviceUtils : NSObject
 
 + (NSString*) getBoot;
++ (int) getStartSec;
 + (NSString*) getUpdate;
 + (NSString*) getOSVersion;
 + (float) getOSVersionFloat;
 + (NSString*) getDeviceType;
 + (int) getScreenWidth;
 + (int) getScreenHeight;
++ (int) getPPI;
 
 
 @end
