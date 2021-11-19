@@ -55,4 +55,18 @@
     return [[UIDevice currentDevice].systemVersion floatValue];
 }
 
++ (NSString*) getDeviceType {
+    return [[UIDevice currentDevice] model];
+}
+
++ (int) getScreenWidth {
+    CGRect rect = [[UIScreen mainScreen] bounds];
+    return rect.size.width;
+}
+
++ (int) getScreenHeight {
+    CGRect rect = [[UIScreen mainScreen] bounds];
+    return rect.size.height;
+}
+
 @end

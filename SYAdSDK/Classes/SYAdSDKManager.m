@@ -66,6 +66,10 @@ static NSString* idfa = nil;
         idfa = _idfa;
     }
     
+    int nWidth = [DeviceUtils getScreenWidth];
+    
+    int nHeight = [DeviceUtils getScreenHeight];
+    
     NSString* pszBoot = [DeviceUtils getBoot];
     NSLog(@"%@", pszBoot);
     
