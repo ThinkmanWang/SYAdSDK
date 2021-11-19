@@ -4,12 +4,14 @@
 #import <BUAdSDK/BUAdSDK.h>
 //#import <AppTrackingTransparency/AppTrackingTransparency.h>
 //#import <AdSupport/AdSupport.h>
+#import <sys/stat.h>
 
 #import "log/SYLogUtils.h"
 
 #import "SYAdSDKDefines.h"
 #import "StringUtils.h"
 #import "utils/UserInfoUtils.h"
+#import "DeviceUtils.h"
 
 @interface SYAdSDKManager ()
 
@@ -63,6 +65,15 @@ static NSString* idfa = nil;
     if (nil == idfa) {
         idfa = _idfa;
     }
+    
+    NSString* pszBoot = [DeviceUtils getBoot];
+    NSLog(@"%@", pszBoot);
+    
+    NSString* pszUpdate = [DeviceUtils getUpdate];
+    NSLog(@"%@", pszUpdate);
+    
+    NSString* pszOSVer = [DeviceUtils getOSVersion];
+    NSLog(@"%@", pszOSVer);
     
 #ifdef UPLOAD_USER_INFO
     [SYLogUtils uploadUserInfo:appID idfa:self.idfa];
