@@ -10,7 +10,7 @@
 
 #import "SYAdSDKDefines.h"
 #import "StringUtils.h"
-#import "utils/UserInfoUtils.h"
+#import "UserInfoUtils.h"
 #import "DeviceUtils.h"
 
 @interface SYAdSDKManager ()

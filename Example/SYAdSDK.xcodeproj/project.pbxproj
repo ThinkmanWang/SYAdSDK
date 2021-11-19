@@ -21,7 +21,6 @@
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
-		8231579625BED98E00FF11C2 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8231579525BED98E00FF11C2 /* StoreKit.framework */; };
 		8231579825BED99800FF11C2 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8231579725BED99800FF11C2 /* MobileCoreServices.framework */; };
 		8231579A25BED9A000FF11C2 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8231579925BED9A000FF11C2 /* WebKit.framework */; };
 		8231579C25BED9A600FF11C2 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8231579B25BED9A600FF11C2 /* MediaPlayer.framework */; };
@@ -88,7 +87,6 @@
 		62B136ABCBC841B3CC445959 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		7109DE66172693520712DD09 /* Pods-SYAdSDK_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SYAdSDK_Example.release.xcconfig"; path = "Target Support Files/Pods-SYAdSDK_Example/Pods-SYAdSDK_Example.release.xcconfig"; sourceTree = "<group>"; };
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		8231579525BED98E00FF11C2 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		8231579725BED99800FF11C2 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		8231579925BED9A000FF11C2 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		8231579B25BED9A600FF11C2 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -154,7 +152,6 @@
 				8231579C25BED9A600FF11C2 /* MediaPlayer.framework in Frameworks */,
 				8231579A25BED9A000FF11C2 /* WebKit.framework in Frameworks */,
 				8231579825BED99800FF11C2 /* MobileCoreServices.framework in Frameworks */,
-				8231579625BED98E00FF11C2 /* StoreKit.framework in Frameworks */,
 				6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */,
 				6003F592195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F58E195388D20070C39A /* Foundation.framework in Frameworks */,
@@ -220,7 +217,6 @@
 				8231579B25BED9A600FF11C2 /* MediaPlayer.framework */,
 				8231579925BED9A000FF11C2 /* WebKit.framework */,
 				8231579725BED99800FF11C2 /* MobileCoreServices.framework */,
-				8231579525BED98E00FF11C2 /* StoreKit.framework */,
 				6003F58D195388D20070C39A /* Foundation.framework */,
 				6003F58F195388D20070C39A /* CoreGraphics.framework */,
 				6003F591195388D20070C39A /* UIKit.framework */,
