@@ -18,12 +18,16 @@
 @end
 
 static NSString* appID = nil;
+
 static NSString* buAppID = nil;
+static NSString* buOpen = nil;
+
 static NSString* gdtAppID = nil;
+static NSString* gdtOpen = nil;
 
 static NSString* syAppID = nil;
 static NSString* sySecret = nil;
-
+static NSString* syOpen = nil;
 
 static NSDictionary* dictConfig = nil;
 static NSString* idfa = nil;
@@ -54,6 +58,14 @@ static NSString* idfa = nil;
     buAppID = val;
 }
 
++ (NSString*) buOpen {
+    return buOpen;
+}
+
++ (void) setBuOpen:(NSString*)val {
+    buOpen = val;
+}
+
 + (NSString*) gdtAppID {
     return gdtAppID;
 }
@@ -62,12 +74,28 @@ static NSString* idfa = nil;
     gdtAppID = val;
 }
 
++ (NSString*) gdtOpen {
+    return gdtOpen;
+}
+
++ (void) setGdtOpen:(NSString*)val {
+    gdtOpen = val;
+}
+
 + (NSString*) syAppID {
     return syAppID;
 }
 
 + (NSString*) sySecret {
     return sySecret;
+}
+
++ (NSString*) syOpen {
+    return syOpen;
+}
+
++ (void) setSyOpen:(NSString*)val {
+    syOpen = val;
 }
 
 + (void) setSyAppID:(NSString*)val {

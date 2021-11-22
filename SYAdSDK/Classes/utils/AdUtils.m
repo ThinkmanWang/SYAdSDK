@@ -6,6 +6,7 @@
 //
 
 #import "AdUtils.h"
+#import "SYAdSDKManager.h"
 
 @interface AdUtils ()
 

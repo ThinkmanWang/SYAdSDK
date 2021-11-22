@@ -14,9 +14,16 @@
 + (NSString*) idfa;
 
 +(NSString*) buAppID;
++(NSString*) buOpen;
+
 +(NSString*) gdtAppID;
++(NSString*) gdtOpen;
+
+
 +(NSString*) syAppID;
 +(NSString*) sySecret;
++(NSString*) syOpen;
+
 
 
 + (void) initSDK:(NSString*)_idfa appID:(NSString *)appID level:(SYAdSDKLogLevel)level onInitFinish: (void (^)(BOOL bSuccess)) handler;
