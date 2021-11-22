@@ -54,7 +54,7 @@
         ]},
         @{@"sectionTitle": @"自定义UI", @"classes": @[
             @{@"title": @"Skip按钮", @"class": @"SYSkipButtonController"},
-            @{@"title": @"", @"class": @""},
+            @{@"title": @"摇一摇", @"class": @"ShakeViewController"},
             @{@"title": @"", @"class": @""},
         ]},
         @{@"sectionTitle": @"", @"classes": @[

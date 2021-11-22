@@ -99,4 +99,77 @@
     return (int)dpi;
 }
 
++ (NSString*) getCountryCode {
+    NSLocale *locale = [NSLocale currentLocale];
+    NSString *countryCode = [locale objectForKey: NSLocaleCountryCode];
+    NSString *country = [locale displayNameForKey: NSLocaleCountryCode value: countryCode];
+    
+    return country;
+}
+
++ (NSString*) getLanguage {
+    return [[NSLocale preferredLanguages] firstObject];
+}
+
++ (NSString*) deviceName {
+    return [[UIDevice currentDevice] name];
+}
+
++ (unsigned long long) physicalMemoryByte {
+    return [[NSProcessInfo processInfo] physicalMemory];
+}
+
++ (u_int64_t) hardDiskSize {
+    uint64_t totalSpace = 0;
+    uint64_t totalFreeSpace = 0;
+    NSError *error = nil;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSDictionary *dictionary = [[NSFileManager defaultManager] attributesOfFileSystemForPath:[paths lastObject] error: &error];
+    
+    if (dictionary) {
+        NSNumber *fileSystemSizeInBytes = [dictionary objectForKey: NSFileSystemSize];
+        return fileSystemSizeInBytes.unsignedLongLongValue;
+    } else {
+        return 0;
+    }
+}
+
++ (NSString*) timeZone {
+    return [NSTimeZone localTimeZone].name;    
+}
+
++ (void) deviceTest {
+    int nWidth = [DeviceUtils getScreenWidth];
+    
+    int nHeight = [DeviceUtils getScreenHeight];
+    
+    NSString* pszBoot = [DeviceUtils getBoot];
+    NSLog(@"%@", pszBoot);
+    
+    int pszStartSec = [DeviceUtils getStartSec];
+//    NSLog(@"%@", pszStartSec);
+    
+    NSString* pszUpdate = [DeviceUtils getUpdate];
+    NSLog(@"%@", pszUpdate);
+    
+    NSString* pszOSVer = [DeviceUtils getOSVersion];
+    NSLog(@"%@", pszOSVer);
+    
+    int nDPI = [DeviceUtils getPPI];
+    NSLog(@"%@", pszOSVer);
+    
+    NSString* pszCountry = [DeviceUtils getCountryCode];
+    
+    [DeviceUtils getLanguage];
+    
+    [DeviceUtils deviceName];
+    
+    [DeviceUtils physicalMemoryByte];
+    
+    [DeviceUtils hardDiskSize];
+    
+    [DeviceUtils timeZone];
+}
+
+
 @end

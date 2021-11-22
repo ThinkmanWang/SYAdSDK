@@ -21,6 +21,10 @@ static NSString* appID = nil;
 static NSString* buAppID = nil;
 static NSString* gdtAppID = nil;
 
+static NSString* syAppID = nil;
+static NSString* sySecret = nil;
+
+
 static NSDictionary* dictConfig = nil;
 static NSString* idfa = nil;
 
@@ -58,6 +62,22 @@ static NSString* idfa = nil;
     gdtAppID = val;
 }
 
++ (NSString*) syAppID {
+    return syAppID;
+}
+
++ (NSString*) sySecret {
+    return sySecret;
+}
+
++ (void) setSyAppID:(NSString*)val {
+    syAppID = val;
+}
+
++ (void) setSySecret:(NSString*)val {
+    sySecret = val;
+}
+
 + (void) initSDK:(NSString*)_idfa appID:(NSString *)appID level:(SYAdSDKLogLevel)level onInitFinish: (void (^)(BOOL bSuccess)) handler {
     [SYAdSDKManager setAppID:appID];
     [SYAdSDKManager setLoglevel:level];
@@ -65,25 +85,10 @@ static NSString* idfa = nil;
     if (nil == idfa) {
         idfa = _idfa;
     }
-    
-    int nWidth = [DeviceUtils getScreenWidth];
-    
-    int nHeight = [DeviceUtils getScreenHeight];
-    
-    NSString* pszBoot = [DeviceUtils getBoot];
-    NSLog(@"%@", pszBoot);
-    
-    int pszStartSec = [DeviceUtils getStartSec];
-    NSLog(@"%@", pszStartSec);
-    
-    NSString* pszUpdate = [DeviceUtils getUpdate];
-    NSLog(@"%@", pszUpdate);
-    
-    NSString* pszOSVer = [DeviceUtils getOSVersion];
-    NSLog(@"%@", pszOSVer);
-    
-    int nDPI = [DeviceUtils getPPI];
-    NSLog(@"%@", pszOSVer);
+
+#ifdef TEST_DEVICE_UTILS
+    [DeviceUtils deviceTest];
+#endif
     
 #ifdef UPLOAD_USER_INFO
     [SYLogUtils uploadUserInfo:appID idfa:self.idfa];
@@ -204,6 +209,9 @@ static NSString* idfa = nil;
         if (nil != buAppID && [@"1" isEqualToString:dictConfig[@"data"][@"appConfig"][@"tt_open"]]) {
             [BUAdSDKManager setAppID:buAppID];
         }
+        
+        syAppID = dictConfig[@"data"][@"appConfig"][@"shiyu_appid"];
+        sySecret = dictConfig[@"data"][@"appConfig"][@"shiyu_secret"];
         
 //        gdtAppID = [dictConfig valueForKeyPath:@"data.appConfig.gdt_appid"];
 //        if (nil == gdtAppID) {

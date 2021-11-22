@@ -44,6 +44,7 @@
 		8246221125C00DB0001005C7 /* SYExpressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8246221025C00DB0001005C7 /* SYExpressViewController.m */; };
 		824857ED25BECF7100D7D801 /* SYBannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 824857EC25BECF7100D7D801 /* SYBannerViewController.m */; };
 		82A70D3625BFC4AA00316B2D /* SYInterstitialAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 82A70D3525BFC4AA00316B2D /* SYInterstitialAdViewController.m */; };
+		82B99B07274788FA0076EE3B /* ShakeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 82B99B06274788FA0076EE3B /* ShakeViewController.m */; };
 		82D67A4C274384E6001A4DA3 /* SYSplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 82D67A4A274384E6001A4DA3 /* SYSplashViewController.m */; };
 		82D67A51274385B9001A4DA3 /* SYSkipButtonController.m in Sources */ = {isa = PBXBuildFile; fileRef = 82D67A4F274385B8001A4DA3 /* SYSkipButtonController.m */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
@@ -116,6 +117,8 @@
 		824857EC25BECF7100D7D801 /* SYBannerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYBannerViewController.m; sourceTree = "<group>"; };
 		82A70D3425BFC4AA00316B2D /* SYInterstitialAdViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYInterstitialAdViewController.h; sourceTree = "<group>"; };
 		82A70D3525BFC4AA00316B2D /* SYInterstitialAdViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYInterstitialAdViewController.m; sourceTree = "<group>"; };
+		82B99B05274788FA0076EE3B /* ShakeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShakeViewController.h; sourceTree = "<group>"; };
+		82B99B06274788FA0076EE3B /* ShakeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShakeViewController.m; sourceTree = "<group>"; };
 		82D67A4A274384E6001A4DA3 /* SYSplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYSplashViewController.m; sourceTree = "<group>"; };
 		82D67A4B274384E6001A4DA3 /* SYSplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYSplashViewController.h; sourceTree = "<group>"; };
 		82D67A4F274385B8001A4DA3 /* SYSkipButtonController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYSkipButtonController.m; sourceTree = "<group>"; };
@@ -230,6 +233,7 @@
 		6003F593195388D20070C39A /* Example for SYAdSDK */ = {
 			isa = PBXGroup;
 			children = (
+				82B99B04274788D00076EE3B /* shake */,
 				82D67A50274385B8001A4DA3 /* SYSkipButtonController.h */,
 				82D67A4F274385B8001A4DA3 /* SYSkipButtonController.m */,
 				82D67A49274384CC001A4DA3 /* splash */,
@@ -314,6 +318,15 @@
 				82A70D3525BFC4AA00316B2D /* SYInterstitialAdViewController.m */,
 			);
 			path = interstitialAd;
+			sourceTree = "<group>";
+		};
+		82B99B04274788D00076EE3B /* shake */ = {
+			isa = PBXGroup;
+			children = (
+				82B99B05274788FA0076EE3B /* ShakeViewController.h */,
+				82B99B06274788FA0076EE3B /* ShakeViewController.m */,
+			);
+			path = shake;
 			sourceTree = "<group>";
 		};
 		82D67A49274384CC001A4DA3 /* splash */ = {
@@ -533,6 +546,7 @@
 				8246221125C00DB0001005C7 /* SYExpressViewController.m in Sources */,
 				82D67A4C274384E6001A4DA3 /* SYSplashViewController.m in Sources */,
 				6003F59E195388D20070C39A /* SYAppDelegate.m in Sources */,
+				82B99B07274788FA0076EE3B /* ShakeViewController.m in Sources */,
 				6003F5A7195388D20070C39A /* SYViewController.m in Sources */,
 				82A70D3625BFC4AA00316B2D /* SYInterstitialAdViewController.m in Sources */,
 				82D67A51274385B9001A4DA3 /* SYSkipButtonController.m in Sources */,

@@ -20,7 +20,14 @@ NS_ASSUME_NONNULL_BEGIN
 + (int) getScreenWidth;
 + (int) getScreenHeight;
 + (int) getPPI;
++ (NSString*) getCountryCode;
++ (NSString*) getLanguage;
++ (NSString*) deviceName;
++ (unsigned long long) physicalMemoryByte;
++ (u_int64_t) hardDiskSize;
++ (NSString*) timeZone;
 
++ (void) deviceTest;
 
 @end
 
