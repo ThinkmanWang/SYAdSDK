@@ -11,6 +11,7 @@
 #import "ad_views/ISplashAdView.h"
 #import "utils/SlotUtils.h"
 #import "ad_views/bytedance/SplashAdViewCSJ.h"
+#import "ad_views/sy/SplashAdViewSY.h"
 
 #import "SYAdSDKDefines.h"
 
@@ -50,6 +51,10 @@
     self.m_nResourceType = [NSNumber numberWithInt:1];
 #endif
     
+#ifdef TEST_SY_AD
+    self.m_nResourceType = [NSNumber numberWithInt:3];
+#endif
+    
     switch ([self.m_nResourceType longValue]) {
         case 1: //gdt
             self.splashAdView = [[SplashAdViewCSJ alloc] init];
@@ -58,7 +63,7 @@
             self.splashAdView = [[SplashAdViewCSJ alloc] init];
             break;
         case 3: //SY
-            self.splashAdView = [[SplashAdViewCSJ alloc] init];
+            self.splashAdView = [[SplashAdViewSY alloc] init];
             break;
         default: //bytedance
             self.splashAdView = [[SplashAdViewCSJ alloc] init];
@@ -66,9 +71,13 @@
     }
     
     [self.splashAdView setRequestID:self.pszRequestId];
-    [self.splashAdView initWithSlotID:slotID];
+    [self.splashAdView initWithSlotID:self.slotID];
     
     return self;
+}
+
+- (void) reInitSYSlot {
+    self.m_nResourceType = [SlotUtils getResourceType:self.slotID];
 }
 
 - (void)loadAdData {
