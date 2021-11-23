@@ -41,7 +41,6 @@
 - (instancetype)initWithSlotID:(NSString *)slotID {
     self.m_pszSlotID = slotID;
     
-    self.tolerateTimeout = 5;
     self.delegate = self;
 //    self.needSplashZoomOutAd = YES;
     

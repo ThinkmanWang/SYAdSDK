@@ -12,11 +12,11 @@
 #import "UserInfoUtils.h"
 #import "SYLogUtils.h"
 
-@interface AdUtils ()
+@interface SYAdUtils ()
 
 @end
 
-@implementation AdUtils
+@implementation SYAdUtils
 
 + (NSString *)uuidString {
     CFUUIDRef uuid_ref = CFUUIDCreate(NULL);
@@ -28,7 +28,7 @@
 }
 
 + (NSString*) mkRequestID {
-    return [[AdUtils uuidString] stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    return [[SYAdUtils uuidString] stringByReplacingOccurrencesOfString:@"-" withString:@""];
 }
 
 + (NSString *)convertToJsonData:(NSDictionary *)dict {
@@ -69,7 +69,7 @@
     
     @try {
         NSDictionary* dictData = @{
-            @"request_id": [AdUtils mkRequestID],
+            @"request_id": [SYAdUtils mkRequestID],
             @"api_version": @"2.0",
             @"device": @{
                 @"device_type": @"PHONE",
@@ -96,7 +96,7 @@
             @"business": @{
                 @"business_id": SYAdSDKManager.syAppID,
                 @"slot_id": pszSlotId,
-                @"sign": [AdUtils mkSign],
+                @"sign": [SYAdUtils mkSign],
                 @"ad_count": [NSNumber numberWithInt:nAdCount]
             },
             @"audience_profile": @{}

@@ -20,7 +20,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AdUtils : NSObject
+@interface SYAdUtils : NSObject
 
 + (void) getSYAd:(NSString*)pszSlotId nAdCount:(int)nAdCount onSuccess:(void (^)(NSString* pszResp)) successHandler onFailed:(void (^)(NSString* pszResp)) failHandler;
 
