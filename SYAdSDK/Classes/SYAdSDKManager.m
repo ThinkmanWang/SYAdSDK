@@ -19,7 +19,6 @@
 @end
 
 static NSString* appID = nil;
-static NSString* secret = @"58673268b0314629b4e518fcc1bb3bda";
 
 static NSString* buAppID = nil;
 static NSString* buOpen = nil;
@@ -50,10 +49,6 @@ static NSString* idfa = nil;
 
 + (void) setIdfa:(NSString*)val {
     idfa = val;
-}
-
-+ (NSString*) secret {
-    return secret;
 }
 
 + (NSString*) buAppID {
@@ -272,7 +267,7 @@ static NSString* idfa = nil;
 //            [BUAdSDKManager setCustomIDFA:idfa];
         
 #ifdef TEST_SY_AD
-        [AdUtils getSYAd:@"24032"
+        [AdUtils getSYAd:@"24011"
                 nAdCount:1
                onSuccess:^(NSString* pszResp) {
             int a = 1;
