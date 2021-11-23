@@ -63,6 +63,7 @@
 //    self = [super initWithSlotID:self.m_pszBuSlotID frame:frame];
     
     [self addSubview:self.m_btnSkip];
+    self.backgroundColor = [UIColor redColor];
     
     return self;
 }
