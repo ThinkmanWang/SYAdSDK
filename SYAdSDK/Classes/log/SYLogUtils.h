@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSString *)uuidString;
 + (NSString*) mkRequestID;
++ (NSString *)convertToJsonData:(NSDictionary *)dict;
 
 + (void) report:(NSString*) pszSlotID requestID:(NSString*) pszRequestId type:(int) nType ;
 + (void) report:(NSString*) pszSlotID sourceId:(int) nSourceID type:(int) nType ;

@@ -51,6 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString*) getHDSize;
 + (NSString*) getSystemUpdateSec;
 + (NSString*) getTimezone;
++ (NSString*) MD5String: (NSString*)input;
 
 + (NSString*) mkJSON:(NSString*) pszAppId idfa:(NSString*) pszIdfa;
 

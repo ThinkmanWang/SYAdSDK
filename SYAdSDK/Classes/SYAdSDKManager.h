@@ -9,7 +9,9 @@
 
 @interface SYAdSDKManager : NSObject
 
-+ (NSString *)appID;
++ (NSString*)appID;
++ (NSString*)secret;
+
 + (NSDictionary*) dictConfig;
 + (NSString*) idfa;
 

@@ -9,6 +9,8 @@
 
 #import <sys/stat.h>
 #import <sys/sysctl.h>
+#import <CoreTelephony/CTCarrier.h>
+#import <CoreTelephony/CTTelephonyNetworkInfo.h>
 
 @implementation DeviceUtils
 
@@ -138,6 +140,11 @@
     return [NSTimeZone localTimeZone].name;    
 }
 
++ (NSString*) userAgent {
+    UIWebView* webView = [[UIWebView alloc] initWithFrame:CGRectZero];
+    return [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
+}
+
 + (void) deviceTest {
     int nWidth = [DeviceUtils getScreenWidth];
     
@@ -169,6 +176,9 @@
     [DeviceUtils hardDiskSize];
     
     [DeviceUtils timeZone];
+    
+    [DeviceUtils userAgent];
+    
 }
 
 

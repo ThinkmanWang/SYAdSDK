@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (unsigned long long) physicalMemoryByte;
 + (u_int64_t) hardDiskSize;
 + (NSString*) timeZone;
++ (NSString*) userAgent;
 
 + (void) deviceTest;
 
