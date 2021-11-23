@@ -37,24 +37,7 @@
     return self;
 }
 
-- (instancetype)initWithSlotID:(NSString *)slotID {
-    self.slotID = slotID;
-    
-    CGRect frame = [UIScreen mainScreen].bounds;
-    self.m_nResourceType = [SlotUtils getResourceType:slotID];
-    
-#ifdef TEST_FOR_BYTEDANCE
-    self.m_nResourceType = [NSNumber numberWithInt:2];
-#endif
-    
-#ifdef TEST_FOR_GDT
-    self.m_nResourceType = [NSNumber numberWithInt:1];
-#endif
-    
-#ifdef TEST_SY_AD
-    self.m_nResourceType = [NSNumber numberWithInt:3];
-#endif
-    
+- (void) initView {
     switch ([self.m_nResourceType longValue]) {
         case 1: //gdt
             self.splashAdView = [[SplashAdViewCSJ alloc] init];
@@ -72,12 +55,35 @@
     
     [self.splashAdView setRequestID:self.pszRequestId];
     [self.splashAdView initWithSlotID:self.slotID];
+}
+
+- (instancetype)initWithSlotID:(NSString *)slotID {
+    self.slotID = slotID;
+    
+    CGRect frame = [UIScreen mainScreen].bounds;
+    self.m_nResourceType = [SlotUtils getResourceType:slotID];
+    
+#ifdef TEST_FOR_BYTEDANCE
+    self.m_nResourceType = [NSNumber numberWithInt:2];
+#endif
+    
+#ifdef TEST_FOR_GDT
+    self.m_nResourceType = [NSNumber numberWithInt:1];
+#endif
+    
+//#ifdef TEST_SY_AD
+//    self.m_nResourceType = [NSNumber numberWithInt:3];
+//#endif
+    
+    [self initView];
     
     return self;
 }
 
 - (void) reInitSYSlot {
-    self.m_nResourceType = [SlotUtils getResourceType:self.slotID];
+    self.m_nResourceType = [NSNumber numberWithInt:3];
+    [self initView];
+    [self loadAdData];
 }
 
 - (void)loadAdData {
@@ -144,10 +150,15 @@
 - (void)splashAd:(id<ISplashAdView>)splashAd {
     //NSLog(@"splashAd");
     // Display fails, completely remove 'splashAdView', avoid memory leak
-    [self removeMyself];
     
-    if (self.delegate) {
-        [self.delegate splashAd:self];
+    if (self.m_nResourceType.intValue != 3) {
+        [self reInitSYSlot];
+    } else {
+        [self removeMyself];
+        
+        if (self.delegate) {
+            [self.delegate splashAd:self];
+        }
     }
     
     [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:-1 type:11009];
@@ -178,8 +189,6 @@
         [self.delegate splashAdDidCloseOtherController:self];
     }
 }
-
-
 
 - (void)splashAdCountdownToZero:(id<ISplashAdView>)splashAd {
     // When the countdown is over, it is equivalent to clicking Skip to completely remove 'splashAdView' and avoid memory leak
