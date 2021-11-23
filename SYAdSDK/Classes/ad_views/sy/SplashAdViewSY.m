@@ -73,8 +73,8 @@
         CGRect rect = [[UIScreen mainScreen] bounds];
         
         CGRect buttonFrame = (CGRect) {
-            .origin.x = rect.size.width - 55.f,
-            .origin.y = 100.f,
+            .origin.x = rect.size.width - 60.f,
+            .origin.y = 45.f,
             .size.width = 45.f,
             .size.height = 45.f
         };
@@ -84,9 +84,22 @@
         [_m_btnSkip setTitle:@"跳过" forState:UIControlStateNormal];
         _m_btnSkip.titleLabel.font = [UIFont systemFontOfSize:14.f];
         [_m_btnSkip setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        
+        [_m_btnSkip addTarget:self action:@selector(onBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+
     }
     
     return _m_btnSkip;
+}
+
+- (void) onBtnClick:(id) sender {
+    if (sender == self.m_btnSkip) {
+        if (self.syDelegate) {
+            [self.syDelegate splashAdWillClose:self];
+        }
+    } else {
+        
+    }
 }
 
 - (void)loadAdData {
