@@ -62,8 +62,7 @@
 //    self.m_pszSYSlotID = [SlotUtils getRealSlotID:slotID];
 //    self = [super initWithSlotID:self.m_pszBuSlotID frame:frame];
     
-    [self addSubview:self.m_btnSkip];
-    self.backgroundColor = [UIColor redColor];
+
     
     return self;
 }
@@ -97,10 +96,22 @@
 //
 //    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11010];
 #ifdef TEST_SY_AD
+    [self addSubview:self.m_btnSkip];
+    self.backgroundColor = [UIColor redColor];
+    [self.m_btnSkip startProgressAnimationWithDuration:5 completionHandler:^(SYDrawingCircleProgressButton *progressButton){
+        if (self.syDelegate) {
+            [self.syDelegate splashAdWillClose:self];
+        }
+    }];
+    
     if (self.syDelegate) {
         [self.syDelegate splashAdDidLoad:self];
     }
 #endif
+}
+
+- (void) removeMyself {
+    [self removeFromSuperview];
 }
 
 - (void)setRequestID:(NSString*)requestID {
