@@ -24,7 +24,6 @@
 @interface BaseAdViewSY ()
 
 
-
 @end
 
 @implementation BaseAdViewSY

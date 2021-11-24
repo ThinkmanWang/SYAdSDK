@@ -162,6 +162,29 @@
     }
     
     [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:pszImgUrl]] queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        if (error != nil) {
+            NSLog(@"%@", error);
+            if (self.syDelegate) {
+                [self.syDelegate splashAd:self];
+            }
+            return;
+        }
+        
+        if (nil == data || nil == response) {
+            if (self.syDelegate) {
+                [self.syDelegate splashAd:self];
+            }
+            return;
+        }
+        
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+        if (200 != httpResponse.statusCode) {
+            if (self.syDelegate) {
+                [self.syDelegate splashAd:self];
+            }
+            return;
+        }
+        
 //        self.m_imgMain = [[UIImageView alloc] init];
         self.m_imgMain.image = [UIImage imageWithData:data];
         [self addSubview:self.m_imgMain];
