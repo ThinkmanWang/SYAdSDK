@@ -132,8 +132,9 @@
     web.url = @"https://www.baidu.com";
 //    web.webTitle = @"web";
     web.progressColor = [UIColor blueColor];
-    [self.rootViewController.navigationController pushViewController:web animated:YES];
+    [(UINavigationController*)self.rootViewController pushViewController:web animated:YES];
 //    [self.rootViewController.navigationController pushViewController:web animated:YES];
+    
 }
 
 - (void) onBtnClick:(id) sender {

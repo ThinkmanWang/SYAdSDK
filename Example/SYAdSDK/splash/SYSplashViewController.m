@@ -32,7 +32,7 @@
     self.splashAdView.delegate = self;
     
     [self.view addSubview:self.splashAdView];
-    self.splashAdView.rootViewController = self;
+    self.splashAdView.rootViewController = self.navigationController;
 
     [self.splashAdView loadAdData];
 }
