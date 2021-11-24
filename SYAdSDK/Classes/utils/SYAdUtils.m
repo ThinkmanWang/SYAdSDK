@@ -59,11 +59,13 @@
 + (void) getSYAd:(NSString*)pszSlotId nAdCount:(int)nAdCount onSuccess:(void (^)(NSDictionary* dictResp)) successHandler {
     
     if ([StringUtils isEmpty:pszSlotId]) {
+        successHandler(nil);
         return;
     }
     
     NSString* pszAppID = SYAdSDKManager.syAppID;
     if ([StringUtils isEmpty:pszAppID]) {
+        successHandler(nil);
         return;
     }
     
@@ -120,11 +122,13 @@
                 NSLog(@"%@", connectionError);
             } else {
                 if (nil == response) {
+                    successHandler(nil);
                     return;
                 }
                 
                 NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
                 if (200 != httpResponse.statusCode) {
+                    successHandler(nil);
                     return;
                 }
                 
@@ -142,6 +146,7 @@
         }];
     } @catch (NSException *exception) {
         NSLog(@"%@: %@",exception.name, exception.reason);
+        successHandler(nil);
         return;
     } @finally {
         

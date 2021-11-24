@@ -18,6 +18,7 @@
 #import "SYAdUtils.h"
 #import "SlotUtils.h"
 #import "SYLogUtils.h"
+#import "StringUtils.h"
 
 @interface SplashAdViewSY ()
 @property(nonatomic, strong) NSString* m_pszSlotID;
@@ -49,6 +50,7 @@
         self.m_pszSYSlotID = @"";
         self.syDelegate = nil;
         self.rootViewController = nil;
+        self.m_dictConfig = nil;
 //        self.m_pszRequestId = [[SYLogUtils uuidString] stringByReplacingOccurrencesOfString:@"-" withString:@""];
     }
     
@@ -114,16 +116,45 @@
             return;
         }
         
+        NSLog(@"%@", dictRet);
+        
+        if ([StringUtils isEmpty:dictRet[@"code"]]) {
+            if (self.syDelegate) {
+                [self.syDelegate splashAd:self];
+            }
+            return;
+        }
+        
+        if (NO == [@"0" isEqualToString:dictRet[@"code"]]) {
+            if (self.syDelegate) {
+                [self.syDelegate splashAd:self];
+            }
+            return;
+        }
+        
+        if (nil == dictRet[@"data"]) {
+            if (self.syDelegate) {
+                [self.syDelegate splashAd:self];
+            }
+            return;
+        }
+        
+        NSArray* aryAd = dictRet[@"data"][@"ads"];
+        if (nil == aryAd || [aryAd count] <= 0) {
+            if (self.syDelegate) {
+                [self.syDelegate splashAd:self];
+            }
+            return;
+        }
+        
+        
+        self.m_dictConfig = dictRet;
+        
         if (self.syDelegate) {
             [self.syDelegate splashAdDidLoad:self];
         }
         
-        [self addSubview:self.m_btnSkip];
-        [self.m_btnSkip startProgressAnimationWithDuration:5 completionHandler:^(SYDrawingCircleProgressButton *progressButton){
-            if (self.syDelegate) {
-                [self.syDelegate splashAdWillClose:self];
-            }
-        }];
+        [self initView];
     }];
     
     [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11010];
@@ -131,6 +162,15 @@
     self.backgroundColor = [UIColor redColor];
     
 #endif
+}
+
+- (void) initView {
+    [self addSubview:self.m_btnSkip];
+    [self.m_btnSkip startProgressAnimationWithDuration:5 completionHandler:^(SYDrawingCircleProgressButton *progressButton){
+        if (self.syDelegate) {
+            [self.syDelegate splashAdWillClose:self];
+        }
+    }];
 }
 
 - (void) removeMyself {
