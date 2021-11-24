@@ -113,6 +113,56 @@
     return 5;
 }
 
++ (NSString*) getRealSYSlotID:(NSString*)slotID {
+    if (nil == SYAdSDKManager.dictConfig) {
+        return nil;
+    }
+    
+    NSArray* arySlot = [SYAdSDKManager.dictConfig valueForKeyPath:@"data.slotInfo"];
+    if (nil == arySlot
+        || NO == [arySlot isKindOfClass: [NSArray class]]) {
+        return nil;
+    }
+    
+    for (int i = 0; i < [arySlot count]; ++i) {
+        NSDictionary* dictSlot = arySlot[i];
+        if (nil == dictSlot
+            || NO == [dictSlot isKindOfClass: [NSDictionary class]]) {
+            return nil;
+        }
+        
+        if ([slotID isEqualToString:[NSString stringWithFormat:@"%@", dictSlot[@"slotId"]]]) {
+            NSArray* aryConfig = dictSlot[@"config"];
+            if (nil == aryConfig
+                || NO == [aryConfig isKindOfClass: [NSArray class]]
+                || [aryConfig count] <= 0) {
+                continue;
+            }
+            
+            NSDictionary* dictSlotConfig = aryConfig[0];
+            
+            NSNumber* nResourceType = [NSNumber numberWithInt:3];
+            
+            switch ([nResourceType longValue]) {
+                case 1:
+                    return dictSlotConfig[@"configParams"][@"gdt_slot_id"];
+                    break;
+                case 2:
+                    return dictSlotConfig[@"configParams"][@"tt_slot_id"];
+                    break;
+                case 3:
+                    return dictSlotConfig[@"configParams"][@"shiyu_slot_id"];
+                    break;
+                default:
+                    return dictSlotConfig[@"configParams"][@"tt_slot_id"];
+                    break;
+            }
+        }
+    }
+    
+    return nil;
+}
+
 + (NSString*)getRealSlotID:(NSString *)slotID {
 //    NSArray* arySlot = SYAdSDKManager.dictConfig[@"data"][@"slotInfo"];
     if (nil == SYAdSDKManager.dictConfig) {

@@ -71,9 +71,9 @@
     self.m_nResourceType = [NSNumber numberWithInt:1];
 #endif
     
-//#ifdef TEST_SY_AD
-//    self.m_nResourceType = [NSNumber numberWithInt:3];
-//#endif
+#ifdef TEST_SY_AD
+    self.m_nResourceType = [NSNumber numberWithInt:3];
+#endif
     
     [self initView];
     

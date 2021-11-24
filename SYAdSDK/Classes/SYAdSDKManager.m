@@ -266,17 +266,6 @@ static NSString* idfa = nil;
         
 //            [BUAdSDKManager setCustomIDFA:idfa];
         
-#ifdef TEST_SY_AD
-        [SYAdUtils getSYAd:@"24011"
-                nAdCount:1
-               onSuccess:^(NSString* pszResp) {
-            int a = 1;
-        }
-                onFailed:^(NSString* pszResp){
-            int a = 1;
-        }];
-#endif
-        
         handler(YES);
 
     }];

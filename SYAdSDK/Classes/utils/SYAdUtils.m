@@ -56,7 +56,7 @@
     return [UserInfoUtils MD5String: pszBase];
 }
 
-+ (void) getSYAd:(NSString*)pszSlotId nAdCount:(int)nAdCount onSuccess:(void (^)(NSString* pszResp)) successHandler onFailed:(void (^)(NSString* pszResp)) failHandler {
++ (void) getSYAd:(NSString*)pszSlotId nAdCount:(int)nAdCount onSuccess:(void (^)(NSDictionary* dictResp)) successHandler {
     
     if ([StringUtils isEmpty:pszSlotId]) {
         return;
@@ -130,9 +130,13 @@
                 
                 NSError *parseError = nil;
                 NSDictionary *dictRet = [NSJSONSerialization JSONObjectWithData:data options:0 error:&parseError];
+                                
+//                NSLog(@"%@", dictRet);
+//                int a = 0;
                 
-                NSLog(@"%@", dictRet);
-                int a = 0;
+                if (successHandler) {
+                    successHandler(dictRet);
+                }
             }
             
         }];

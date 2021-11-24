@@ -15,6 +15,9 @@
 #import "SYCountDownButton.h"
 #import "SYSkipButton.h"
 #import "SYCircleCountDownButton.h"
+#import "SYAdUtils.h"
+#import "SlotUtils.h"
+#import "SYLogUtils.h"
 
 @interface SplashAdViewSY ()
 @property(nonatomic, strong) NSString* m_pszSlotID;
@@ -24,6 +27,8 @@
 @property (nonatomic, strong) SYDrawingCircleProgressButton* m_btnSkip;
 
 @property (nonatomic, weak) UIViewController *rootViewController;
+
+@property(nonatomic, strong) NSDictionary* m_dictConfig;
 
 @end
 
@@ -52,17 +57,10 @@
 
 - (instancetype)initWithSlotID:(NSString *)slotID {
     self.m_pszSlotID = slotID;
-    
-//    self.delegate = self;
-//    self.needSplashZoomOutAd = YES;
+    self.m_pszSYSlotID = [SlotUtils getRealSYSlotID:slotID];
     
     CGRect frame = [UIScreen mainScreen].bounds;
     self.frame = frame;
-    
-//    self.m_pszSYSlotID = [SlotUtils getRealSlotID:slotID];
-//    self = [super initWithSlotID:self.m_pszBuSlotID frame:frame];
-    
-
     
     return self;
 }
@@ -104,22 +102,34 @@
 
 - (void)loadAdData {
     //optional
-    
-//    [super loadAdData];
-//
-//    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11010];
-#ifdef TEST_SY_AD
-    [self addSubview:self.m_btnSkip];
-    self.backgroundColor = [UIColor redColor];
-    [self.m_btnSkip startProgressAnimationWithDuration:5 completionHandler:^(SYDrawingCircleProgressButton *progressButton){
-        if (self.syDelegate) {
-            [self.syDelegate splashAdWillClose:self];
+
+    [SYAdUtils getSYAd:self.m_pszSYSlotID
+            nAdCount:1
+           onSuccess:^(NSDictionary* dictRet) {
+        if (nil == dictRet) {
+            if (self.syDelegate) {
+                [self.syDelegate splashAd:self];
+            }
+            
+            return;
         }
+        
+        if (self.syDelegate) {
+            [self.syDelegate splashAdDidLoad:self];
+        }
+        
+        [self addSubview:self.m_btnSkip];
+        [self.m_btnSkip startProgressAnimationWithDuration:5 completionHandler:^(SYDrawingCircleProgressButton *progressButton){
+            if (self.syDelegate) {
+                [self.syDelegate splashAdWillClose:self];
+            }
+        }];
     }];
     
-    if (self.syDelegate) {
-        [self.syDelegate splashAdDidLoad:self];
-    }
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11010];
+#ifdef TEST_SY_AD
+    self.backgroundColor = [UIColor redColor];
+    
 #endif
 }
 
