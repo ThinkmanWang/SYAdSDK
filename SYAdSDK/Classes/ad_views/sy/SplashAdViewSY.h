@@ -13,12 +13,13 @@
 #import <AdSupport/AdSupport.h>
 #import <AppTrackingTransparency/AppTrackingTransparency.h>
 #import "ISplashAdView.h"
+#import "BaseAdViewSY.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol SYSplashAdDelegate;
 
-@interface SplashAdViewSY : UIView<ISplashAdView>
+@interface SplashAdViewSY : BaseAdViewSY<ISplashAdView>
 
 /**
  The delegate for receiving state change messages.
@@ -26,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak, nullable) id<ISplashAdViewDelegate> syDelegate;
 
 - (instancetype)initWithSlotID:(NSString *)slotID;
-- (void)loadAdData;
+- (void)initDictCOnfig:(NSDictionary*) dictRet;
 
 @end
 

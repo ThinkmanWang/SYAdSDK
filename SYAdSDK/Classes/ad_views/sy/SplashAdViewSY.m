@@ -21,12 +21,6 @@
 #import "StringUtils.h"
 
 @interface SplashAdViewSY ()
-@property(nonatomic, strong) NSString* m_pszSlotID;
-@property(nonatomic, strong) NSString* m_pszSYSlotID;
-@property(nonatomic, strong) NSString* m_pszRequestId;
-
-@property(nonatomic, strong) NSDictionary* m_dictConfig;
-@property (nonatomic, weak) UIViewController *rootViewController;
 
 @property (nonatomic, strong) UIImageView* m_imgMain;
 @property (nonatomic, strong) SYDrawingCircleProgressButton* m_btnSkip;
@@ -46,11 +40,8 @@
 - (id) init {
     self = [super init];
     if (self) {
-        self.m_pszSlotID = @"";
-        self.m_pszSYSlotID = @"";
         self.syDelegate = nil;
         self.rootViewController = nil;
-        self.m_dictConfig = nil;
         self.m_imgMain = nil;
 //        self.m_pszRequestId = [[SYLogUtils uuidString] stringByReplacingOccurrencesOfString:@"-" withString:@""];
     }
@@ -59,8 +50,7 @@
 }
 
 - (instancetype)initWithSlotID:(NSString *)slotID {
-    self.m_pszSlotID = slotID;
-    self.m_pszSYSlotID = [SlotUtils getRealSYSlotID:slotID];
+    self = [super initWithSlotID:slotID];
     
     CGRect frame = [UIScreen mainScreen].bounds;
     self.frame = frame;
@@ -143,7 +133,9 @@
     [SYAdUtils getSYAd:self.m_pszSYSlotID
             nAdCount:1
            onSuccess:^(NSDictionary* dictRet) {
-        if (nil == dictRet) {
+        [self initDictCOnfig:dictRet];
+        
+        if (nil == self.m_dictConfig) {
             if (self.syDelegate) {
                 [self.syDelegate splashAd:self];
             }
@@ -151,48 +143,10 @@
             return;
         }
         
-        NSLog(@"%@", dictRet);
-        
-        if ([StringUtils isEmpty:dictRet[@"code"]]) {
-            if (self.syDelegate) {
-                [self.syDelegate splashAd:self];
-            }
-            return;
-        }
-        
-        if (NO == [@"0" isEqualToString:dictRet[@"code"]]) {
-            if (self.syDelegate) {
-                [self.syDelegate splashAd:self];
-            }
-            return;
-        }
-        
-        if (nil == dictRet[@"data"]) {
-            if (self.syDelegate) {
-                [self.syDelegate splashAd:self];
-            }
-            return;
-        }
-        
-        NSArray* aryAd = dictRet[@"data"][@"ads"];
-        if (nil == aryAd || [aryAd count] <= 0) {
-            if (self.syDelegate) {
-                [self.syDelegate splashAd:self];
-            }
-            return;
-        }
-        
-        
-        self.m_dictConfig = dictRet;
-        
         [self initView];
     }];
     
-    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11010];
-#ifdef TEST_SY_AD
-//    self.backgroundColor = [UIColor redColor];
-    
-#endif
+//    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11010];
 }
 
 - (void) initView {
@@ -224,22 +178,6 @@
             [self.syDelegate splashAdWillVisible:self];
         }
     }];
-}
-
-- (void) removeMyself {
-    [self removeFromSuperview];
-}
-
-- (void)setRequestID:(NSString*)requestID {
-    self.m_pszRequestId = requestID;
-}
-
-- (CGRect)getFrame {
-    return self.frame;
-}
-
-- (void)setSYRootViewController:(UIViewController*)rootViewController {
-    self.rootViewController = rootViewController;
 }
 
 - (void)setSYDelegate:(id<ISplashAdViewDelegate>)delegate {
