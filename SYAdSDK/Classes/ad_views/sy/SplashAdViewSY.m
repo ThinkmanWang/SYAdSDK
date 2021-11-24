@@ -130,7 +130,7 @@
     
     TGWebViewController* web = [[TGWebViewController alloc] init];
     web.url = @"https://www.baidu.com";
-    web.webTitle = @"web";
+//    web.webTitle = @"web";
     web.progressColor = [UIColor blueColor];
     [self.rootViewController.navigationController pushViewController:web animated:YES];
 //    [self.rootViewController.navigationController pushViewController:web animated:YES];

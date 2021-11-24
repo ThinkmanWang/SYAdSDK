@@ -25,7 +25,7 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.navigationItem.title = self.webTitle;
+//    self.navigationItem.title = self.webTitle;
     [self setUpUI];
 }
 
@@ -40,7 +40,7 @@
 //    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
    
     self.tgWebView = [[WKWebView alloc] initWithFrame:self.view.bounds];
-    self.tgWebView.navigationDelegate =self;
+    self.tgWebView.navigationDelegate = self;
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.url]];
     [self.tgWebView loadRequest:request];
     [self.view addSubview:self.tgWebView];
