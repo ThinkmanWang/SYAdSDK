@@ -18,8 +18,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, strong) NSString* m_pszRequestId;
 
 @property(nonatomic, strong) NSDictionary* m_dictConfig;
+@property(nonatomic, strong) NSDictionary* m_dictAdConfig;
 
 - (instancetype)initWithSlotID:(NSString *)slotID;
+- (NSArray*)adList;
 
 @end
 

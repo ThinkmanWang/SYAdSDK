@@ -88,11 +88,25 @@
         
         _m_imgMain = [[UIImageView alloc] initWithFrame:rect];
         
-        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onSplashAdClick:)];
-        singleTap.numberOfTapsRequired = 1;
+        if (self.m_dictAdConfig) {
+            if ([@"0" isEqualToString:self.m_dictAdConfig[@"ad"][@"invocationstyle"]]) {
+                //0: 广告行为必须通过点击触发
+                UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onSplashAdClick:)];
+                singleTap.numberOfTapsRequired = 1;
+                
+                [_m_imgMain setUserInteractionEnabled:YES];
+                [_m_imgMain addGestureRecognizer:singleTap];
+            } else if ([@"1" isEqualToString:self.m_dictAdConfig[@"ad"][@"invocationstyle"]]) {
+                //1: 摇一摇(点击 上报时可以忽略点击坐标相关宏替换)
+                
+            } else if ([@"2" isEqualToString:self.m_dictAdConfig[@"ad"][@"invocationstyle"]]) {
+                //2:滑动 (点击上报时可以忽略点击坐标相关宏替换)
+                
+            } else {
+                
+            }
+        }
         
-        [_m_imgMain setUserInteractionEnabled:YES];
-        [_m_imgMain addGestureRecognizer:singleTap];
     }
     
     return _m_imgMain;
@@ -152,8 +166,16 @@
 - (void) initView {
     NSArray* aryAd = self.m_dictConfig[@"data"][@"ads"];
     NSDictionary* dictAd = aryAd[0];
+    if (nil == dictAd) {
+        if (self.syDelegate) {
+            [self.syDelegate splashAd:self];
+        }
+        return;
+    }
     
-    NSString *pszImgUrl = dictAd[@"ad"][@"img_url"];
+    self.m_dictAdConfig = dictAd;
+    
+    NSString *pszImgUrl = self.m_dictAdConfig[@"ad"][@"img_url"];
     if ([StringUtils isEmpty:pszImgUrl]) {
         if (self.syDelegate) {
             [self.syDelegate splashAd:self];

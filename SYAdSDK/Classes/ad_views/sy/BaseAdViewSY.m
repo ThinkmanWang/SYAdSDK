@@ -34,6 +34,7 @@
         self.m_pszSlotID = @"";
         self.m_pszSYSlotID = @"";
         self.m_dictConfig = nil;
+        self.m_dictAdConfig = nil;
     }
     
     return self;
@@ -87,6 +88,14 @@
 
 - (void)setSYRootViewController:(UIViewController*)rootViewController {
     self.rootViewController = rootViewController;
+}
+
+- (NSArray*)adList {
+    if (nil == self.m_dictConfig) {
+        return nil;
+    }
+    
+    return self.m_dictConfig[@"data"][@"ads"];
 }
 
 @end
