@@ -35,6 +35,11 @@
     self.splashAdView.rootViewController = self.navigationController;
 
     [self.splashAdView loadAdData];
+    
+//    NSMutableArray *navigationArray = [[NSMutableArray alloc] initWithArray: self.navigationController.viewControllers];
+//    [navigationArray removeObject:self];
+//    self.navigationController.viewControllers = navigationArray;
+
 }
 
 #pragma mark launchscreeen events
