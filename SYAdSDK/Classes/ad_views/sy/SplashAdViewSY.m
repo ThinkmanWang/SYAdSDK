@@ -19,6 +19,8 @@
 #import "SlotUtils.h"
 #import "SYLogUtils.h"
 #import "StringUtils.h"
+#import "TGWebViewController.h"
+
 
 @interface SplashAdViewSY ()
 
@@ -116,6 +118,22 @@
     if (self.syDelegate) {
         [self.syDelegate splashAdDidClick:self];
     }
+    
+    NSString* pszUrl = self.m_dictAdConfig[@"ad"][@"loading_url"];
+    if ([StringUtils isEmpty:pszUrl]) {
+        return;
+    }
+    
+    if (nil == self.rootViewController) {
+        return;
+    }
+    
+    TGWebViewController* web = [[TGWebViewController alloc] init];
+    web.url = @"https://www.baidu.com";
+    web.webTitle = @"web";
+    web.progressColor = [UIColor blueColor];
+    [self.rootViewController.navigationController pushViewController:web animated:YES];
+//    [self.rootViewController.navigationController pushViewController:web animated:YES];
 }
 
 - (void) onBtnClick:(id) sender {
