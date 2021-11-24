@@ -25,11 +25,11 @@
 @property(nonatomic, strong) NSString* m_pszSYSlotID;
 @property(nonatomic, strong) NSString* m_pszRequestId;
 
-@property (nonatomic, strong) SYDrawingCircleProgressButton* m_btnSkip;
-
+@property(nonatomic, strong) NSDictionary* m_dictConfig;
 @property (nonatomic, weak) UIViewController *rootViewController;
 
-@property(nonatomic, strong) NSDictionary* m_dictConfig;
+@property (nonatomic, strong) UIImageView* m_imgMain;
+@property (nonatomic, strong) SYDrawingCircleProgressButton* m_btnSkip;
 
 @end
 
@@ -51,6 +51,7 @@
         self.syDelegate = nil;
         self.rootViewController = nil;
         self.m_dictConfig = nil;
+        self.m_imgMain = nil;
 //        self.m_pszRequestId = [[SYLogUtils uuidString] stringByReplacingOccurrencesOfString:@"-" withString:@""];
     }
     
@@ -67,8 +68,7 @@
     return self;
 }
 
-- (SYDrawingCircleProgressButton *) m_btnSkip
-{
+- (SYDrawingCircleProgressButton *) m_btnSkip {
     if (nil == _m_btnSkip) {
         CGRect rect = [[UIScreen mainScreen] bounds];
         
@@ -92,10 +92,45 @@
     return _m_btnSkip;
 }
 
+- (UIImageView*) m_imgMain {
+    if (nil == _m_imgMain) {
+        CGRect rect = [[UIScreen mainScreen] bounds];
+        
+        _m_imgMain = [[UIImageView alloc] initWithFrame:rect];
+        
+        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onSplashAdClick:)];
+        singleTap.numberOfTapsRequired = 1;
+        
+        [_m_imgMain setUserInteractionEnabled:YES];
+        [_m_imgMain addGestureRecognizer:singleTap];
+    }
+    
+    return _m_imgMain;
+}
+
+- (void) onSplashAdClick:(id)sender {
+    if (self.syDelegate) {
+        [self.syDelegate splashAdDidClick:self];
+    }
+}
+
 - (void) onBtnClick:(id) sender {
     if (sender == self.m_btnSkip) {
+        
+        if (self.syDelegate) {
+            [self.syDelegate splashAdDidClickSkip:self];
+        }
+        
         if (self.syDelegate) {
             [self.syDelegate splashAdWillClose:self];
+        }
+        
+        if (self.syDelegate) {
+            [self.syDelegate splashAdDidClose:self];
+        }
+    } else if (sender == self.m_imgMain) {
+        if (self.syDelegate) {
+            [self.syDelegate splashAdDidClick:self];
         }
     } else {
         
@@ -150,25 +185,43 @@
         
         self.m_dictConfig = dictRet;
         
-        if (self.syDelegate) {
-            [self.syDelegate splashAdDidLoad:self];
-        }
-        
         [self initView];
     }];
     
     [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11010];
 #ifdef TEST_SY_AD
-    self.backgroundColor = [UIColor redColor];
+//    self.backgroundColor = [UIColor redColor];
     
 #endif
 }
 
 - (void) initView {
-    [self addSubview:self.m_btnSkip];
-    [self.m_btnSkip startProgressAnimationWithDuration:5 completionHandler:^(SYDrawingCircleProgressButton *progressButton){
+    NSArray* aryAd = self.m_dictConfig[@"data"][@"ads"];
+    NSDictionary* dictAd = aryAd[0];
+    
+    NSString *pszImgUrl = dictAd[@"ad"][@"img_url"];
+    if ([StringUtils isEmpty:pszImgUrl]) {
         if (self.syDelegate) {
-            [self.syDelegate splashAdWillClose:self];
+            [self.syDelegate splashAd:self];
+        }
+        return;
+    }
+    
+    [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:pszImgUrl]] queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+//        self.m_imgMain = [[UIImageView alloc] init];
+        self.m_imgMain.image = [UIImage imageWithData:data];
+        [self addSubview:self.m_imgMain];
+        
+        [self addSubview:self.m_btnSkip];
+        [self.m_btnSkip startProgressAnimationWithDuration:5 completionHandler:^(SYDrawingCircleProgressButton *progressButton){
+            if (self.syDelegate) {
+                [self.syDelegate splashAdWillClose:self];
+            }
+        }];
+        
+        if (self.syDelegate) {
+            [self.syDelegate splashAdDidLoad:self];
+            [self.syDelegate splashAdWillVisible:self];
         }
     }];
 }
