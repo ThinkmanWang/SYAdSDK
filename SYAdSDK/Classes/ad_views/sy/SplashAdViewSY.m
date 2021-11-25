@@ -26,6 +26,7 @@
 
 @property (nonatomic, strong) UIImageView* m_imgMain;
 @property (nonatomic, strong) SYDrawingCircleProgressButton* m_btnSkip;
+@property (nonatomic, strong) UIImageView* m_imgShake;
 
 @end
 
@@ -45,6 +46,7 @@
         self.syDelegate = nil;
         self.rootViewController = nil;
         self.m_imgMain = nil;
+        self.m_imgShake = nil;
 //        self.m_pszRequestId = [[SYLogUtils uuidString] stringByReplacingOccurrencesOfString:@"-" withString:@""];
     }
     
@@ -196,10 +198,43 @@
         [_m_btnSkip setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         
         [_m_btnSkip addTarget:self action:@selector(onBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-
+        
+        _m_btnSkip.layer.zPosition = 1;
     }
     
     return _m_btnSkip;
+}
+
+- (UIImageView*) m_imgShake {
+    if (nil == _m_imgShake) {
+        CGRect screenRect = [[UIScreen mainScreen] bounds];
+        
+        float fWidth = screenRect.size.width * 0.4;
+        float fHeight = fWidth;
+        float fX = (screenRect.size.width - fWidth) / 2;
+        float fY = screenRect.size.height - (fHeight * 2);
+
+        CGRect imgRect = CGRectMake(fX, fY, fWidth, fHeight);
+        
+        _m_imgShake = [[UIImageView alloc] initWithFrame:imgRect];
+        _m_imgShake.animationImages = [NSArray arrayWithObjects:
+                                       [UIImage imageNamed:@"shake_01.png"]
+                                       , [UIImage imageNamed:@"shake_02.png"]
+                                       , nil];
+        _m_imgShake.animationDuration = 0.5f;
+        _m_imgShake.animationRepeatCount = 0;
+        _m_imgShake.contentMode = UIViewContentModeScaleAspectFill;
+        
+        // 超出边框的内容都剪掉
+        _m_imgShake.clipsToBounds = YES;
+        
+//        _m_imgShake.backgroundColor = [UIColor redColor];
+        _m_imgShake.layer.zPosition = 1;
+        
+        [_m_imgShake startAnimating];
+    }
+    
+    return _m_imgShake;
 }
 
 - (UIImageView*) m_imgMain {
@@ -207,30 +242,7 @@
         CGRect rect = [[UIScreen mainScreen] bounds];
         
         _m_imgMain = [[UIImageView alloc] initWithFrame:rect];
-        
-        if (self.m_dictAdConfig) {
-#ifdef TEST_SPLASH_SHAKE
-            [self becomeFirstResponder];
-#else
-            if ([@"0" isEqualToString:self.m_dictAdConfig[@"ad"][@"invocationstyle"]]) {
-                //0: 广告行为必须通过点击触发
-                UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onSplashAdClick:)];
-                singleTap.numberOfTapsRequired = 1;
-                
-                [_m_imgMain setUserInteractionEnabled:YES];
-                [_m_imgMain addGestureRecognizer:singleTap];
-            } else if ([@"1" isEqualToString:self.m_dictAdConfig[@"ad"][@"invocationstyle"]]) {
-                //1: 摇一摇(点击 上报时可以忽略点击坐标相关宏替换)
-                [self becomeFirstResponder];
-            } else if ([@"2" isEqualToString:self.m_dictAdConfig[@"ad"][@"invocationstyle"]]) {
-                //2:滑动 (点击上报时可以忽略点击坐标相关宏替换)
-                
-            } else {
-                
-            }
-#endif
-        }
-        
+        _m_imgMain.layer.zPosition = 0;
     }
     
     return _m_imgMain;
@@ -310,9 +322,6 @@
         default:
             break;
     }
-    
-    
-    
 }
 
 - (void) onBtnClick:(id) sender {
@@ -334,7 +343,54 @@
     }
 }
 
+- (void) initSplash:(NSData*)data {
+//        self.m_imgMain = [[UIImageView alloc] init];
+    self.m_imgMain.image = [UIImage imageWithData:data];
+    [self addSubview:self.m_imgMain];
+    [self addSubview:self.m_btnSkip];
+    
+    [self.m_btnSkip startProgressAnimationWithDuration:5 completionHandler:^(SYDrawingCircleProgressButton *progressButton){
+        if (self.syDelegate) {
+            [self.syDelegate splashAdWillClose:self];
+        }
+    }];
+    
+    if (self.m_dictAdConfig) {
+#ifdef TEST_SPLASH_SHAKE
+        [self becomeFirstResponder];
+        [self addSubview:self.m_imgShake];
+#else
+        if ([@"0" isEqualToString:self.m_dictAdConfig[@"ad"][@"invocationstyle"]] |
+            | [@"2" isEqualToString:self.m_dictAdConfig[@"ad"][@"invocationstyle"]]) {
+            //0: 广告行为必须通过点击触发
+            //2:滑动 (点击上报时可以忽略点击坐标相关宏替换)
+            UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onSplashAdClick:)];
+            singleTap.numberOfTapsRequired = 1;
+            
+            [_m_imgMain setUserInteractionEnabled:YES];
+            [_m_imgMain addGestureRecognizer:singleTap];
+        } else if ([@"1" isEqualToString:self.m_dictAdConfig[@"ad"][@"invocationstyle"]]) {
+            //1: 摇一摇(点击 上报时可以忽略点击坐标相关宏替换)
+            [self becomeFirstResponder];
+            [self addSubview:self.m_imgShake];
+        } else {
+            
+        }
+#endif
+    }
+
+    if (self.syDelegate) {
+        [self.syDelegate splashAdDidLoad:self];
+        [self.syDelegate splashAdWillVisible:self];
+    }
+}
+
 - (void) initView {
+    if (nil == self.m_dictConfig) {
+        [self.syDelegate splashAd:self];
+        return;
+    }
+    
     NSArray* aryAd = self.m_dictConfig[@"data"][@"ads"];
     NSDictionary* dictAd = aryAd[0];
     if (nil == dictAd) {
@@ -345,6 +401,12 @@
     }
     
     self.m_dictAdConfig = dictAd;
+    if (nil == self.m_dictAdConfig) {
+        if (self.syDelegate) {
+            [self.syDelegate splashAd:self];
+        }
+        return;
+    }
     
     NSString *pszImgUrl = self.m_dictAdConfig[@"ad"][@"img_url"];
     if ([StringUtils isEmpty:pszImgUrl]) {
@@ -378,21 +440,7 @@
             return;
         }
         
-//        self.m_imgMain = [[UIImageView alloc] init];
-        self.m_imgMain.image = [UIImage imageWithData:data];
-        [self addSubview:self.m_imgMain];
-        
-        [self addSubview:self.m_btnSkip];
-        [self.m_btnSkip startProgressAnimationWithDuration:5 completionHandler:^(SYDrawingCircleProgressButton *progressButton){
-            if (self.syDelegate) {
-                [self.syDelegate splashAdWillClose:self];
-            }
-        }];
-        
-        if (self.syDelegate) {
-            [self.syDelegate splashAdDidLoad:self];
-            [self.syDelegate splashAdWillVisible:self];
-        }
+        [self initSplash:data];
     }];
 }
 

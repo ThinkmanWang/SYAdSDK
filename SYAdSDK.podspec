@@ -45,9 +45,12 @@ Shiyu Ad SDK for iOS
   s.dependency 'Ads-CN'
 #  s.dependency 'GDTMobSDK'
   
-   s.resource_bundles = {
-     'SYAdSDK' => ['SYAdSDK/Assets/*.xcassets']
-   }
+#   s.resource_bundles = {
+     #'SYAdSDK' => ['SYAdSDK/Assets/*.xcassets']
+#     'SYAdSDK' => ['SYAdSDK/*.xcassets']
+#   }
+	
+	s.resources = 'SYAdSDK/*.xcassets'
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
