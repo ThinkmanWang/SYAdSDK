@@ -66,6 +66,60 @@
     [SYAdUtils getSYAd:self.m_pszSYSlotID
             nAdCount:1
            onSuccess:^(NSDictionary* dictRet) {
+        
+#ifdef TEST_DOWNLOAD_APP
+        dictRet = @{
+            @"msg": @"NO_ERROR",
+            @"code": @"0",
+            @"adslot_id": @24011,
+            @"data": @{
+                @"ads": @[
+                    @{
+                        @"ad": @{
+                            @"app_size": @"1000",
+                            @"logo_url": @"http://palmar.huina365.cn/sy_logo_1.0.1.png",
+                            @"app_package": @"com.yaya.zone",
+                            @"line": @1,
+                            @"interaction_type": @3,
+                            @"description": @"叮咚买菜",
+                            @"img_id": @"20fa4a8a749b681b4bc68a5265db4725",
+                            @"source": @"SY-300",
+                            @"title": @"叮咚买菜1",
+                            @"invocationstyle": @"1",
+                            @"app_name": @"叮咚买菜",
+                            @"acceleration": @10,
+                            @"ad_id": @"2652",
+                            @"img_url": @"http://palmar.huina365.cn/c779036be3db4fe795f0bb856ff3418e.jfif",
+                            @"creative_type": @2,
+                            @"download_url": @"https://apps.apple.com/cn/app/id768082524",
+                            @"showType": @1
+                        },
+                        @"tracking_list": @{
+                            @"sf_url": @[
+                                @"http://openapi.jiegames.com/Advertise/report/887421551,675e390cd31c41d1b960887047ab9150,1,5,it:3,mo=__OS__&ns=__IP__&m1=__IMEI__&m2=__IDFA__&m3=__DUID__&m1a=__ANDROIDID__&m2a=__OPENUDID__&m9=__MAC1__&m9b=__MAC__&m1b=__AAID__&m1c=__ANDROIDID1__&m9c=__ODIN__&ts=__TS__&st=__STS__&uuid=__UUID__&reqid=6bbc786354074d9abaa0945093849a5a"
+                            ],
+                            @"ds_url": @[
+                                @"http://openapi.jiegames.com/Advertise/report/887421551,675e390cd31c41d1b960887047ab9150,1,3,it:3,mo=__OS__&ns=__IP__&m1=__IMEI__&m2=__IDFA__&m3=__DUID__&m1a=__ANDROIDID__&m2a=__OPENUDID__&m9=__MAC1__&m9b=__MAC__&m1b=__AAID__&m1c=__ANDROIDID1__&m9c=__ODIN__&ts=__TS__&st=__STS__&uuid=__UUID__&reqid=6bbc786354074d9abaa0945093849a5a"
+                            ],
+                            @"click_url": @[
+                                @"http://openapi.jiegames.com/Advertise/report/887421551,675e390cd31c41d1b960887047ab9150,1,2,it:3,mo=__OS__&ns=__IP__&m1=__IMEI__&m2=__IDFA__&m3=__DUID__&m1a=__ANDROIDID__&m2a=__OPENUDID__&m9=__MAC1__&m9b=__MAC__&m1b=__AAID__&m1c=__ANDROIDID1__&m9c=__ODIN__&ts=__TS__&st=__STS__&uuid=__UUID__&sw=375&sh=667&adw=__AD_W__&adh=__AD_H__&cdx=CLK_D_X&cdy=CLK_D_Y&cux=CLK_UP_X&cuy=CLK_UP_Y&reqid=6bbc786354074d9abaa0945093849a5a"
+                            ],
+                            @"df_url": @[
+                                @"http://openapi.jiegames.com/Advertise/report/887421551,675e390cd31c41d1b960887047ab9150,1,4,it:3,mo=__OS__&ns=__IP__&m1=__IMEI__&m2=__IDFA__&m3=__DUID__&m1a=__ANDROIDID__&m2a=__OPENUDID__&m9=__MAC1__&m9b=__MAC__&m1b=__AAID__&m1c=__ANDROIDID1__&m9c=__ODIN__&ts=__TS__&st=__STS__&uuid=__UUID__&reqid=6bbc786354074d9abaa0945093849a5a"
+                            ],
+                            @"show_url": @[
+                                @"http://openapi.jiegames.com/Advertise/report/887421551,675e390cd31c41d1b960887047ab9150,1,1,it:3,mo=__OS__&ns=__IP__&m1=__IMEI__&m2=__IDFA__&m3=__DUID__&m1a=__ANDROIDID__&m2a=__OPENUDID__&m9=__MAC1__&m9b=__MAC__&m1b=__AAID__&m1c=__ANDROIDID1__&m9c=__ODIN__&ts=__TS__&st=__STS__&uuid=__UUID__&reqid=6bbc786354074d9abaa0945093849a5a"
+                            ]
+                        }
+                    }
+                ]
+            },
+            @"adReportToken": @"5bc545a8f1b7dff14ba16a579cad63ef",
+            @"expiration_time": @1637821259,
+            @"request_id": @"6bbc786354074d9abaa0945093849a5a"
+        };
+#endif
+        
         [self initDictConfig:dictRet];
         
         if (nil == self.m_dictConfig) {
@@ -140,9 +194,9 @@
     return _m_imgMain;
 }
 
-- (void) onSplashAdClick:(id)sender {
-    if (self.syDelegate) {
-        [self.syDelegate splashAdDidClick:self];
+- (void) showUrl {
+    if (nil == self.m_dictAdConfig) {
+        return;
     }
     
     NSString* pszUrl = self.m_dictAdConfig[@"ad"][@"loading_url"];
@@ -159,7 +213,49 @@
 //    web.webTitle = @"web";
     web.progressColor = [UIColor blueColor];
     [(UINavigationController*)self.rootViewController pushViewController:web animated:YES];
-//    [self.rootViewController.navigationController pushViewController:web animated:YES];
+}
+
+- (void) openAppStore {
+    if (nil == self.m_dictAdConfig) {
+        return;
+    }
+    
+    NSString* pszUrl = self.m_dictAdConfig[@"ad"][@"download_url"];
+    if ([StringUtils isEmpty:pszUrl]) {
+        return;
+    }
+    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:pszUrl]];
+}
+
+- (void) onSplashAdClick:(id)sender {
+    if (self.syDelegate) {
+        [self.syDelegate splashAdDidClick:self];
+    }
+    
+    if (nil == self.m_dictAdConfig) {
+        return;
+    }
+    
+    NSNumber* nInteractionType = self.m_dictAdConfig[@"ad"][@"interaction_type"];
+    if (nil == nInteractionType) {
+        return;
+    }
+    
+    switch (nInteractionType.intValue) {
+        case 1: //deeplink
+            break;
+        case 2: //show url
+            [self showUrl];
+            break;
+        case 3: //download app
+            [self openAppStore];
+            break;
+        default:
+            break;
+    }
+    
+    
     
 }
 
@@ -176,10 +272,6 @@
         
         if (self.syDelegate) {
             [self.syDelegate splashAdDidClose:self];
-        }
-    } else if (sender == self.m_imgMain) {
-        if (self.syDelegate) {
-            [self.syDelegate splashAdDidClick:self];
         }
     } else {
         
