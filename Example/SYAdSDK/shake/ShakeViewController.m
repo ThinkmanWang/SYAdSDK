@@ -35,11 +35,8 @@
  *  摇动开始
  */
 - (void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event {
-    
     if (motion == UIEventSubtypeMotionShake) {
-        
         NSLog(@"开始摇了");
-        
     }
 }
 
@@ -47,18 +44,14 @@
  *  摇动结束
  */
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
-    
     NSLog(@"摇动结束");
-    
 }
 
 /**
  *  摇动取消
  */
 - (void)motionCancelled:(UIEventSubtype)motion withEvent:(UIEvent *)event {
-    
     NSLog(@"摇动取消");
-    
 }
 
 @end
