@@ -20,6 +20,8 @@
 #import "SlotUtils.h"
 #import "SYLogUtils.h"
 #import "StringUtils.h"
+#import "TGWebViewController.h"
+
 
 @interface BaseAdViewSY ()
 
@@ -96,6 +98,66 @@
     }
     
     return self.m_dictConfig[@"data"][@"ads"];
+}
+
+- (void) openAppStore {
+    if (nil == self.m_dictAdConfig) {
+        return;
+    }
+    
+    NSString* pszUrl = self.m_dictAdConfig[@"ad"][@"download_url"];
+    if ([StringUtils isEmpty:pszUrl]) {
+        return;
+    }
+    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:pszUrl]];
+}
+
+- (void) showUrl {
+    if (nil == self.m_dictAdConfig) {
+        return;
+    }
+    
+    NSString* pszUrl = self.m_dictAdConfig[@"ad"][@"loading_url"];
+    if ([StringUtils isEmpty:pszUrl]) {
+        return;
+    }
+    
+    if (nil == self.rootViewController) {
+        return;
+    }
+    
+    TGWebViewController* web = [[TGWebViewController alloc] init];
+    web.url = pszUrl;
+//    web.webTitle = @"web";
+    web.progressColor = [UIColor blueColor];
+    [self.rootViewController.navigationController pushViewController:web animated:YES];
+}
+
+- (void) openDeeplink {
+    if (nil == self.m_dictAdConfig) {
+        return;
+    }
+    
+    NSString* pszUrl = self.m_dictAdConfig[@"ad"][@"deeplink_url"];
+    if ([StringUtils isEmpty:pszUrl]) {
+        return;
+    }
+    
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:pszUrl]]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:pszUrl]];
+    } else {
+        pszUrl = self.m_dictAdConfig[@"ad"][@"loading_url"];
+        if ([StringUtils isEmpty:pszUrl]) {
+            return;
+        }
+        
+        TGWebViewController* web = [[TGWebViewController alloc] init];
+        web.url = pszUrl;
+    //    web.webTitle = @"web";
+        web.progressColor = [UIColor blueColor];
+        [self.rootViewController.navigationController pushViewController:web animated:YES];
+    }
 }
 
 @end

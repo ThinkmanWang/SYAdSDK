@@ -23,6 +23,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithSlotID:(NSString *)slotID;
 - (NSArray*)adList;
 
+- (void)initDictConfig:(NSDictionary*) dictRet;
+- (void) openDeeplink;
+- (void) showUrl;
+- (void) openAppStore;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -119,6 +119,48 @@
             @"request_id": @"6bbc786354074d9abaa0945093849a5a"
         };
 #endif
+
+#ifdef TEST_DEEPLINK
+        dictRet = @{
+            @"msg": @"NO_ERROR",
+            @"code": @"0",
+            @"adslot_id": @24011,
+            @"data": @{
+                @"ads": @[
+                    @{
+                        @"ad": @{
+                            @"logo_url": @"http://palmar.huina365.cn/sy_logo_1.0.1.png",
+                            @"line": @1,
+                            @"interaction_type": @1,
+                            @"description": @"支付宝",
+                            @"deeplink_url": @"alipays://platformapi/startapp?appId=20000067&url=https%3A%2F%2Frender.alipay.com%2Fp%2Fopx%2Fnormal-k89zo22y%2Fa.html%3FsceneCode%3DKF_ZHCPA%26shareChannel%3DQRCode%26partnerId%3Dxhm0003%26benefit%3Ddnsffl200908%26growthScene%3DIN_INVITE_UNTARGET_USER%26shareUserId%3D2088531041937287",
+                            @"img_id": @"fbf97f0ff0779651f4adc22bac02995e",
+                            @"source": @"SY-300",
+                            @"title": @"支付宝",
+                            @"invocationstyle": @"0",
+                            @"acceleration": @10,
+                            @"ad_id": @"2653",
+                            @"img_url": @"http://palmar.huina365.cn/3ef9ecd314544832ac9a935d3439d2fd.png",
+                            @"creative_type": @2,
+                            @"showType": @1,
+                            @"loading_url": @"https://m.tb.cn/h.fgzy4be"
+                        },
+                        @"tracking_list": @{
+                            @"click_url": @[
+                                @"http://openapi.jiegames.com/Advertise/report/887421551,9a1daa9932ec423186b45771dc124b04,1,2,it:1,mo=__OS__&ns=__IP__&m1=__IMEI__&m2=__IDFA__&m3=__DUID__&m1a=__ANDROIDID__&m2a=__OPENUDID__&m9=__MAC1__&m9b=__MAC__&m1b=__AAID__&m1c=__ANDROIDID1__&m9c=__ODIN__&ts=__TS__&st=__STS__&uuid=__UUID__&sw=375&sh=667&adw=__AD_W__&adh=__AD_H__&cdx=CLK_D_X&cdy=CLK_D_Y&cux=CLK_UP_X&cuy=CLK_UP_Y&reqid=0b2425e67e3f4c1187098bc8e9a0f7de"
+                            ],
+                            @"show_url": @[
+                                @"http://openapi.jiegames.com/Advertise/report/887421551,9a1daa9932ec423186b45771dc124b04,1,1,it:1,mo=__OS__&ns=__IP__&m1=__IMEI__&m2=__IDFA__&m3=__DUID__&m1a=__ANDROIDID__&m2a=__OPENUDID__&m9=__MAC1__&m9b=__MAC__&m1b=__AAID__&m1c=__ANDROIDID1__&m9c=__ODIN__&ts=__TS__&st=__STS__&uuid=__UUID__&reqid=0b2425e67e3f4c1187098bc8e9a0f7de"
+                            ]
+                        }
+                    }
+                ]
+            },
+            @"adReportToken": @"5f1ef81562fdf4884ebcc88380182109",
+            @"expiration_time": @1637824320,
+            @"request_id": @"0b2425e67e3f4c1187098bc8e9a0f7de"
+        };
+#endif
         
         [self initDictConfig:dictRet];
         
@@ -215,17 +257,30 @@
     [(UINavigationController*)self.rootViewController pushViewController:web animated:YES];
 }
 
-- (void) openAppStore {
+- (void) openDeeplink {
     if (nil == self.m_dictAdConfig) {
         return;
     }
     
-    NSString* pszUrl = self.m_dictAdConfig[@"ad"][@"download_url"];
+    NSString* pszUrl = self.m_dictAdConfig[@"ad"][@"deeplink_url"];
     if ([StringUtils isEmpty:pszUrl]) {
         return;
     }
     
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:pszUrl]];
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:pszUrl]]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:pszUrl]];
+    } else {
+        pszUrl = self.m_dictAdConfig[@"ad"][@"loading_url"];
+        if ([StringUtils isEmpty:pszUrl]) {
+            return;
+        }
+        
+        TGWebViewController* web = [[TGWebViewController alloc] init];
+        web.url = pszUrl;
+    //    web.webTitle = @"web";
+        web.progressColor = [UIColor blueColor];
+        [(UINavigationController*)self.rootViewController pushViewController:web animated:YES];
+    }
 }
 
 - (void) onSplashAdClick:(id)sender {
@@ -244,6 +299,7 @@
     
     switch (nInteractionType.intValue) {
         case 1: //deeplink
+            [self openDeeplink];
             break;
         case 2: //show url
             [self showUrl];
