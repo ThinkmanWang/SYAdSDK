@@ -47,7 +47,7 @@
     return self;
 }
 
-- (void)initDictCOnfig:(NSDictionary*) dictRet {
+- (void)initDictConfig:(NSDictionary*) dictRet {
     if (nil == dictRet) {
         return;
     }

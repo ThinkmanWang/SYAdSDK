@@ -166,7 +166,7 @@
     [SYAdUtils getSYAd:self.m_pszSYSlotID
             nAdCount:1
            onSuccess:^(NSDictionary* dictRet) {
-        [self initDictCOnfig:dictRet];
+        [self initDictConfig:dictRet];
         
         if (nil == self.m_dictConfig) {
             if (self.syDelegate) {

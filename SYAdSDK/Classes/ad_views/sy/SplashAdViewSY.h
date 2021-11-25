@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak, nullable) id<ISplashAdViewDelegate> syDelegate;
 
 - (instancetype)initWithSlotID:(NSString *)slotID;
-- (void)initDictCOnfig:(NSDictionary*) dictRet;
+- (void)initDictConfig:(NSDictionary*) dictRet;
 
 @end
 
