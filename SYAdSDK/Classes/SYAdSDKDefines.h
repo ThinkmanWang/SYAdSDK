@@ -31,7 +31,7 @@ typedef NS_ENUM(NSInteger, SYInterstitialAdSize) {
 
 #define UPLOAD_USER_INFO
 //#define TEST_DEVICE_UTILS
-//#define TEST_SY_AD
+#define TEST_SY_AD
 //#define TEST_FOR_BYTEDANCE
 //#define USE_CIRCLE_PROGREESS_BUTTON
 

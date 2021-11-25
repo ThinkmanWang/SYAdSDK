@@ -51,6 +51,9 @@
 #ifdef TEST_FOR_BYTEDANCE
     self.m_pszBuSlotID = @"887620349";
 #endif
+#ifdef TEST_SY_AD
+    self.m_pszBuSlotID = @"12345678";
+#endif
     self = [super initWithSlotID:self.m_pszBuSlotID frame:frame];
     
     return self;
