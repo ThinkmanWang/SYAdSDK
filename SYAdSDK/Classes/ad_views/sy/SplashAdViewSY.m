@@ -360,8 +360,8 @@
         [self becomeFirstResponder];
         [self addSubview:self.m_imgShake];
 #else
-        if ([@"0" isEqualToString:self.m_dictAdConfig[@"ad"][@"invocationstyle"]] |
-            | [@"2" isEqualToString:self.m_dictAdConfig[@"ad"][@"invocationstyle"]]) {
+        if ([@"0" isEqualToString:self.m_dictAdConfig[@"ad"][@"invocationstyle"]]
+            || [@"2" isEqualToString:self.m_dictAdConfig[@"ad"][@"invocationstyle"]]) {
             //0: 广告行为必须通过点击触发
             //2:滑动 (点击上报时可以忽略点击坐标相关宏替换)
             UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onSplashAdClick:)];
