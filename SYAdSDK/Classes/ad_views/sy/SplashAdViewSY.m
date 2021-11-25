@@ -56,9 +56,7 @@
     
     CGRect frame = [UIScreen mainScreen].bounds;
     self.frame = frame;
-    
-    [self becomeFirstResponder];
-    
+        
     return self;
 }
 
@@ -93,6 +91,9 @@
         _m_imgMain = [[UIImageView alloc] initWithFrame:rect];
         
         if (self.m_dictAdConfig) {
+#ifdef TEST_SPLASH_SHAKE
+            [self becomeFirstResponder];
+#else
             if ([@"0" isEqualToString:self.m_dictAdConfig[@"ad"][@"invocationstyle"]]) {
                 //0: 广告行为必须通过点击触发
                 UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onSplashAdClick:)];
@@ -102,13 +103,14 @@
                 [_m_imgMain addGestureRecognizer:singleTap];
             } else if ([@"1" isEqualToString:self.m_dictAdConfig[@"ad"][@"invocationstyle"]]) {
                 //1: 摇一摇(点击 上报时可以忽略点击坐标相关宏替换)
-                
+                [self becomeFirstResponder];
             } else if ([@"2" isEqualToString:self.m_dictAdConfig[@"ad"][@"invocationstyle"]]) {
                 //2:滑动 (点击上报时可以忽略点击坐标相关宏替换)
                 
             } else {
                 
             }
+#endif
         }
         
     }
@@ -262,6 +264,8 @@
 - (void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event {
     if (motion == UIEventSubtypeMotionShake) {
         NSLog(@"开始摇了");
+        [self resignFirstResponder];
+        [self onSplashAdClick:self];
     }
 }
 
