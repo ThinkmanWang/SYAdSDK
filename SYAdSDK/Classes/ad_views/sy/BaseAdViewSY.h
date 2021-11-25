@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, strong) NSDictionary* m_dictConfig;
 @property(nonatomic, strong) NSDictionary* m_dictAdConfig;
 
+@property (nonatomic, strong) UIImageView* m_imgLogo;
+
 - (instancetype)initWithSlotID:(NSString *)slotID;
 - (NSArray*)adList;
 
@@ -27,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) openDeeplink;
 - (void) showUrl;
 - (void) openAppStore;
+- (void) setupLogo:(NSString*)pszUrl;
 
 @end
 

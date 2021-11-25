@@ -37,6 +37,7 @@
         self.m_pszSYSlotID = @"";
         self.m_dictConfig = nil;
         self.m_dictAdConfig = nil;
+        self.m_imgLogo = nil;
     }
     
     return self;
@@ -158,6 +159,52 @@
         web.progressColor = [UIColor blueColor];
         [self.rootViewController.navigationController pushViewController:web animated:YES];
     }
+}
+
+//- (UIImageView*) _m_imgLogo {
+//    if (nil == _m_imgLogo) {
+//        _m_imgLogo = [[UIImageView alloc] init];
+//        _m_imgLogo.layer.zPosition = 1;
+//    }
+//
+//    return _m_imgLogo;
+//}
+
+- (void) setupLogo:(NSString*)pszUrl {
+    [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:pszUrl]] queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        if (error != nil) {
+            NSLog(@"%@", error);
+            return;
+        }
+        
+        if (nil == data || nil == response) {
+            return;
+        }
+        
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+        if (200 != httpResponse.statusCode) {
+            return;
+        }
+        
+        UIImage* pImg = [UIImage imageWithData:data];
+        if (nil == pImg) {
+            return;
+        }
+        
+        float fWidth = pImg.size.width;
+        float fHeight = pImg.size.height;
+        float fX = self.frame.size.width - fWidth - 8;
+        float fY = self.frame.size.height - fHeight - 8;
+
+        CGRect imgRect = CGRectMake(fX, fY, fWidth, fHeight);
+
+        self.m_imgLogo = [[UIImageView alloc] initWithFrame:imgRect];
+        self.m_imgLogo.layer.zPosition = 1;
+        [self.m_imgLogo setFrame:imgRect];
+        self.m_imgLogo.image = pImg;
+        
+        [self addSubview:self.m_imgLogo];
+    }];
 }
 
 @end

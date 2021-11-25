@@ -416,6 +416,11 @@
         return;
     }
     
+    NSString* pszLogoUrl = self.m_dictAdConfig[@"ad"][@"logo_url"];
+    if (NO == [StringUtils isEmpty:pszImgUrl]) {
+        [self setupLogo:pszLogoUrl];
+    }
+    
     [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:pszImgUrl]] queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
         if (error != nil) {
             NSLog(@"%@", error);
