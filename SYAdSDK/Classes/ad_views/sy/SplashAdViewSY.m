@@ -60,6 +60,28 @@
     return self;
 }
 
+- (void)loadAdData {
+    //optional
+
+    [SYAdUtils getSYAd:self.m_pszSYSlotID
+            nAdCount:1
+           onSuccess:^(NSDictionary* dictRet) {
+        [self initDictConfig:dictRet];
+        
+        if (nil == self.m_dictConfig) {
+            if (self.syDelegate) {
+                [self.syDelegate splashAd:self];
+            }
+            
+            return;
+        }
+        
+        [self initView];
+    }];
+    
+//    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11010];
+}
+
 - (SYDrawingCircleProgressButton *) m_btnSkip {
     if (nil == _m_btnSkip) {
         CGRect rect = [[UIScreen mainScreen] bounds];
@@ -162,28 +184,6 @@
     } else {
         
     }
-}
-
-- (void)loadAdData {
-    //optional
-
-    [SYAdUtils getSYAd:self.m_pszSYSlotID
-            nAdCount:1
-           onSuccess:^(NSDictionary* dictRet) {
-        [self initDictConfig:dictRet];
-        
-        if (nil == self.m_dictConfig) {
-            if (self.syDelegate) {
-                [self.syDelegate splashAd:self];
-            }
-            
-            return;
-        }
-        
-        [self initView];
-    }];
-    
-//    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11010];
 }
 
 - (void) initView {
