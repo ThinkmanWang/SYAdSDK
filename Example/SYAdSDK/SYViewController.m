@@ -51,6 +51,7 @@
             , @{@"title": @"Banner", @"class": @"SYBannerViewController"}
             , @{@"title": @"插屏", @"class": @"SYInterstitialAdViewController"}
             , @{@"title": @"原生广告", @"class": @"SYExpressViewController"}
+            , @{@"title": @"激励视频", @"class": @"SYRewardedVideoControllerViewController"}
         ]},
         @{@"sectionTitle": @"自定义UI", @"classes": @[
             @{@"title": @"Skip按钮", @"class": @"SYSkipButtonController"},

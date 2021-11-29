@@ -23,6 +23,7 @@
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
 		7DEDC5F93245BB46DBAC40C5 /* Pods_SYAdSDK_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18AF0A289CAB80D7EEAD0137 /* Pods_SYAdSDK_Tests.framework */; };
+		8218BD342754DC6300EFBA52 /* SYRewardedVideoControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8218BD332754DC6300EFBA52 /* SYRewardedVideoControllerViewController.m */; };
 		8231579825BED99800FF11C2 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8231579725BED99800FF11C2 /* MobileCoreServices.framework */; };
 		8231579A25BED9A000FF11C2 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8231579925BED9A000FF11C2 /* WebKit.framework */; };
 		8231579C25BED9A600FF11C2 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8231579B25BED9A600FF11C2 /* MediaPlayer.framework */; };
@@ -91,6 +92,8 @@
 		69F4CC8387E51D680B5CEC61 /* Pods-SYAdSDK_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SYAdSDK_Example.release.xcconfig"; path = "Target Support Files/Pods-SYAdSDK_Example/Pods-SYAdSDK_Example.release.xcconfig"; sourceTree = "<group>"; };
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		725D46DA715FF039E494D773 /* Pods-SYAdSDK_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SYAdSDK_Tests.release.xcconfig"; path = "Target Support Files/Pods-SYAdSDK_Tests/Pods-SYAdSDK_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		8218BD322754DC6300EFBA52 /* SYRewardedVideoControllerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYRewardedVideoControllerViewController.h; sourceTree = "<group>"; };
+		8218BD332754DC6300EFBA52 /* SYRewardedVideoControllerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYRewardedVideoControllerViewController.m; sourceTree = "<group>"; };
 		8231579725BED99800FF11C2 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		8231579925BED9A000FF11C2 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		8231579B25BED9A600FF11C2 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -233,6 +236,7 @@
 		6003F593195388D20070C39A /* Example for SYAdSDK */ = {
 			isa = PBXGroup;
 			children = (
+				8218BD312754DC3F00EFBA52 /* rewardedVideo */,
 				82B99B04274788D00076EE3B /* shake */,
 				82D67A50274385B8001A4DA3 /* SYSkipButtonController.h */,
 				82D67A4F274385B8001A4DA3 /* SYSkipButtonController.m */,
@@ -291,6 +295,15 @@
 				62B136ABCBC841B3CC445959 /* LICENSE */,
 			);
 			name = "Podspec Metadata";
+			sourceTree = "<group>";
+		};
+		8218BD312754DC3F00EFBA52 /* rewardedVideo */ = {
+			isa = PBXGroup;
+			children = (
+				8218BD322754DC6300EFBA52 /* SYRewardedVideoControllerViewController.h */,
+				8218BD332754DC6300EFBA52 /* SYRewardedVideoControllerViewController.m */,
+			);
+			path = rewardedVideo;
 			sourceTree = "<group>";
 		};
 		824857EA25BECF4500D7D801 /* banner */ = {
@@ -552,6 +565,7 @@
 				6003F5A7195388D20070C39A /* SYViewController.m in Sources */,
 				82A70D3625BFC4AA00316B2D /* SYInterstitialAdViewController.m in Sources */,
 				82D67A51274385B9001A4DA3 /* SYSkipButtonController.m in Sources */,
+				8218BD342754DC6300EFBA52 /* SYRewardedVideoControllerViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
