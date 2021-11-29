@@ -8,15 +8,8 @@
 #ifndef IRewardedVideoAd_h
 #define IRewardedVideoAd_h
 
-@class SYRewardedVideoModel;
-
-@protocol IRewardedVideoAd <NSObject>
-
-- (instancetype)initWithSlotID:(NSString *)slotID rewardedVideoModel:(SYRewardedVideoModel *)model;
-- (void)loadAdData;
-- (BOOL)showAdFromRootViewController:(UIViewController *)rootViewController;
-
-@end
+//@class SYRewardedVideoModel;
+@protocol IRewardedVideoAd;
 
 
 @protocol IRewardedVideoAdDelegate <NSObject>
@@ -94,6 +87,17 @@
  This method is called when the user clicked skip button.
  */
 - (void)rewardedVideoAdDidClickSkip:(id<IRewardedVideoAd>)rewardedVideoAd;
+
+@end
+
+@protocol IRewardedVideoAd <NSObject>
+
+- (instancetype)initWithSlotID:(NSString *)slotID;
+- (void)loadAdData;
+- (BOOL)showAdFromRootViewController:(UIViewController *)rootViewController;
+
+- (void)setSYDelegate:(id<IRewardedVideoAdDelegate>)delegate;
+- (void)setRequestID:(NSString*)requestID;
 
 @end
 

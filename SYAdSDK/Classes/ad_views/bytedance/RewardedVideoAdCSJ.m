@@ -7,6 +7,12 @@
 
 #import "RewardedVideoAdCSJ.h"
 
+#import "IRewardedVideoAd.h"
+#import "SYRewardedVideoAd.h"
+#import "SlotUtils.h"
+#import "SYAdSDKDefines.h"
+
+
 @interface RewardedVideoAdCSJ () <BURewardedVideoAdDelegate>
 @property(nonatomic, strong) NSString* m_pszSlotID;
 @property(nonatomic, strong) NSString* m_pszBuSlotID;
@@ -27,9 +33,16 @@
     return self;
 }
 
-- (instancetype)initWithSlotID:(NSString *)slotID rewardedVideoModel:(SYRewardedVideoModel *)model {
+- (instancetype)initWithSlotID:(NSString *)slotID {
+    self.m_pszSlotID = slotID;
+    
+    self.m_pszBuSlotID = [SlotUtils getRealSlotID:slotID];
+#ifdef TEST_REWARDED_VIDEO
+    self.m_pszBuSlotID = @"947191441";
+#endif
+    
     BURewardedVideoModel* _model = [[BURewardedVideoModel alloc] init];
-    self = [super initWithSlotID:slotID rewardedVideoModel:_model];
+    self = [super initWithSlotID:self.m_pszBuSlotID rewardedVideoModel:_model];
     self.delegate = self;
     
     return self;
@@ -43,6 +56,14 @@
     [super showAdFromRootViewController:rootViewController];
     
     return YES;
+}
+
+- (void)setSYDelegate:(id<IRewardedVideoAdDelegate>)delegate {
+    self.syDelegate = delegate;
+}
+
+- (void)setRequestID:(NSString*)requestID {
+    self.m_pszRequestId = requestID;
 }
 
 #pragma mark - BURewardedVideoAdDelegate

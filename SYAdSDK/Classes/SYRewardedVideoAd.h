@@ -11,28 +11,28 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class SYRewardedVideoAd;
 
-@interface SYRewardedVideoModel : NSObject
-
-/**
-   optional.
-   Third-party game user_id identity.
-   Mainly used in the reward issuance, it is the callback pass-through parameter from server-to-server.
-   It is the unique identifier of each user.
-   In the non-server callback mode, it will also be pass-through when the video is finished playing.
-   Only the string can be passed in this case, not nil.
- */
-@property (nonatomic, copy) NSString *userId;
-
-//optional. serialized string.
-@property (nonatomic, copy) NSString *extra;
-
-//reward name. It will assigned value when the ads back.
-@property (nonatomic, copy) NSString *rewardName;
-
-//number of rewards. It will assigned value when the ads back.
-@property (nonatomic, assign) NSInteger rewardAmount;
-
-@end
+//@interface SYRewardedVideoModel : NSObject
+//
+///**
+//   optional.
+//   Third-party game user_id identity.
+//   Mainly used in the reward issuance, it is the callback pass-through parameter from server-to-server.
+//   It is the unique identifier of each user.
+//   In the non-server callback mode, it will also be pass-through when the video is finished playing.
+//   Only the string can be passed in this case, not nil.
+// */
+//@property (nonatomic, copy) NSString *userId;
+//
+////optional. serialized string.
+//@property (nonatomic, copy) NSString *extra;
+//
+////reward name. It will assigned value when the ads back.
+//@property (nonatomic, copy) NSString *rewardName;
+//
+////number of rewards. It will assigned value when the ads back.
+//@property (nonatomic, assign) NSInteger rewardAmount;
+//
+//@end
 
 
 @protocol SYRewardedVideoAdDelegate <NSObject>
@@ -118,7 +118,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak, nullable) id<SYRewardedVideoAdDelegate> delegate;
 
-- (instancetype)initWithSlotID:(NSString *)slotID rewardedVideoModel:(SYRewardedVideoModel *)model;
+- (instancetype)initWithSlotID:(NSString *)slotID;
 - (void)loadAdData;
 - (BOOL)showAdFromRootViewController:(UIViewController *)rootViewController;
 
