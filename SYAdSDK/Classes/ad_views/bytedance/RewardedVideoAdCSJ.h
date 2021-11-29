@@ -14,7 +14,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface RewardedVideoAdCSJ : BURewardedVideoAd<IRewardedVideoAd>
+@interface RewardedVideoAdCSJ : NSObject<IRewardedVideoAd>
 @property (nonatomic, weak, nullable) id<IRewardedVideoAdDelegate> syDelegate;
 @end
 

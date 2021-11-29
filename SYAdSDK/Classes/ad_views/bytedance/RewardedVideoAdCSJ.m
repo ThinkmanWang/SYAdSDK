@@ -6,6 +6,7 @@
 //
 
 #import "RewardedVideoAdCSJ.h"
+#import <BUAdSDK/BUAdSDK.h>
 
 #import "IRewardedVideoAd.h"
 #import "SYRewardedVideoAd.h"
@@ -17,6 +18,9 @@
 @property(nonatomic, strong) NSString* m_pszSlotID;
 @property(nonatomic, strong) NSString* m_pszBuSlotID;
 @property(nonatomic, strong) NSString* m_pszRequestId;
+
+@property (nonatomic, strong) BURewardedVideoAd *rewardedVideoAd;
+
 @end
 
 @implementation RewardedVideoAdCSJ
@@ -27,6 +31,7 @@
         self.m_pszSlotID = @"";
         self.m_pszBuSlotID = @"";
         self.syDelegate = nil;
+        self.rewardedVideoAd = nil;
 //        self.m_pszRequestId = [[SYLogUtils uuidString] stringByReplacingOccurrencesOfString:@"-" withString:@""];
     }
     
@@ -42,18 +47,18 @@
 #endif
     
     BURewardedVideoModel* _model = [[BURewardedVideoModel alloc] init];
-    self = [super initWithSlotID:self.m_pszBuSlotID rewardedVideoModel:_model];
-    self.delegate = self;
+    self.rewardedVideoAd = [[BURewardedVideoAd alloc] initWithSlotID:self.m_pszBuSlotID rewardedVideoModel:_model];
+    self.rewardedVideoAd.delegate = self;
     
     return self;
 }
 
 - (void)loadAdData {
-    [self loadAdData];
+    [self.rewardedVideoAd loadAdData];
 }
 
 - (BOOL)showAdFromRootViewController:(UIViewController *)rootViewController {
-    [super showAdFromRootViewController:rootViewController];
+    [self.rewardedVideoAd showAdFromRootViewController:rootViewController];
     
     return YES;
 }
@@ -69,61 +74,82 @@
 #pragma mark - BURewardedVideoAdDelegate
 - (void)rewardedVideoAdDidLoad:(BURewardedVideoAd *)rewardedVideoAd {
 //    self.selectedView.promptStatus = BUDPromptStatusAdLoaded;
-    NSLog(@"%st",__func__);
 //    NSLog(@"mediaExt-%@",rewardedVideoAd.mediaExt);
+    if (self.syDelegate) {
+        [self.syDelegate rewardedVideoAdDidLoad:self];
+    }
 }
 
 - (void)rewardedVideoAdVideoDidLoad:(BURewardedVideoAd *)rewardedVideoAd {
 //    self.selectedView.promptStatus = BUDPromptStatusAdVideoLoadedSuccess;
-    NSLog(@"%s",__func__);
+    if (self.syDelegate) {
+        [self.syDelegate rewardedVideoAdVideoDidLoad:self];
+    }
 }
 
 - (void)rewardedVideoAd:(BURewardedVideoAd *)rewardedVideoAd didFailWithError:(NSError *)error {
 //    self.selectedView.promptStatus = BUDPromptStatusAdLoadedFail;
-    NSLog(@"%s",__func__);
-    NSLog(@"error code : %ld , error message : %@",(long)error.code,error.description);
+    if (self.syDelegate) {
+        [self.syDelegate rewardedVideoAd:self didFailWithError:error];
+    }
 }
 
 - (void)rewardedVideoAdWillVisible:(BURewardedVideoAd *)rewardedVideoAd {
-    NSLog(@"%s",__func__);
+    if (self.syDelegate) {
+        [self.syDelegate rewardedVideoAdWillVisible:self];
+    }
 }
 
 - (void)rewardedVideoAdDidVisible:(BURewardedVideoAd *)rewardedVideoAd{
-    NSLog(@"%s",__func__);
+    if (self.syDelegate) {
+        [self.syDelegate rewardedVideoAdDidVisible:self];
+    }
 }
 
 - (void)rewardedVideoAdWillClose:(BURewardedVideoAd *)rewardedVideoAd{
-    NSLog(@"%s",__func__);
+    if (self.syDelegate) {
+        [self.syDelegate rewardedVideoAdWillClose:self];
+    }
 }
 
 - (void)rewardedVideoAdDidClose:(BURewardedVideoAd *)rewardedVideoAd {
 //    self.selectedView.promptStatus = BUDPromptStatusDefault;
-    NSLog(@"%s",__func__);
+    if (self.syDelegate) {
+        [self.syDelegate rewardedVideoAdDidClose:self];
+    }
 }
 
 - (void)rewardedVideoAdDidClick:(BURewardedVideoAd *)rewardedVideoAd {
-    NSLog(@"%s",__func__);
+    if (self.syDelegate) {
+        [self.syDelegate rewardedVideoAdDidClick:self];
+    }
 }
 
 - (void)rewardedVideoAdDidPlayFinish:(BURewardedVideoAd *)rewardedVideoAd didFailWithError:(NSError *)error {
-    NSLog(@"%s",__func__);
+    if (self.syDelegate) {
+        [self.syDelegate rewardedVideoAdDidPlayFinish:self didFailWithError:error];
+    }
 }
 
 - (void)rewardedVideoAdServerRewardDidFail:(BURewardedVideoAd *)rewardedVideoAd error:(nonnull NSError *)error {
-    NSLog(@"%s error = %@",__func__,error);
+    if (self.syDelegate) {
+        [self.syDelegate rewardedVideoAdServerRewardDidFail:self error:error];
+    }
 }
 
 - (void)rewardedVideoAdDidClickSkip:(BURewardedVideoAd *)rewardedVideoAd{
-    NSLog(@"%s",__func__);
-
+    if (self.syDelegate) {
+        [self.syDelegate rewardedVideoAdDidClickSkip:self];
+    }
 }
 
 - (void)rewardedVideoAdServerRewardDidSucceed:(BURewardedVideoAd *)rewardedVideoAd verify:(BOOL)verify{
-    NSLog(@"%s",__func__);
-    NSLog(@"%@",[NSString stringWithFormat:@"verify:%@ rewardName:%@ rewardMount:%ld",verify?@"true":@"false",rewardedVideoAd.rewardedVideoModel.rewardName,(long)rewardedVideoAd.rewardedVideoModel.rewardAmount]);
+    if (self.syDelegate) {
+        [self.syDelegate rewardedVideoAdServerRewardDidSucceed:self verify:verify];
+    }
 }
 - (void)rewardedVideoAdCallback:(BURewardedVideoAd *)rewardedVideoAd withType:(BURewardedVideoAdType)rewardedVideoAdType{
-    NSLog(@"%s",__func__);
+    NSLog(@"");
 }
 
 -(BOOL)shouldAutorotate{

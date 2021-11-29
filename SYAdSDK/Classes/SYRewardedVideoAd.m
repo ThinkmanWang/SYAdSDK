@@ -77,7 +77,9 @@
 
 
 - (void)rewardedVideoAdDidLoad:(id<IRewardedVideoAd>)rewardedVideoAd {
-    
+    if (self.delegate) {
+        [self.delegate rewardedVideoAdDidLoad:self];
+    }
 }
 
 /**
@@ -85,49 +87,63 @@
  @param error : the reason of error
  */
 - (void)rewardedVideoAd:(id<IRewardedVideoAd>)rewardedVideoAd didFailWithError:(NSError *_Nullable)error {
-    
+    if (self.delegate) {
+        [self.delegate rewardedVideoAd:self didFailWithError:error];
+    }
 }
 
 /**
  This method is called when video cached successfully.
  */
 - (void)rewardedVideoAdVideoDidLoad:(id<IRewardedVideoAd>)rewardedVideoAd {
-    
+    if (self.delegate) {
+        [self.delegate rewardedVideoAdVideoDidLoad:self];
+    }
 }
 
 /**
  This method is called when video ad slot will be showing.
  */
 - (void)rewardedVideoAdWillVisible:(id<IRewardedVideoAd>)rewardedVideoAd {
-    
+    if (self.delegate) {
+        [self.delegate rewardedVideoAdWillVisible:self];
+    }
 }
 
 /**
  This method is called when video ad slot has been shown.
  */
 - (void)rewardedVideoAdDidVisible:(id<IRewardedVideoAd>)rewardedVideoAd {
-    
+    if (self.delegate) {
+        [self.delegate rewardedVideoAdDidVisible:self];
+    }
 }
 
 /**
  This method is called when video ad is about to close.
  */
 - (void)rewardedVideoAdWillClose:(id<IRewardedVideoAd>)rewardedVideoAd {
-    
+    if (self.delegate) {
+        [self.delegate rewardedVideoAdWillClose:self];
+    }
 }
 
 /**
  This method is called when video ad is closed.
  */
 - (void)rewardedVideoAdDidClose:(id<IRewardedVideoAd>)rewardedVideoAd {
-    
+    if (self.delegate) {
+        [self.delegate rewardedVideoAdDidClose:self];
+    }
 }
 
 /**
  This method is called when video ad is clicked.
  */
 - (void)rewardedVideoAdDidClick:(id<IRewardedVideoAd>)rewardedVideoAd {
-    
+    if (self.delegate) {
+        [self.delegate rewardedVideoAdDidClick:self];
+    }
 }
 
 
@@ -136,7 +152,9 @@
  @param error : the reason of error
  */
 - (void)rewardedVideoAdDidPlayFinish:(id<IRewardedVideoAd>)rewardedVideoAd didFailWithError:(NSError *_Nullable)error {
-    
+    if (self.delegate) {
+        [self.delegate rewardedVideoAdDidPlayFinish:self didFailWithError:error];
+    }
 }
 
 /**
@@ -144,7 +162,9 @@
  @param verify :return YES when return value is 2000.
  */
 - (void)rewardedVideoAdServerRewardDidSucceed:(id<IRewardedVideoAd>)rewardedVideoAd verify:(BOOL)verify {
-    
+    if (self.delegate) {
+        [self.delegate rewardedVideoAdServerRewardDidSucceed:self verify:verify];
+    }
 }
 
 /**
@@ -152,7 +172,9 @@
  Return value is not 2000.
  */
 - (void)rewardedVideoAdServerRewardDidFail:(id<IRewardedVideoAd>)rewardedVideoAd __attribute__((deprecated("Use rewardedVideoAdServerRewardDidFail: error: instead."))) {
-    
+    if (self.delegate) {
+        [self.delegate rewardedVideoAdServerRewardDidFail:self];
+    }
 }
 
 /**
@@ -161,14 +183,18 @@
   @param error request error info
  */
 - (void)rewardedVideoAdServerRewardDidFail:(id<IRewardedVideoAd>)rewardedVideoAd error:(NSError *)error {
-    
+    if (self.delegate) {
+        [self.delegate rewardedVideoAdServerRewardDidFail:self error:error];
+    }
 }
 
 /**
  This method is called when the user clicked skip button.
  */
 - (void)rewardedVideoAdDidClickSkip:(id<IRewardedVideoAd>)rewardedVideoAd {
-    
+    if (self.delegate) {
+        [self.delegate rewardedVideoAdDidClickSkip:self];
+    }
 }
 
 @end
