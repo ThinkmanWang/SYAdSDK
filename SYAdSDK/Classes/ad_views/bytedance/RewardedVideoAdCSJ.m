@@ -12,6 +12,7 @@
 #import "SYRewardedVideoAd.h"
 #import "SlotUtils.h"
 #import "SYAdSDKDefines.h"
+#import "SYLogUtils.h"
 
 
 @interface RewardedVideoAdCSJ () <BURewardedVideoAdDelegate>
@@ -32,7 +33,7 @@
         self.m_pszBuSlotID = @"";
         self.syDelegate = nil;
         self.rewardedVideoAd = nil;
-//        self.m_pszRequestId = [[SYLogUtils uuidString] stringByReplacingOccurrencesOfString:@"-" withString:@""];
+        self.m_pszRequestId = nil;
     }
     
     return self;
