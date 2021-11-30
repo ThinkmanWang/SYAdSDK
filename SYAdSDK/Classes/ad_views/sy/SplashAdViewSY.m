@@ -298,6 +298,8 @@
 - (void) onSplashAdClick:(id)sender {
     if (self.syDelegate) {
         [self.syDelegate splashAdDidClick:self];
+        [self reportClick];
+        [self reportDs];
     }
     
     if (nil == self.m_dictAdConfig) {
@@ -382,6 +384,7 @@
     if (self.syDelegate) {
         [self.syDelegate splashAdDidLoad:self];
         [self.syDelegate splashAdWillVisible:self];
+        [self reportShow];
     }
 }
 

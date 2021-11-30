@@ -11,8 +11,23 @@
 #import <sys/sysctl.h>
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
+#import "StringUtils.h"
+
+static NSString* ip = @"";
 
 @implementation DeviceUtils
+
++ (NSString*) ip {
+//    if ([StringUtils isEmpty:ip]) {
+//
+//    }
+    
+    return ip;
+}
+
++ (void) setIp:(NSString*)val {
+    ip = val;
+}
 
 + (NSString *) getBoot {
     NSString *timeString = nil;

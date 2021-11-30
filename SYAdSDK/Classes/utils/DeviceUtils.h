@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DeviceUtils : NSObject
 
++(NSString*) ip;
+
 + (NSString*) getBoot;
 + (int) getStartSec;
 + (NSString*) getUpdate;

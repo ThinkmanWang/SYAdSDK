@@ -21,6 +21,9 @@
 #import "SYLogUtils.h"
 #import "StringUtils.h"
 #import "TGWebViewController.h"
+#import "DeviceUtils.h"
+#import "SYAdSDKManager.h"
+#import "UserInfoUtils.h"
 
 
 @interface BaseAdViewSY ()
@@ -206,5 +209,121 @@
         [self addSubview:self.m_imgLogo];
     }];
 }
+
+- (NSString*) replaceMacro:(NSString*)pszUrl {
+    if ([StringUtils isEmpty:pszUrl]) {
+        return pszUrl;
+    }
+    
+    
+    NSString* pszRet = pszUrl;
+    pszRet = [pszRet stringByReplacingOccurrencesOfString:@"__OS__" withString:[DeviceUtils getOSVersion]];
+    pszRet = [pszRet stringByReplacingOccurrencesOfString:@"__IP__" withString:@""];
+    pszRet = [pszRet stringByReplacingOccurrencesOfString:@"__UA__" withString:[DeviceUtils userAgent]];
+    pszRet = [pszRet stringByReplacingOccurrencesOfString:@"__IMEI__" withString:@""];
+    pszRet = [pszRet stringByReplacingOccurrencesOfString:@"__IDFA__" withString:SYAdSDKManager.idfa];
+
+    pszRet = [pszRet stringByReplacingOccurrencesOfString:@"__ANDROIDID__" withString:@""];
+//    pszRet = [pszRet stringByReplacingOccurrencesOfString:@"__OPENUDID__" withString:]
+    pszRet = [pszRet stringByReplacingOccurrencesOfString:@"__MAC__" withString:[UserInfoUtils getMAC]];
+
+    NSNumber* nTimestamp = [NSNumber numberWithUnsignedLong:[[NSDate date] timeIntervalSince1970]*1000];
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[nTimestamp longValue]/1000];
+    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyyMMddHHmm"];
+    pszRet = [pszRet stringByReplacingOccurrencesOfString:@"__TS__" withString:[formatter stringFromDate:date]];
+    pszRet = [pszRet stringByReplacingOccurrencesOfString:@"__STS__" withString:[NSString stringWithFormat:@"%ld", nTimestamp.longValue]];
+    
+    pszRet = [pszRet stringByReplacingOccurrencesOfString:@"__UUID__" withString:SYAdSDKManager.idfa];
+
+    return pszRet;
+}
+
+- (NSArray*) mkReportUrls:(NSString*)pszUrlType {
+    if (nil == self.m_dictAdConfig || [StringUtils isEmpty:pszUrlType]) {
+        return nil;
+    }
+    
+    NSArray* aryUrl = self.m_dictAdConfig[@"tracking_list"][pszUrlType];
+    if (nil == aryUrl) {
+        return nil;
+    }
+    
+    NSMutableArray* aryRet = [NSMutableArray arrayWithCapacity:[aryUrl count]];
+    for (int i = 0; i < [aryUrl count]; ++i) {
+        NSString* pszUrl =aryUrl[i];
+        pszUrl = [self replaceMacro:pszUrl];
+        [aryRet addObject:pszUrl];
+    }
+    
+    return aryRet;
+}
+
+- (void) doReport:(NSArray*)aryUrl {
+    if (nil == aryUrl || [aryUrl count] <= 0) {
+        return;
+    }
+    
+    for (int i = 0; i < [aryUrl count]; ++i) {
+        if ([StringUtils isEmpty:aryUrl[i]]) {
+            continue;
+        }
+        
+        [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:aryUrl[i]]] queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+            if (error != nil) {
+                NSLog(@"%@", error);
+                return;
+            }
+            
+            if (nil == data || nil == response) {
+                return;
+            }
+            
+            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+            if (200 != httpResponse.statusCode) {
+                return;
+            }
+            
+            NSString* strRet  = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            NSLog(@"%@", strRet);
+        }];
+    }
+    
+}
+
+- (void) reportShow { //曝光上报地址
+    [self doReport:[self mkReportUrls:@"show_url"]];
+}
+
+- (void) reportClick {  //点击上报地址
+    [self doReport:[self mkReportUrls:@"click_url"]];
+}
+
+- (void) reportPptrackers { //deeplink 点击 上报地址
+    if (nil == self.m_dictAdConfig) {
+        return;
+    }
+}
+
+- (void) reportDs {  //应用类下载上 报地址
+    [self doReport:[self mkReportUrls:@"ds_url"]];
+}
+
+- (void) reportDf { //应用类下载完 成上报地址
+    if (nil == self.m_dictAdConfig) {
+        return;
+    }
+}
+
+//- (void) reportSs; //应用类开始安 装上报地址
+- (void) reportSf { //应用类完成安 上报地址
+    if (nil == self.m_dictAdConfig) {
+        return;
+    }
+}
+//- (void) reportAct; //激活引用上报 地址
+//- (void) reportPs; //视频类开始播 放上报地址
+//- (void) reportPi; //视频类播放播放终止退出上报地址
+//- (void) reportPc; //视频类播放完 成上报地址
 
 @end
