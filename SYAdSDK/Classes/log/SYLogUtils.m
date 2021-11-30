@@ -83,8 +83,10 @@
         NSNumber* nInteractionType = [NSNumber numberWithInt:2];
         
         NSString* pszSourceID = @"";
-        if (nSourceID >= -1) {
+        if (nSourceID > -1) {
             pszSourceID = [NSString stringWithFormat:@"%d", nSourceID];
+        } else {
+            pszSourceID = [NSNull null];
         }
         
         NSDictionary* dictData = @{

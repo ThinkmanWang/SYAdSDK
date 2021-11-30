@@ -56,6 +56,7 @@
 
 - (void)loadAdData {
     [self.rewardedVideoAd loadAdData];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11010];
 }
 
 - (BOOL)showAdFromRootViewController:(UIViewController *)rootViewController {
@@ -79,6 +80,8 @@
     if (self.syDelegate) {
         [self.syDelegate rewardedVideoAdDidLoad:self];
     }
+    
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11011];
 }
 
 - (void)rewardedVideoAdVideoDidLoad:(BURewardedVideoAd *)rewardedVideoAd {
@@ -93,12 +96,17 @@
     if (self.syDelegate) {
         [self.syDelegate rewardedVideoAd:self didFailWithError:error];
     }
+    
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11012];
+
 }
 
 - (void)rewardedVideoAdWillVisible:(BURewardedVideoAd *)rewardedVideoAd {
     if (self.syDelegate) {
         [self.syDelegate rewardedVideoAdWillVisible:self];
     }
+    
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:1];
 }
 
 - (void)rewardedVideoAdDidVisible:(BURewardedVideoAd *)rewardedVideoAd{
@@ -124,6 +132,8 @@
     if (self.syDelegate) {
         [self.syDelegate rewardedVideoAdDidClick:self];
     }
+    
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:2];
 }
 
 - (void)rewardedVideoAdDidPlayFinish:(BURewardedVideoAd *)rewardedVideoAd didFailWithError:(NSError *)error {

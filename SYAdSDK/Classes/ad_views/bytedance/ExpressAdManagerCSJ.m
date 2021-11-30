@@ -184,7 +184,7 @@
         [self.syDelegate expressAdViewDidClick:nativeExpressAdView.superview];
     }
     
-    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:3 type:2];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:2];
 }
 
 /**

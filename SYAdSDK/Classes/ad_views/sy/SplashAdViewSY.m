@@ -62,6 +62,14 @@
     return self;
 }
 
+- (void) onFailed {
+    if (self.syDelegate) {
+        [self.syDelegate splashAd:self];
+    }
+    
+    [SYLogUtils report:self.m_pszSYSlotID requestID:self.m_pszRequestId sourceId:1 type:11012];
+}
+
 - (void)loadAdData {
     //optional
 
@@ -167,17 +175,15 @@
         [self initDictConfig:dictRet];
         
         if (nil == self.m_dictConfig) {
-            if (self.syDelegate) {
-                [self.syDelegate splashAd:self];
-            }
+            [self onFailed];
             
             return;
         }
-        
+                
         [self initView];
     }];
     
-//    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11010];
+    [SYLogUtils report:self.m_pszSYSlotID requestID:self.m_pszRequestId sourceId:1 type:11010];
 }
 
 - (SYDrawingCircleProgressButton *) m_btnSkip {
@@ -300,6 +306,7 @@
         [self.syDelegate splashAdDidClick:self];
         [self reportClick];
         [self reportDs];
+        [SYLogUtils report:self.m_pszSYSlotID requestID:self.m_pszRequestId sourceId:1 type:2];
     }
     
     if (nil == self.m_dictAdConfig) {
@@ -385,37 +392,34 @@
         [self.syDelegate splashAdDidLoad:self];
         [self.syDelegate splashAdWillVisible:self];
         [self reportShow];
+        [SYLogUtils report:self.m_pszSYSlotID requestID:self.m_pszRequestId sourceId:1 type:11011];
+        [SYLogUtils report:self.m_pszSYSlotID requestID:self.m_pszRequestId sourceId:1 type:1];
+
     }
 }
 
 - (void) initView {
     if (nil == self.m_dictConfig) {
-        [self.syDelegate splashAd:self];
+        [self onFailed];
         return;
     }
     
     NSArray* aryAd = self.m_dictConfig[@"data"][@"ads"];
     NSDictionary* dictAd = aryAd[0];
     if (nil == dictAd) {
-        if (self.syDelegate) {
-            [self.syDelegate splashAd:self];
-        }
+        [self onFailed];
         return;
     }
     
     self.m_dictAdConfig = dictAd;
     if (nil == self.m_dictAdConfig) {
-        if (self.syDelegate) {
-            [self.syDelegate splashAd:self];
-        }
+        [self onFailed];
         return;
     }
     
     NSString *pszImgUrl = self.m_dictAdConfig[@"ad"][@"img_url"];
     if ([StringUtils isEmpty:pszImgUrl]) {
-        if (self.syDelegate) {
-            [self.syDelegate splashAd:self];
-        }
+        [self onFailed];
         return;
     }
     
@@ -427,24 +431,18 @@
     [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:pszImgUrl]] queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
         if (error != nil) {
             NSLog(@"%@", error);
-            if (self.syDelegate) {
-                [self.syDelegate splashAd:self];
-            }
+            [self onFailed];
             return;
         }
         
         if (nil == data || nil == response) {
-            if (self.syDelegate) {
-                [self.syDelegate splashAd:self];
-            }
+            [self onFailed];
             return;
         }
         
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
         if (200 != httpResponse.statusCode) {
-            if (self.syDelegate) {
-                [self.syDelegate splashAd:self];
-            }
+            [self onFailed];
             return;
         }
         

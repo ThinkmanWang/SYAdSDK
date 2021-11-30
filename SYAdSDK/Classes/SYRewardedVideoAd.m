@@ -68,6 +68,8 @@
 
 - (void)loadAdData {
     [self.rewardedVideoAd loadAdData];
+    
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:-1 type:11008];
 }
 
 - (BOOL)showAdFromRootViewController:(UIViewController *)rootViewController {
@@ -80,6 +82,8 @@
     if (self.delegate) {
         [self.delegate rewardedVideoAdDidLoad:self];
     }
+    
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:-1 type:11020];
 }
 
 /**
@@ -90,6 +94,8 @@
     if (self.delegate) {
         [self.delegate rewardedVideoAd:self didFailWithError:error];
     }
+    
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:-1 type:11009];
 }
 
 /**

@@ -152,8 +152,6 @@
     if (self.syDelegate) {
         [self.syDelegate interstitialAdWillVisible:self];
     }
-    
-//    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:1];
 }
 
 - (void)nativeExpresInterstitialAdDidClick:(BUNativeExpressInterstitialAd *)interstitialAd {

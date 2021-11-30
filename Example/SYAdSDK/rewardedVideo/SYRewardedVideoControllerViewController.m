@@ -20,7 +20,7 @@
     // Do any additional setup after loading the view.
     
 //    SYRewardedVideoModel *model = [[SYRewardedVideoModel alloc] init];
-    self.rewardedVideoAd = [[SYRewardedVideoAd alloc] initWithSlotID:@"1024"];
+    self.rewardedVideoAd = [[[SYRewardedVideoAd alloc] init] initWithSlotID:@"24040"];
     self.rewardedVideoAd.delegate = self;
     [self.rewardedVideoAd loadAdData];
 }
