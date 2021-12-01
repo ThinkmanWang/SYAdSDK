@@ -55,7 +55,7 @@
 - (instancetype)initWithSlotID:(NSString *)slotID
             rootViewController:(UIViewController *)rootViewController
                         adSize:(SYBannerSize)adsize {
-    
+    self.m_pszSlotID = slotID;
     self.rootViewController = rootViewController;
     
     CGFloat fWidth = [UIScreen mainScreen].bounds.size.width;
