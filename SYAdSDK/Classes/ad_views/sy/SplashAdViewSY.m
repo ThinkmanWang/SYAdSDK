@@ -67,7 +67,7 @@
         [self.syDelegate splashAd:self];
     }
     
-    [SYLogUtils report:self.m_pszSYSlotID requestID:self.m_pszRequestId sourceId:1 type:11012];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:1 type:11012];
 }
 
 - (void)loadAdData {
@@ -183,7 +183,7 @@
         [self initView];
     }];
     
-    [SYLogUtils report:self.m_pszSYSlotID requestID:self.m_pszRequestId sourceId:1 type:11010];
+    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:1 type:11010];
 }
 
 - (SYDrawingCircleProgressButton *) m_btnSkip {
@@ -306,7 +306,7 @@
         [self.syDelegate splashAdDidClick:self];
         [self reportClick];
         [self reportDs];
-        [SYLogUtils report:self.m_pszSYSlotID requestID:self.m_pszRequestId sourceId:1 type:2];
+        [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:1 type:2];
     }
     
     if (nil == self.m_dictAdConfig) {
@@ -392,8 +392,8 @@
         [self.syDelegate splashAdDidLoad:self];
         [self.syDelegate splashAdWillVisible:self];
         [self reportShow];
-        [SYLogUtils report:self.m_pszSYSlotID requestID:self.m_pszRequestId sourceId:1 type:11011];
-        [SYLogUtils report:self.m_pszSYSlotID requestID:self.m_pszRequestId sourceId:1 type:1];
+        [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:1 type:11011];
+        [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:1 type:1];
 
     }
 }

@@ -66,8 +66,8 @@
 - (void)loadAdData {
     //optional
     [super loadAdData];
-    
     [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11010];
+//    [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11010];
 }
 
 - (void) removeMyself {

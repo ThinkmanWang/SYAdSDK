@@ -83,12 +83,12 @@
 }
 
 - (void)loadAdData {
-    
+
     [self.splashAdView setSYRootViewController:self.rootViewController];
     [self.splashAdView setSYDelegate:self];
 
     [self.splashAdView loadAdData];
-
+    
     [SYLogUtils report:self.slotID requestID:self.pszRequestId sourceId:-1 type:11008];
 }
 
