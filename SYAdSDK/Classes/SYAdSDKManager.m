@@ -255,7 +255,7 @@ static NSString* idfa = nil;
             return;
         }
         
-//            NSLog(@"%@", dictRet);
+        NSLog(@"%@", dictRet);
         
         dictConfig = dictRet;
         buAppID = dictConfig[@"data"][@"appConfig"][@"tt_appid"];

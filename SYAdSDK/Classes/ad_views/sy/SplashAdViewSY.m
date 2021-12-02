@@ -176,6 +176,13 @@
         };
 #endif
         
+#ifdef CRASH_TEST_SY_AD_NO_AD
+        dictRet = @{
+            @"msg": @"NO_AD",
+            @"code": @"202010"
+        };
+#endif
+        
         [self initDictConfig:dictRet];
         
         if (nil == self.m_dictConfig) {

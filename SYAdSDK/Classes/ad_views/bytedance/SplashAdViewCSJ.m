@@ -57,6 +57,9 @@
         self.m_pszBuSlotID = @"12345678";
     }
 #endif
+#ifdef TEST_SY_AD_ONLY
+    self.m_pszBuSlotID = @"12345678";
+#endif
     self = [super initWithSlotID:self.m_pszBuSlotID frame:frame];
     
     return self;
