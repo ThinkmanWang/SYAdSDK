@@ -153,15 +153,42 @@ static NSString* idfa = nil;
 //        response = nil;
         
         NSString* str  = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        data = [str dataUsingEncoding:NSUTF8StringEncoding];
         
-      
-        str = @"{    \"msg\": \"successfull!\",    \"code\": \"200\",    \"data\": {        \"appConfig\": {            \"shiyu_open\": \"1\",            \"tt_open\": \"1\",            \"gdt_open\": \"1\",            \"gdt_appid\": \"1105344611\",            \"shiyu_secret\": \"0809cb5c3f6d4d4d8faaa50e20268d42\",            \"tt_appid\": \"513417\",            \"shiyu_appid\": \"MjUzMDU3MDAyNzU2\"        },        \"appId\": \"MjUzMDU3MDAyNzU2\",        \"clientIp\": \"222.190.22.241\",        \"slotInfo\": [            {                \"slotName\": \"IOS开屏\",                \"slotId\": 24011,                \"config\": [                    {                        \"resourceId\": 8,                        \"configParams\": {                            \"gdt_slot_id\": \"9040714184494018\",                            \"shiyu_slot_id\": \"24011\",                            \"splash_type\": \"8\"                        },                        \"resourceName\": \"广点通\",                        \"resourceType\": 1                    }                ]            },            {                \"slotName\": \"IOS轮播广告\",                \"slotId\": 24012,                \"config\": [                    {                        \"resourceId\": 8,                        \"configParams\": {                            \"gdt_slot_id\": \"1070493363284797\",                            \"shiyu_slot_id\": \"24012\"                        },                        \"resourceName\": \"广点通\",                        \"resourceType\": 1                    }                ]            },            {                \"slotName\": \"IOS Banner\",                \"slotId\": 24013,                \"config\": [                    {                        \"resourceId\": 8,                        \"configParams\": {                            \"gdt_slot_id\": \"1080958885885321\",                            \"shiyu_slot_id\": \"24013\"                        },                        \"resourceName\": \"广点通\",                        \"resourceType\": 1                    }                ]            },            {                \"slotName\": \"IOS插屏\",                \"slotId\": 24014,                \"config\": [                    {                        \"resourceId\": 8,                        \"configParams\": {                            \"gdt_slot_id\": \"1050652855580392\",                            \"shiyu_slot_id\": \"24014\"                        },                        \"resourceName\": \"广点通\",                        \"resourceType\": 1                    }                ]            }        ],        \"timestamp\": 1621999433084    }}";
-        
-        data = [str dataUsingEncoding:NSUTF8StringEncoding];
-        
-        
+#ifdef CRASH_TEST_CODE_NOT_EXISTS
+        str = @"{\"msg\": \"successfull!\", \"code\": \"200\"}";
 #endif
+        
+#ifdef CRASH_TEST_RET_NULL
+        str = nil;
+#endif
+        
+#ifdef CRASH_TEST_RESPONSE_NULL
+        response = nil;
+#endif
+        
+#ifdef CRASH_TEST_JSON_STRING_INCORRECT
+        str = @"123";
+#endif
+        
+#ifdef CRASH_TEST_DATA_NULL
+        str = @"{    \"msg\": \"successfull!\",    \"code\": \"200\",    \"data\": null}";
+#endif
+        
+#ifdef CRASH_TEST_APPCONFIG_NULL
+//        str = @"{\"msg\":\"successfull!\",\"code\":\"200\",\"data\":{\"appConfig\":null,\"appId\":\"MTc4NDUwMjQ4MDku\",\"clientIp\":\"222.190.72.182\",\"slotInfo\":[{\"slotName\":\"穿山甲IOS开屏\",\"showType\":1,\"slotId\":24032,\"config\":[{\"resourceId\":9,\"configParams\":{\"shiyu_slot_id\":\"24011\",\"tt_slot_id\":\"887620349\"},\"resourceName\":\"穿山甲\",\"resourceType\":2}]},{\"slotName\":\"穿山甲IOS测试-Banner\",\"showType\":2,\"slotId\":24033,\"config\":[{\"resourceId\":9,\"configParams\":{\"shiyu_slot_id\":\"24013\",\"tt_slot_id\":\"947093826\"},\"resourceName\":\"穿山甲\",\"resourceType\":2}]},{\"slotName\":\"穿山甲IOS测试-插屏\",\"showType\":3,\"slotId\":24034,\"config\":[{\"resourceId\":9,\"configParams\":{\"shiyu_slot_id\":\"24014\",\"tt_slot_id\":\"947093633\"},\"resourceName\":\"穿山甲\",\"resourceType\":2}]},{\"slotName\":\"穿山甲IOS测试-原生\",\"showType\":6,\"slotId\":24035,\"config\":[{\"resourceId\":9,\"configParams\":{\"shiyu_slot_id\":\"24012\",\"tt_slot_id\":\"947096614\"},\"resourceName\":\"穿山甲\",\"resourceType\":2}]},{\"slotName\":\"穿山甲IOS测试-激励视频\",\"showType\":9,\"slotId\":24040,\"config\":[{\"resourceId\":9,\"configParams\":{\"tt_slot_id\":\"947191441\"},\"resourceName\":\"穿山甲\",\"resourceType\":2}]}],\"timestamp\":1638409585431}}";
+        str = @"{\"msg\":\"successfull!\",\"code\":\"200\",\"data\":{\"appConfig\":{},\"appId\":\"MTc4NDUwMjQ4MDku\",\"clientIp\":\"222.190.72.182\",\"slotInfo\":[{\"slotName\":\"穿山甲IOS开屏\",\"showType\":1,\"slotId\":24032,\"config\":[{\"resourceId\":9,\"configParams\":{\"shiyu_slot_id\":\"24011\",\"tt_slot_id\":\"887620349\"},\"resourceName\":\"穿山甲\",\"resourceType\":2}]},{\"slotName\":\"穿山甲IOS测试-Banner\",\"showType\":2,\"slotId\":24033,\"config\":[{\"resourceId\":9,\"configParams\":{\"shiyu_slot_id\":\"24013\",\"tt_slot_id\":\"947093826\"},\"resourceName\":\"穿山甲\",\"resourceType\":2}]},{\"slotName\":\"穿山甲IOS测试-插屏\",\"showType\":3,\"slotId\":24034,\"config\":[{\"resourceId\":9,\"configParams\":{\"shiyu_slot_id\":\"24014\",\"tt_slot_id\":\"947093633\"},\"resourceName\":\"穿山甲\",\"resourceType\":2}]},{\"slotName\":\"穿山甲IOS测试-原生\",\"showType\":6,\"slotId\":24035,\"config\":[{\"resourceId\":9,\"configParams\":{\"shiyu_slot_id\":\"24012\",\"tt_slot_id\":\"947096614\"},\"resourceName\":\"穿山甲\",\"resourceType\":2}]},{\"slotName\":\"穿山甲IOS测试-激励视频\",\"showType\":9,\"slotId\":24040,\"config\":[{\"resourceId\":9,\"configParams\":{\"tt_slot_id\":\"947191441\"},\"resourceName\":\"穿山甲\",\"resourceType\":2}]}],\"timestamp\":1638409585431}}";
+#endif
+        
+#ifdef CRASH_TEST_SLOTINFO_EMPTY
+        str = @"{\"msg\":\"successfull!\",\"code\":\"200\",\"data\":{\"appConfig\":{\"shiyu_open\":\"1\",\"tt_open\":\"1\",\"gdt_open\":\"0\",\"gdt_appid\":\"1105344611\",\"shiyu_secret\":\"0809cb5c3f6d4d4d8faaa50e20268d42\",\"tt_appid\":\"5234865\",\"shiyu_appid\":\"MjUzMDU3MDAyNzU2\"},\"appId\":\"MTc4NDUwMjQ4MDku\",\"clientIp\":\"222.190.72.182\",\"slotInfo\":[{},{},{},{},{}],\"timestamp\":1638409585431}}";
+#endif
+        
+        
+        data = [str dataUsingEncoding:NSUTF8StringEncoding];
+#endif
+        
+
+        
         //1. check if data is NULL
         if (nil == data || nil == response) {
             handler(NO);
