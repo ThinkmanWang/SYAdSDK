@@ -53,7 +53,7 @@
     self.m_pszBuSlotID = @"887620349";
 #endif
 #ifdef TEST_SY_AD
-    if ([RandUtils randomInt:1 nMax:100] > 70) {
+    if ([RandUtils randomInt:1 nMax:100] > 50) {
         self.m_pszBuSlotID = @"12345678";
     }
 #endif

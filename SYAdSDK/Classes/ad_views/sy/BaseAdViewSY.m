@@ -58,7 +58,7 @@
         return;
     }
     
-    NSLog(@"%@", dictRet);
+//    NSLog(@"%@", dictRet);
     
     if ([StringUtils isEmpty:dictRet[@"code"]]) {
         return;

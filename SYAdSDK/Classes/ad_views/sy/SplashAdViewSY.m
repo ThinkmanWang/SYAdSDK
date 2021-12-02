@@ -77,6 +77,10 @@
             nAdCount:1
            onSuccess:^(NSDictionary* dictRet) {
         
+        if (dictRet != nil) {
+            NSLog(@"%@", dictRet);
+        }
+        
 #ifdef TEST_DOWNLOAD_APP
         dictRet = @{
             @"msg": @"NO_ERROR",

@@ -134,10 +134,11 @@
                 
                 NSError *parseError = nil;
                 NSDictionary *dictRet = [NSJSONSerialization JSONObjectWithData:data options:0 error:&parseError];
-                                
-//                NSLog(@"%@", dictRet);
-//                int a = 0;
-                
+                if (parseError != nil) {
+                    successHandler(nil);
+                    return;
+                }
+                                                
                 if (successHandler) {
                     successHandler(dictRet);
                 }
