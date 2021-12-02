@@ -183,6 +183,33 @@
         };
 #endif
         
+#ifdef CRASH_TEST_SY_AD_ADS_EMPTY
+        dictRet = @{
+            @"msg": @"NO_ERROR",
+            @"code": @"0",
+            @"adslot_id": @24011,
+            @"data": @{
+                @"ads": @[]
+            },
+            @"adReportToken": @"3edfd7acafac3fbd3580fb44028dba57",
+            @"expiration_time": @1638443751,
+            @"request_id": @"ce82488b69cc414687e70188d5ddb54b"
+        };
+#endif
+#ifdef CRASH_TEST_SY_AD_ADS_EMPTY_DICT
+        dictRet = @{
+            @"msg": @"NO_ERROR",
+            @"code": @"0",
+            @"adslot_id": @24011,
+            @"data": @{
+                @"ads": @[@{}]
+            },
+            @"adReportToken": @"3edfd7acafac3fbd3580fb44028dba57",
+            @"expiration_time": @1638443751,
+            @"request_id": @"ce82488b69cc414687e70188d5ddb54b"
+        };
+#endif
+        
         [self initDictConfig:dictRet];
         
         if (nil == self.m_dictConfig) {
@@ -416,6 +443,10 @@
     }
     
     NSArray* aryAd = self.m_dictConfig[@"data"][@"ads"];
+    if (nil == aryAd || [aryAd count] <= 0) {
+        return;
+    }
+    
     NSDictionary* dictAd = aryAd[0];
     if (nil == dictAd) {
         [self onFailed];

@@ -33,6 +33,10 @@ typedef NS_ENUM(NSInteger, SYInterstitialAdSize) {
 //#define TEST_DEVICE_UTILS
 //#define TEST_REWARDED_VIDEO
 //#define TEST_SY_AD
+//#define TEST_SY_AD_ONLY
+//#define CRASH_TEST_SY_AD_NO_AD
+//#define CRASH_TEST_SY_AD_ADS_EMPTY
+//#define CRASH_TEST_SY_AD_ADS_EMPTY_DICT
 //#define TEST_SPLASH_SHAKE
 //#define TEST_DOWNLOAD_APP
 //#define TEST_DEEPLINK
