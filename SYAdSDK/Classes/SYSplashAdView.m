@@ -12,6 +12,7 @@
 #import "utils/SlotUtils.h"
 #import "ad_views/bytedance/SplashAdViewCSJ.h"
 #import "ad_views/sy/SplashAdViewSY.h"
+#import "RandUtils.h"
 
 #import "SYAdSDKDefines.h"
 
@@ -68,6 +69,7 @@
 #endif
     
 #ifdef TEST_FOR_GDT
+    
     self.m_nResourceType = [NSNumber numberWithInt:1];
 #endif
     
