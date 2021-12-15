@@ -12,7 +12,7 @@
 
 @protocol ISplashAdView <NSObject>
 @required
-- (instancetype)initWithSlotID:(NSString *)slotID;
+- (instancetype)initWithSlotID:(NSString *)slotID tryDadi:(BOOL) tryDadi;
 - (void)loadAdData;
 - (void)removeMyself;
 - (CGRect)getFrame;

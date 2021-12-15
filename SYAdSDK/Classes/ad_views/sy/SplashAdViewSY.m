@@ -27,6 +27,7 @@
 @property (nonatomic, strong) UIImageView* m_imgMain;
 @property (nonatomic, strong) SYDrawingCircleProgressButton* m_btnSkip;
 @property (nonatomic, strong) UIImageView* m_imgShake;
+@property (nonatomic, assign) BOOL m_bTryDadi;
 
 @end
 
@@ -47,14 +48,16 @@
         self.rootViewController = nil;
         self.m_imgMain = nil;
         self.m_imgShake = nil;
+        self.m_bTryDadi = NO;
 //        self.m_pszRequestId = [[SYLogUtils uuidString] stringByReplacingOccurrencesOfString:@"-" withString:@""];
     }
     
     return self;
 }
 
-- (instancetype)initWithSlotID:(NSString *)slotID {
-    self = [super initWithSlotID:slotID];
+- (instancetype)initWithSlotID:(NSString *)slotID tryDadi:(BOOL) tryDadi {
+    self.m_bTryDadi = tryDadi;
+    self = [super initWithSlotID:slotID tryDadi:tryDadi];
     
     CGRect frame = [UIScreen mainScreen].bounds;
     self.frame = frame;

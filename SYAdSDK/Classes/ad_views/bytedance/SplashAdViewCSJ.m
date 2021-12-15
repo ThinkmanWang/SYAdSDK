@@ -39,7 +39,7 @@
     return self;
 }
 
-- (instancetype)initWithSlotID:(NSString *)slotID {
+- (instancetype)initWithSlotID:(NSString *)slotID tryDadi:(BOOL) tryDadi {
     self.m_pszSlotID = slotID;
     
     self.delegate = self;

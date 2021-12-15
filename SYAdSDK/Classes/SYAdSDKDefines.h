@@ -30,6 +30,8 @@ typedef NS_ENUM(NSInteger, SYInterstitialAdSize) {
 };
 
 #define UPLOAD_USER_INFO
+
+#define TEST_SY_SPLASH_DADI
 //#define TEST_DEVICE_UTILS
 //#define TEST_REWARDED_VIDEO
 //#define TEST_SY_AD

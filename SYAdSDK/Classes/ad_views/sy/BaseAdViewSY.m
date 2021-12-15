@@ -28,6 +28,7 @@
 
 @interface BaseAdViewSY ()
 
+@property (nonatomic, assign) BOOL m_bTryDadi;
 
 @end
 
@@ -41,14 +42,21 @@
         self.m_dictConfig = nil;
         self.m_dictAdConfig = nil;
         self.m_imgLogo = nil;
+        self.m_bTryDadi = NO;
     }
     
     return self;
 }
 
-- (instancetype)initWithSlotID:(NSString *)slotID {
+- (instancetype)initWithSlotID:(NSString *)slotID tryDadi:(BOOL) tryDadi {
+    self.m_bTryDadi = tryDadi;
     self.m_pszSlotID = slotID;
-    self.m_pszSYSlotID = [SlotUtils getRealSYSlotID:slotID];
+    
+    if (self.m_bTryDadi) {
+        self.m_pszSYSlotID = [SlotUtils getRealSYDadiSlotID:slotID];
+    } else {
+        self.m_pszSYSlotID = [SlotUtils getRealSYSlotID:slotID];
+    }
     
     return self;
 }

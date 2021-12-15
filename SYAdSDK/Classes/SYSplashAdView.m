@@ -20,6 +20,8 @@
 @property(nonatomic, strong) id<ISplashAdView> splashAdView;
 @property(nonatomic, strong) NSNumber* m_nResourceType;
 @property(nonatomic, strong) NSString* pszRequestId;
+@property(nonatomic, assign) BOOL m_bTryDadi;
+@property(nonatomic, assign) BOOL m_bDadiOpen;
 @end
 
 @implementation SYSplashAdView
@@ -33,6 +35,8 @@
         self.delegate = nil;
         self.m_nResourceType = [NSNumber numberWithInt:2];
         self.pszRequestId = [[SYLogUtils uuidString] stringByReplacingOccurrencesOfString:@"-" withString:@""];
+        self.m_bTryDadi = NO;
+        self.m_bDadiOpen = NO;
     }
     
     return self;
@@ -55,14 +59,22 @@
     }
     
     [self.splashAdView setRequestID:self.pszRequestId];
-    [self.splashAdView initWithSlotID:self.slotID];
+    
+    [self.splashAdView initWithSlotID:self.slotID tryDadi:self.m_bTryDadi];
 }
 
 - (instancetype)initWithSlotID:(NSString *)slotID {
     self.slotID = slotID;
     
     CGRect frame = [UIScreen mainScreen].bounds;
-    self.m_nResourceType = [SlotUtils getResourceType:slotID];
+    
+    //Always try Shiyu AD first
+    self.m_nResourceType = [NSNumber numberWithInt:3];
+    self.m_bDadiOpen = [SlotUtils dadiOpen:slotID];
+#ifdef TEST_SY_SPLASH_DADI
+    self.m_bDadiOpen = YES;
+    self.m_bTryDadi = YES;
+#endif
     
 #ifdef TEST_FOR_BYTEDANCE
     self.m_nResourceType = [NSNumber numberWithInt:2];
@@ -79,7 +91,6 @@
 }
 
 - (void) reInitSYSlot {
-    self.m_nResourceType = [NSNumber numberWithInt:3];
     [self initView];
     [self loadAdData];
 }
@@ -149,7 +160,16 @@
     //NSLog(@"splashAd");
     // Display fails, completely remove 'splashAdView', avoid memory leak
     
-    if (self.m_nResourceType.intValue != 3) {
+    if (3 == self.m_nResourceType.intValue
+        && NO == self.m_bTryDadi) {
+        //Try CSJ AD when Shiyu failed
+        self.m_nResourceType = [NSNumber numberWithInt:2];
+        [self reInitSYSlot];
+    } else if (2 == self.m_nResourceType.intValue
+               && self.m_bDadiOpen) {
+        //Try Dadi AD when CSJ failed
+        self.m_bTryDadi = YES;
+        self.m_nResourceType = [NSNumber numberWithInt:3];
         [self reInitSYSlot];
     } else {
         [self removeMyself];

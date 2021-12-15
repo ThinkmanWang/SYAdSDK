@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UIImageView* m_imgLogo;
 
-- (instancetype)initWithSlotID:(NSString *)slotID;
+- (instancetype)initWithSlotID:(NSString *)slotID tryDadi:(BOOL) tryDadi;
 - (NSArray*)adList;
 
 - (void)initDictConfig:(NSDictionary*) dictRet;
