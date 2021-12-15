@@ -70,6 +70,12 @@
 }
 
 - (void)loadAdData {
+#ifdef TEST_SY_SPLASH_DADI
+    if (self.syDelegate) {
+        [self.syDelegate splashAd:self];
+    }
+    return;
+#endif
     //optional
     [super loadAdData];
     [SYLogUtils report:self.m_pszSlotID requestID:self.m_pszRequestId sourceId:0 type:11010];

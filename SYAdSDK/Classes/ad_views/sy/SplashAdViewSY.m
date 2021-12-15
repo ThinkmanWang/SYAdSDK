@@ -75,14 +75,26 @@
 
 - (void)loadAdData {
     //optional
+    
+#ifdef TEST_SY_SPLASH_DADI
+    if (NO == self.m_bTryDadi) {
+        if (self.syDelegate) {
+            [self.syDelegate splashAd:self];
+        }
+        return;
+    }
+#endif
 
     [SYAdUtils getSYAd:self.m_pszSYSlotID
             nAdCount:1
            onSuccess:^(NSDictionary* dictRet) {
-        
-        if (dictRet != nil) {
-            NSLog(@"%@", dictRet);
+        if (nil == dictRet) {
+            return;
         }
+        
+//        if (dictRet != nil) {
+//            NSLog(@"%@", dictRet);
+//        }
         
 #ifdef TEST_DOWNLOAD_APP
         dictRet = @{

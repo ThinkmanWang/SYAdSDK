@@ -132,6 +132,14 @@
                     return;
                 }
                 
+                if (nil == data) {
+                    successHandler(nil);
+                    return;
+                }
+                
+                NSString* str  = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                NSLog(@"%@", str);
+                
                 NSError *parseError = nil;
                 NSDictionary *dictRet = [NSJSONSerialization JSONObjectWithData:data options:0 error:&parseError];
                 if (parseError != nil) {

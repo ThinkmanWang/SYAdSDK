@@ -71,10 +71,6 @@
     //Always try Shiyu AD first
     self.m_nResourceType = [NSNumber numberWithInt:3];
     self.m_bDadiOpen = [SlotUtils dadiOpen:slotID];
-#ifdef TEST_SY_SPLASH_DADI
-    self.m_bDadiOpen = YES;
-    self.m_bTryDadi = YES;
-#endif
     
 #ifdef TEST_FOR_BYTEDANCE
     self.m_nResourceType = [NSNumber numberWithInt:2];
