@@ -68,8 +68,8 @@
     
     CGRect frame = [UIScreen mainScreen].bounds;
     
-    //Always try Shiyu AD first
-    self.m_nResourceType = [NSNumber numberWithInt:3];
+    self.m_nResourceType = [SlotUtils getResourceType:slotID];
+//    self.m_nResourceType = [NSNumber numberWithInt:3];
     self.m_bDadiOpen = [SlotUtils dadiOpen:slotID];
     
 #ifdef TEST_FOR_BYTEDANCE

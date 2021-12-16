@@ -16,6 +16,7 @@
 + (NSString*)getRealSlotID:(NSString *)slotID;
 + (NSString*) getRealSYDadiSlotID:(NSString*)slotID;
 + (NSString*) getRealSYSlotID:(NSString*)slotID;
++ (NSString*) getRealCSJSlotID:(NSString*)slotID;
 + (NSNumber*)getResourceType:(NSString *)slotID;
 + (int) getSplashType:(NSString*) slotID;
 + (BOOL) dadiOpen:(NSString*) slotID;

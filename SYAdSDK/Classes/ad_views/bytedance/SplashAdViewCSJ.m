@@ -48,7 +48,7 @@
     CGRect frame = [UIScreen mainScreen].bounds;
     self.frame = frame;
     
-    self.m_pszBuSlotID = [SlotUtils getRealSlotID:slotID];
+    self.m_pszBuSlotID = [SlotUtils getRealCSJSlotID:slotID];
 #ifdef TEST_FOR_BYTEDANCE
     self.m_pszBuSlotID = @"887620349";
 #endif

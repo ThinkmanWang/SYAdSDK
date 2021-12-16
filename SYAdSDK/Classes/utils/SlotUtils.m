@@ -236,6 +236,41 @@
     return nil;
 }
 
++ (NSString*) getRealCSJSlotID:(NSString*)slotID {
+    if (nil == SYAdSDKManager.dictConfig) {
+        return nil;
+    }
+    
+    NSArray* arySlot = [SYAdSDKManager.dictConfig valueForKeyPath:@"data.slotInfo"];
+    if (nil == arySlot
+        || NO == [arySlot isKindOfClass: [NSArray class]]) {
+        return nil;
+    }
+    
+    for (int i = 0; i < [arySlot count]; ++i) {
+        NSDictionary* dictSlot = arySlot[i];
+        if (nil == dictSlot
+            || NO == [dictSlot isKindOfClass: [NSDictionary class]]) {
+            return nil;
+        }
+        
+        if ([slotID isEqualToString:[NSString stringWithFormat:@"%@", dictSlot[@"slotId"]]]) {
+            NSArray* aryConfig = dictSlot[@"config"];
+            if (nil == aryConfig
+                || NO == [aryConfig isKindOfClass: [NSArray class]]
+                || [aryConfig count] <= 0) {
+                continue;
+            }
+            
+            NSDictionary* dictSlotConfig = aryConfig[0];
+            
+            return dictSlotConfig[@"configParams"][@"tt_slot_id"];
+        }
+    }
+    
+    return nil;
+}
+
 + (NSString*)getRealSlotID:(NSString *)slotID {
 //    NSArray* arySlot = SYAdSDKManager.dictConfig[@"data"][@"slotInfo"];
     if (nil == SYAdSDKManager.dictConfig) {
