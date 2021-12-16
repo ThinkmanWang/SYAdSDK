@@ -89,6 +89,8 @@
             nAdCount:1
            onSuccess:^(NSDictionary* dictRet) {
         if (nil == dictRet) {
+            [self onFailed];
+            
             return;
         }
         
